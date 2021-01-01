@@ -5,10 +5,10 @@ target_sources (Project_adi_gutman_leon_markovich PRIVATE
 													#"Enemy_Med_Smart.cpp"
 													#"Enemy_Random.cpp"
 													#"Enemy_Smart.cpp"
-													#"Game_object.cpp"
+													"Game_Object.cpp"
 													#"Gift.cpp"
 													#"Money.cpp"
-													#"Moving_Object.cpp"
-													#"Player.cpp"
+													"Moving_Object.cpp"
+													"Player.cpp"
 													#"Wall.cpp"
 													"main.cpp")

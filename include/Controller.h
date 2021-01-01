@@ -4,16 +4,19 @@
 #include <SFML/Graphics.hpp>
 #include "Board.h"
 #include "Game_object.h"
+#include "Player.h"
 #pragma once
-	class Controller {
+
+class Controller {
 
 //--------------public--------functions-----------------------//
 	public:
-		Controller();
-		
+		Controller() :m_Game_Window(sf::VideoMode(1920, 1080), "Game") {};
+		void start_Game();
+		void set_G_O_Vector();
 //--------------private--------functions-----------------------//		
 	private:
-	void start_game();
+	
 		
 		
 //------------------members-----------------------------------//		

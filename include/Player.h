@@ -3,9 +3,10 @@
 #include <iostream>
 #include "Moving_Object.h"
 #pragma once
-class Player :protected Moving_Object {
+class Player :public Moving_Object {
 public:
-	Player(sf::Vector2f player_first_loc);
+	using Moving_Object::Moving_Object;
+	//Player(sf::Vector2f player_first_loc);
 	//virtual void move();
 	//bool getmovement();
 	//bool handleSpecialKey(int c);
