@@ -1,15 +1,19 @@
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <iostream>
+#include "Moving_Object.h"
 #pragma once
-class Player : public Moving_Object {
+class Player :protected Moving_Object {
 public:
-	Player();
-	virtual void move();
-	int get_lives();
-	int get_score();
+	Player(sf::Vector2f player_first_loc);
+	//virtual void move();
+	//bool getmovement();
+	//bool handleSpecialKey(int c);
+	//bool location_valid(sf::Sprite next);
+	//int get_lives();
+	//int get_score();
 private:
-	sf::Sprite m_player;
-	int m_score = 0,m_lives=3;
-
-}
+	sf::Sprite m_Player;
+	int m_Score = 0, m_Lives = 3;
+	sf::Texture* m_Pic;
+};
