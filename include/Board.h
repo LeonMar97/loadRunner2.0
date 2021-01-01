@@ -8,7 +8,7 @@ class Board {
 //--------------public--------functions-----------------------//
 public:
 	Board();
-
+	
 	~Board();
 
 	void print_Map();

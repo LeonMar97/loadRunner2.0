@@ -1,6 +1,6 @@
 target_sources (Project_adi_gutman_leon_markovich PRIVATE  
 													"Board.cpp" 
-													#"Controller.cpp"
+													"Controller.cpp"
 													#"Disappearing_Object.cpp"
 													#"Enemy_Med_Smart.cpp"
 													#"Enemy_Random.cpp"

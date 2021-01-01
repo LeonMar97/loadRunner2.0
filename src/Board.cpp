@@ -9,6 +9,7 @@ Board::~Board() {
 }
 //--------------------------------------------------
 
+//-
 /*
 closing the txt file being open while the
 progrem runs.
