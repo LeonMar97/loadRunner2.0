@@ -13,6 +13,6 @@ private:
 
 private:    //members
     sf::RenderWindow m_Game_screen;
-    sf::Sprite elemnt_Of_Game;
+   // sf::Sprite elemnt_Of_Game;
    
 }
