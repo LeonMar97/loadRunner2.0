@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <iostream>
@@ -10,3 +11,4 @@ public:
 private:
 	
 };
+
