@@ -47,12 +47,15 @@ Game_Object * object;
 			switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
 			case player:
 				 name= "player.png";
-				 m_All_Objects[i][j] = new Player(cur_Rec,'@');
+				 object = new Player(cur_Rec,player);
+				 
 				 break;
 			case money:
 				name = "money.png";
+				object = new Money(cur_Rec, money);
 				break;
 			case wall:
+				object = new Player(cur_Rec, wall);
 				name = "wall.png";
 				break;
 			case smart:
