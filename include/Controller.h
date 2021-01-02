@@ -15,13 +15,11 @@ class Controller {
 
 //--------------public--------functions-----------------------//
 	public:
-		Controller() :m_Game_Window(sf::VideoMode(1920, 1080), "Game") { set_G_O_Vector(); };
+		Controller();
 		void start_Game();
-		
 //--------------private--------functions-----------------------//		
 	private:
 		void set_G_O_Vector();
-		
 		
 //------------------members-----------------------------------//		
 	private :
