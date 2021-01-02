@@ -14,4 +14,5 @@ public:
 private:
      sf::RectangleShape m_Elemnt_Of_Game;
      char m_Type;//just to know which object is it
+
 };
