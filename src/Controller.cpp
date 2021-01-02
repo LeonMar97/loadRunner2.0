@@ -1,6 +1,6 @@
  #include "Controller.h"
-#include "Game_Object.h"
-#include "Moving_Object.h"
+#pragma once
+
 //--------------------------------------------------------//
 
 //main loop of the game
