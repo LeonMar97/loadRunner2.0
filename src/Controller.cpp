@@ -6,6 +6,7 @@
 
 Controller::Controller()
 :m_Game_Window(sf::VideoMode(1920, 1080), "Game") {
+	
 	set_G_O_Vector(); 
 }
 void Controller:: start_Game() {
@@ -15,7 +16,13 @@ void Controller:: start_Game() {
 		for (int i = 0; i < m_All_Objects.size(); i++)
 			m_All_Objects[i]->draw_On_Board(m_Game_Window);
 		m_Game_Window.display();
-
+		sf::Event event;
+		while (m_Game_Window.pollEvent(event))
+		{
+			// Close window : exit
+			if (event.type == sf::Event::Closed)
+				m_Game_Window.close();
+		}
 	
 	
 	
@@ -42,7 +49,7 @@ while (i < sizeof_Map.y+1) {
 	while (j < sizeof_Map.x) {
 		sf::RectangleShape cur_Rec(block_Size);
 		cur_Rec.setPosition(start_Of_Map.x + j * 1280/ sizeof_Map.x,
-			start_Of_Map.y + i * 720 / sizeof_Map.y);
+			start_Of_Map.y + (i-1) * 720 / sizeof_Map.y);
 
 		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
 		case player:
