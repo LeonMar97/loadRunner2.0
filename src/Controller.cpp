@@ -10,9 +10,13 @@ Controller::Controller()
 	set_G_O_Vector(); 
 }
 void Controller:: start_Game() {
-	
+	sf::Texture background;
+	background.loadFromFile("background.png");
+	sf::Sprite bg;
+	bg.setTexture(background);
 	while (m_Game_Window.isOpen()) {
-		m_Game_Window.clear(sf::Color(200, 0, 0));
+		m_Game_Window.clear();
+		m_Game_Window.draw(bg);
 	//	m_Game_Window.clear();
 		for (int i = 0; i < m_All_Objects.size(); i++)
 			m_All_Objects[i]->draw_On_Board(m_Game_Window);
@@ -42,6 +46,7 @@ sizeof_Map = m_Board.get_Size();
 
 //sf::Vector2f block_Size(sizeof_Angle,sizeof_Angle);
 sf::Vector2f block_Size(1280/sizeof_Map.x, 720/sizeof_Map.y);
+
 int i = 1,j=0;
 std::string name;
 Game_Object * object;
@@ -49,6 +54,7 @@ while (i < sizeof_Map.y+1) {
 	j = 0;
 	while (j < sizeof_Map.x) {
 		sf::RectangleShape cur_Rec(block_Size);
+		//cur_Rec.setOutlineColor(sf::Color());
 		cur_Rec.setPosition(start_Of_Map.x + j * 1280/ sizeof_Map.x,
 			start_Of_Map.y + (i-1) * 720 / sizeof_Map.y);
 
@@ -73,6 +79,8 @@ while (i < sizeof_Map.y+1) {
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
+			cur_Rec.setOutlineThickness(1);
+			cur_Rec.setOutlineColor(sf::Color::Black);
 			object = new Wall(cur_Rec, wall);
 
 			break;
