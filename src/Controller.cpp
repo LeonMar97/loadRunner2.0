@@ -1,5 +1,5 @@
  #include "Controller.h"
-
+#include "enums_End_Consts.h"
 //--------------------------------------------------------//
 
 //main loop of the game
@@ -21,10 +21,7 @@ void Controller:: start_Game() {
 //--------------------------------------------------------//
 //setting the game controller vector
 void Controller:: set_G_O_Vector() {
-	enum element {
-		player = '@', money = '*', wall = '#', smart = '%', stupid = '&', med = '$',
-		gift = '!'
-	};
+
 
 
 	sf::Vector2f start_Of_Map(0,0);//start location
