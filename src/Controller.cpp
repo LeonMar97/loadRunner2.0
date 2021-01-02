@@ -1,6 +1,5 @@
  #include "Controller.h"
 #pragma once
-
 //--------------------------------------------------------//
 
 //main loop of the game
