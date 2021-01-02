@@ -20,8 +20,7 @@ void Controller:: start_Game() {
 }
 //--------------------------------------------------------//
 //setting the game controller vector
-void Controller:: set_G_O_Vector() {
-
+void Controller::set_G_O_Vector(){
 	sf::Vector2f start_Of_Map(0,0);//start location
 sf::Texture* pic;
 sf::Vector2i sizeof_Map;
@@ -69,6 +68,7 @@ Game_Object * object;
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
+			
 			m_All_Objects.push_back();
 		}
 
