@@ -4,17 +4,17 @@
 #include "Moving_Object.h"
 #pragma once
 class Player :public Moving_Object {
+//--------------public--------functions-----------------------//
 public:
 	using Moving_Object::Moving_Object;
 	//Player(sf::Vector2f player_first_loc);
-	//virtual void move();
+	virtual void move() {};//using the move of the moving object
 	//bool getmovement();
 	//bool handleSpecialKey(int c);
 	//bool location_valid(sf::Sprite next);
 	//int get_lives();
 	//int get_score();
+//--------------private--------members-----------------------//
 private:
-	sf::Sprite m_Player;
 	int m_Score = 0, m_Lives = 3;
-	sf::Texture* m_Pic;
 };

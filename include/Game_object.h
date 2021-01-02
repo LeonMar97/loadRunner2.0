@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <iostream>
-
+#include "enums_End_Consts.h"
 #pragma once
 class Game_Object {
 
