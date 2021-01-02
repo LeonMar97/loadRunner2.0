@@ -12,7 +12,8 @@ Controller::Controller()
 void Controller:: start_Game() {
 	
 	while (m_Game_Window.isOpen()) {
-		m_Game_Window.clear();
+		m_Game_Window.clear(sf::Color(200, 0, 0));
+	//	m_Game_Window.clear();
 		for (int i = 0; i < m_All_Objects.size(); i++)
 			m_All_Objects[i]->draw_On_Board(m_Game_Window);
 		m_Game_Window.display();
@@ -32,7 +33,7 @@ void Controller:: start_Game() {
 //setting the game controller vector
 void Controller::set_G_O_Vector(){
 
-	sf::Vector2f start_Of_Map(0,0);//start location
+	sf::Vector2f start_Of_Map(300,100);//start location
 sf::Texture* pic;
 sf::Vector2i sizeof_Map;
 sizeof_Map = m_Board.get_Size();
