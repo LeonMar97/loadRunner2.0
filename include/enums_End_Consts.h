@@ -5,5 +5,7 @@ enum element {
 	smart = '%',
 	stupid = '&',
 	med = '$',
-	gift = '!'
+	gift = '!',
+	pole = '-',
+	ladder= 'H'
 	};

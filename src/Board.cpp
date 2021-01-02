@@ -36,7 +36,7 @@ Board::Board()
 */
 void Board::set_Size() {
 	
-	m_Cf >>m_Size.x>>m_Size.y ;
+	m_Cf >>m_Size.y>>m_Size.x ;
 
 }
 //--------------------------------------------------

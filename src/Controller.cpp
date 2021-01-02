@@ -37,11 +37,11 @@ sf::Vector2f block_Size(1280/sizeof_Map.x, 720/sizeof_Map.y);
 int i = 1,j=0;
 std::string name;
 Game_Object * object;
-while (i < sizeof_Map.y) {
+while (i < sizeof_Map.y+1) {
 	j = 0;
 	while (j < sizeof_Map.x) {
 		sf::RectangleShape cur_Rec(block_Size);
-		cur_Rec.setPosition(start_Of_Map.x + j * 1280 / sizeof_Map.x,
+		cur_Rec.setPosition(start_Of_Map.x + j * 1280/ sizeof_Map.x,
 			start_Of_Map.y + i * 720 / sizeof_Map.y);
 
 		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
@@ -96,18 +96,32 @@ while (i < sizeof_Map.y) {
 			cur_Rec.setTexture(pic);
 			object = new Gift(cur_Rec, gift);
 			break;
+		case pole:
+			name = "pole.png";
+			pic = new sf::Texture;
+			pic->loadFromFile(name);
+			cur_Rec.setTexture(pic);
+			object = new Gift(cur_Rec, gift);
+			break;
+		case ladder:
+			name = "ladder.png";
+			pic = new sf::Texture;
+			pic->loadFromFile(name);
+			cur_Rec.setTexture(pic);
+			object = new Gift(cur_Rec, gift);
+			break;
 		
 		case ' ':
 			j++;
 			continue;
 		};
 				m_All_Objects.push_back(object);
-		
+				j++;
 	}
-	j++;
+	i++;
 
 }
-i++;
+
 }
 
 
