@@ -3,8 +3,12 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Board.h"
-#include "Game_object.h"
+#include "Game_Object.h"
+#include "Money.h"
+#include "Gift.h"
+#include "Enemy.h"
 #include "Player.h"
+#include "Wall.h"
 #pragma once
 
 class Controller {
