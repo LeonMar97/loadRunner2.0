@@ -1,5 +1,6 @@
  #include "Controller.h"
 #include "Game_Object.h"
+#include "Moving_Object.h"
 //--------------------------------------------------------//
 
 //main loop of the game
@@ -8,7 +9,7 @@
 void Controller:: start_Game() {
 
 	//Player cj(0,0);
-
+	
 
 	while (m_Game_Window.isOpen()) {
 		m_Game_Window.clear();
