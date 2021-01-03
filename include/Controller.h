@@ -20,6 +20,7 @@ class Controller {
 //--------------private--------functions-----------------------//		
 	private:
 		void set_G_O_Vector();
+		void swap_Location();
 		
 //------------------members-----------------------------------//		
 	private :

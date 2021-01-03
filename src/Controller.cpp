@@ -8,6 +8,7 @@ Controller::Controller()
 :m_Game_Window(sf::VideoMode(1920, 1080), "Game") {
 	
 	set_G_O_Vector(); 
+	swap_Location();
 }
 void Controller:: start_Game() {
 	sf::Texture background;
@@ -64,6 +65,8 @@ while (i < sizeof_Map.y+1) {
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
+			cur_Rec.setPosition(start_Of_Map.x + 4 * 1280 / sizeof_Map.x,
+				start_Of_Map.y + (6) * 720 / sizeof_Map.y);
 			object = new Player(cur_Rec, player);
 
 			break;
@@ -89,6 +92,8 @@ while (i < sizeof_Map.y+1) {
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
+			cur_Rec.setPosition(start_Of_Map.x + 4 * 1280 / sizeof_Map.x,
+				start_Of_Map.y + (4) * 720 / sizeof_Map.y);
 			object = new Enemy(cur_Rec, smart);
 			break;
 		case stupid:
@@ -140,5 +145,16 @@ while (i < sizeof_Map.y+1) {
 
 }
 
+//----------------------------------------------------------------------------------------------//
+//function to make sure the players or the enemys will be printed last 
+void Controller::swap_Location() {
+	int loc_Of_Player = m_All_Objects.size() - 1;
+	int loc_Of_Enemy = loc_Of_Player - 1;
+	for (int i = 0;i < loc_Of_Player;i++) {
+		if (m_All_Objects[i]->get_Type() == player) 
+			std::swap(m_All_Objects[i], m_All_Objects[loc_Of_Player]);
+		if (m_All_Objects[i]->get_Type() == smart )
+		std::swap(m_All_Objects[i], m_All_Objects[loc_Of_Enemy--]);
+	}
 
-	
+	}
