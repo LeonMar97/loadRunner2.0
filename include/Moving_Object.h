@@ -10,8 +10,9 @@ public:
 	//using Game_Object::effect;
 	//virtual void move(sf::Keyboard::Key key) {};
 	void effect(void* key)override;
-
 	
 	
-
+	
+	
+	
 };

@@ -21,6 +21,7 @@ class Controller {
 	private:
 		void set_G_O_Vector();
 		void swap_Location();
+		bool is_valid(Game_Object &temp);
 		
 //------------------members-----------------------------------//		
 	private :

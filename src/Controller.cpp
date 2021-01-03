@@ -35,10 +35,15 @@ void Controller:: start_Game() {
 			{
 				
 				int player_place=m_All_Objects.size()-1;
-				int ene_place = m_All_Objects.size() - 2;
 				
 				
+				sf::Vector2f last_loc(m_All_Objects[player_place]->get_loction());
 				(m_All_Objects[player_place])->effect(&(event.key.code));
+				if (!(is_valid(*m_All_Objects[player_place])))
+				{
+					m_All_Objects[player_place]->set_loction(last_loc);
+				}
+				
 				
 			}
 		}
@@ -170,3 +175,19 @@ void Controller::swap_Location() {
 	}
 	m_Enemys = num_of_enemy;
 	}
+
+//=====================================================================
+bool Controller::is_valid(Game_Object &temp)
+{
+	for (int i = 0; i < m_All_Objects.size() - 1; i++)
+	{
+		if (temp.get_loction() == m_All_Objects[i]->get_loction())
+		{
+			switch (m_All_Objects[i]->get_Type())
+				case wall:
+					return false;
+					break;
+		}
+	}
+	return true;
+}
