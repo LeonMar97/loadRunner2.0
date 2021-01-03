@@ -11,12 +11,12 @@ public:
 	
 
 	//Player(sf::Vector2f player_first_loc);
-	virtual void move() {};//using the move of the moving object
+	//virtual void move() {};//using the move of the moving object
 	void setscore(int);
 	int getscore()const;
 	int getlives()const;
 	void setlives(int);
-	void move(sf::Keyboard::Key key);
+	//void effect(void *)override;
 	//bool getmovement();
 	//bool handleSpecialKey(int c);
 	//bool location_valid(sf::Sprite next);

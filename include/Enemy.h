@@ -8,7 +8,7 @@ class Enemy :public Moving_Object {
 public:
 	using Moving_Object::Moving_Object;
 	//Player(sf::Vector2f player_first_loc);
-	virtual void move() {};//using the move of the moving object
+	//virtual void move() {};//using the move of the moving object
 	//bool getmovement();
 	//bool handleSpecialKey(int c);
 	//bool location_valid(sf::Sprite next);

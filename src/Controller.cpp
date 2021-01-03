@@ -33,7 +33,13 @@ void Controller:: start_Game() {
 
 			if (event.type == sf::Event::KeyPressed)
 			{
-				//m_All_Objects[].move(event.key.code);
+				
+				int player_place=m_All_Objects.size()-1;
+				int ene_place = m_All_Objects.size() - 2;
+				
+				
+				(m_All_Objects[ene_place])->effect(&(event.key.code));
+				(m_All_Objects[player_place])->effect(&(event.key.code));
 			}
 		}
 	
@@ -72,8 +78,6 @@ while (i < sizeof_Map.y+1) {
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
-			cur_Rec.setPosition(start_Of_Map.x + 4 * 1280 / sizeof_Map.x,
-				start_Of_Map.y + (6) * 720 / sizeof_Map.y);
 			object = new Player(cur_Rec, player);
 
 			break;
@@ -99,8 +103,6 @@ while (i < sizeof_Map.y+1) {
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
-			cur_Rec.setPosition(start_Of_Map.x + 4 * 1280 / sizeof_Map.x,
-				start_Of_Map.y + (4) * 720 / sizeof_Map.y);
 			object = new Enemy(cur_Rec, smart);
 			break;
 		case stupid:
