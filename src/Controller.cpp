@@ -38,8 +38,8 @@ void Controller:: start_Game() {
 				int ene_place = m_All_Objects.size() - 2;
 				
 				
-				(m_All_Objects[ene_place])->effect(&(event.key.code));
 				(m_All_Objects[player_place])->effect(&(event.key.code));
+				
 			}
 		}
 	
@@ -156,14 +156,17 @@ while (i < sizeof_Map.y+1) {
 
 //----------------------------------------------------------------------------------------------//
 //function to make sure the players or the enemys will be printed last 
+
 void Controller::swap_Location() {
-	int loc_Of_Player = m_All_Objects.size() - 1;
+	int loc_Of_Player = m_All_Objects.size() - 1, num_of_enemy = 0;;
 	int loc_Of_Enemy = loc_Of_Player - 1;
-	for (int i = 0;i < loc_Of_Player;i++) {
+	for (int i = 0;i < loc_Of_Player- num_of_enemy-1;i++) {
 		if (m_All_Objects[i]->get_Type() == player) 
 			std::swap(m_All_Objects[i], m_All_Objects[loc_Of_Player]);
-		if (m_All_Objects[i]->get_Type() == smart )
-		std::swap(m_All_Objects[i], m_All_Objects[loc_Of_Enemy--]);
+		if (m_All_Objects[i]->get_Type() == smart) {
+			std::swap(m_All_Objects[i], m_All_Objects[loc_Of_Enemy--]);
+			num_of_enemy++;
+		}
 	}
-
+	m_Enemys = num_of_enemy;
 	}

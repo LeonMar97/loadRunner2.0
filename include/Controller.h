@@ -28,6 +28,6 @@ class Controller {
 		Board m_Board;
 		std::vector<Game_Object*>m_All_Objects;//for printing after drawing for displaying
 		sf::Clock m_Clock;
-
+		int m_Enemys = 0;
 	};
 	
