@@ -1,4 +1,5 @@
  #include "Controller.h"
+#include <cmath>
 #pragma once
 //--------------------------------------------------------//
 
@@ -136,14 +137,14 @@ while (i < sizeof_Map.y+1) {
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
-			object = new Gift(cur_Rec, gift);
+			object = new Gift(cur_Rec, pole);
 			break;
 		case ladder:
 			name = "ladder.png";
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
-			object = new Gift(cur_Rec, gift);
+			object = new Gift(cur_Rec, ladder);
 			break;
 		
 		case ' ':
@@ -179,15 +180,23 @@ void Controller::swap_Location() {
 //=====================================================================
 bool Controller::is_valid(Game_Object &temp)
 {
+	
 	for (int i = 0; i < m_All_Objects.size() - 1; i++)
 	{
-		if (temp.get_loction() == m_All_Objects[i]->get_loction())
+		//.intersects(m_All_Objects[i]->get_rectangle()
+		if (fabs(temp.get_loction().x - (m_All_Objects[i]->get_loction().x)) < 0.1 &&
+			fabs(temp.get_loction().y - (m_All_Objects[i]->get_loction().y)) < 0.1)
 		{
 			switch (m_All_Objects[i]->get_Type())
 				case wall:
 					return false;
-					break;
+					
 		}
 	}
 	return true;
 }
+/*
+* if (fabs(temp.get_loction().x - (m_All_Objects[i]->get_loction().x))<4.0f&&
+			fabs(temp.get_loction().y - (m_All_Objects[i]->get_loction().y)) < 4.0f)
+*/
+//===========================================================

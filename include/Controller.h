@@ -23,6 +23,7 @@ class Controller {
 		void swap_Location();
 		bool is_valid(Game_Object &temp);
 		
+		
 //------------------members-----------------------------------//		
 	private :
 		sf::RenderWindow m_Game_Window;

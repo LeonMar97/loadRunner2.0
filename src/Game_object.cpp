@@ -10,3 +10,8 @@
  {
 	 m_Elemnt_Of_Game.setPosition(new_loc);
  }
+ //==================================================
+ sf::RectangleShape Game_Object::get_rectangle()const
+ {
+	 return m_Elemnt_Of_Game;
+ }
