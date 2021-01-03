@@ -184,8 +184,8 @@ bool Controller::is_valid(Game_Object &temp)
 	for (int i = 0; i < m_All_Objects.size() - 1; i++)
 	{
 		//.intersects(m_All_Objects[i]->get_rectangle()
-		if (fabs(temp.get_loction().x - (m_All_Objects[i]->get_loction().x)) < 0.1 &&
-			fabs(temp.get_loction().y - (m_All_Objects[i]->get_loction().y)) < 0.1)
+		if (fabs(temp.get_loction().x - (m_All_Objects[i]->get_loction().x)) < 5.0f &&
+			fabs(temp.get_loction().y - (m_All_Objects[i]->get_loction().y)) < 5.0f)
 		{
 			switch (m_All_Objects[i]->get_Type())
 				case wall:
