@@ -15,6 +15,8 @@ void Controller:: start_Game() {
 	background.loadFromFile("background.png");
 	sf::Sprite bg;
 	bg.setTexture(background);
+
+	//=============game loop==========================
 	while (m_Game_Window.isOpen()) {
 		m_Game_Window.clear();
 		m_Game_Window.draw(bg);
@@ -25,9 +27,14 @@ void Controller:: start_Game() {
 		sf::Event event;
 		while (m_Game_Window.pollEvent(event))
 		{
-			// Close window : exit
+			
 			if (event.type == sf::Event::Closed)
 				m_Game_Window.close();
+
+			if (event.type == sf::Event::KeyPressed)
+			{
+				//m_All_Objects[].move(event.key.code);
+			}
 		}
 	
 	

@@ -16,6 +16,7 @@ public:
 	int getscore()const;
 	int getlives()const;
 	void setlives(int);
+	void move(sf::Keyboard::Key key);
 	//bool getmovement();
 	//bool handleSpecialKey(int c);
 	//bool location_valid(sf::Sprite next);
