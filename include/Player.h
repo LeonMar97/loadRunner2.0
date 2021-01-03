@@ -12,6 +12,10 @@ public:
 
 	//Player(sf::Vector2f player_first_loc);
 	virtual void move() {};//using the move of the moving object
+	void setscore(int);
+	int getscore()const;
+	int getlives()const;
+	void setlives(int);
 	//bool getmovement();
 	//bool handleSpecialKey(int c);
 	//bool location_valid(sf::Sprite next);
