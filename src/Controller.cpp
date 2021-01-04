@@ -80,6 +80,7 @@ while (i < sizeof_Map.y+1) {
 		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
 		case player:
 			name = "player.png";
+			cur_Rec.setScale(1, 0.6);
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
