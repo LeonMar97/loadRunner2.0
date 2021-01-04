@@ -77,12 +77,15 @@ bool Moving_Object::check_ladder(sf::Vector2f& afterclick_Loc, std::vector<Game_
 			{
 				return true;
 			}
+			
 			else {
 
 				if (m_All_Objects[i]->get_Type() == 'H')
 				{
-					if(What_In_Loc(beforeclick_Loc,m_All_Objects)!='@')
-					return true;
+					if (What_In_Loc(beforeclick_Loc, m_All_Objects) != '@')
+						return true;
+					else
+						return false;
 				}
 				
 				
