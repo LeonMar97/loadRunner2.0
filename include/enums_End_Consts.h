@@ -7,5 +7,6 @@ enum element {
 	med = '$',
 	gift = '!',
 	pole = '-',
-	ladder= 'H'
+	ladder = 'H',
+	space = 'r'
 	};
