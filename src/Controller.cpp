@@ -38,15 +38,13 @@ void Controller:: start_Game() {
 				int player_place=m_All_Objects.size()-1;
 				
 				
-				sf::Vector2f last_loc(m_All_Objects[player_place]->get_loction());
-				(m_All_Objects[player_place])->effect(&(event.key.code));
-				if (!(is_valid(*m_All_Objects[player_place])))
-				{
-					m_All_Objects[player_place]->set_loction(last_loc);
-				}
+				
+				(m_All_Objects[player_place])->effect(&(event.key.code),m_All_Objects);
+				
 				
 				
 			}
+
 		}
 	
 	
@@ -75,8 +73,9 @@ while (i < sizeof_Map.y+1) {
 	while (j < sizeof_Map.x) {
 		sf::RectangleShape cur_Rec(block_Size);
 		//cur_Rec.setOutlineColor(sf::Color());
-		cur_Rec.setPosition(start_Of_Map.x + j * 1280/ sizeof_Map.x,
-			start_Of_Map.y + (i-1) * 720 / sizeof_Map.y);
+		cur_Rec.setPosition(sf::Vector2f(start_Of_Map.x + j * 1280/ sizeof_Map.x,
+			start_Of_Map.y + (i-1) * 720 / sizeof_Map.y));
+		
 
 		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
 		case player:
@@ -178,25 +177,3 @@ void Controller::swap_Location() {
 	}
 
 //=====================================================================
-bool Controller::is_valid(Game_Object &temp)
-{
-	
-	for (int i = 0; i < m_All_Objects.size() - 1; i++)
-	{
-		//.intersects(m_All_Objects[i]->get_rectangle()
-		if (fabs(temp.get_loction().x - (m_All_Objects[i]->get_loction().x)) < 5.0f &&
-			fabs(temp.get_loction().y - (m_All_Objects[i]->get_loction().y)) < 5.0f)
-		{
-			switch (m_All_Objects[i]->get_Type())
-				case wall:
-					return false;
-					
-		}
-	}
-	return true;
-}
-/*
-* if (fabs(temp.get_loction().x - (m_All_Objects[i]->get_loction().x))<4.0f&&
-			fabs(temp.get_loction().y - (m_All_Objects[i]->get_loction().y)) < 4.0f)
-*/
-//===========================================================

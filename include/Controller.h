@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Board.h"
 #include "Game_Object.h"
+#include "Moving_Object.h"
 #include "Money.h"
 #include "Gift.h"
 #include "Enemy.h"
@@ -21,8 +22,9 @@ class Controller {
 	private:
 		void set_G_O_Vector();
 		void swap_Location();
-		bool is_valid(Game_Object &temp);
 		
+		
+			
 		
 //------------------members-----------------------------------//		
 	private :

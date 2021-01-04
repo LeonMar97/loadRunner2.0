@@ -10,7 +10,7 @@ public:
     Game_Object(sf::RectangleShape cur_rec ,char icon=' ') : m_Elemnt_Of_Game(cur_rec),
                                                                             m_Type(icon){};
    virtual void draw_On_Board(sf::RenderWindow &game_screen) ;
-   virtual void effect(void*) {};
+   virtual void effect(void*, std::vector<Game_Object*>&m_All_Objects) {};
    char get_Type() const { return m_Type; };
    sf::Vector2f get_loction()const;
    void set_loction(sf::Vector2f& new_loc);
