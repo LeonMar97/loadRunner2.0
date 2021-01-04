@@ -38,6 +38,7 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 		break;
 
 	};
+
 }
 //=============================================================================
 bool Moving_Object::check_movment(sf::Vector2f& cur_loc, std::vector<Game_Object*>& m_All_Objects,sf::Vector2f last_loc)
@@ -54,6 +55,12 @@ bool Moving_Object::check_movment(sf::Vector2f& cur_loc, std::vector<Game_Object
 					return true;
 				else return false;
 				break;
+			
+			case pole :
+
+			
+
+
 			}
 		
 	
@@ -67,7 +74,6 @@ bool Moving_Object::check_ladder(sf::Vector2f& afterclick_Loc, std::vector<Game_
 	{
 		char cur_Type = What_In_Loc(beforeclick_Loc, m_All_Objects);
 		char next_Type = What_In_Loc(afterclick_Loc, m_All_Objects);
-		
 		sf::Vector2f floor(beforeclick_Loc.x, beforeclick_Loc.y +m_All_Objects[0]->get_rectangle().getGlobalBounds().height);
 		
 			if (What_In_Loc(floor, m_All_Objects) == wall)
@@ -88,6 +94,8 @@ bool Moving_Object::check_ladder(sf::Vector2f& afterclick_Loc, std::vector<Game_
 			}
 			
 			
+			
+			
 
 	}
 
@@ -97,15 +105,20 @@ bool Moving_Object::check_ladder(sf::Vector2f& afterclick_Loc, std::vector<Game_
 //get loc and return typy
 char Moving_Object::What_In_Loc(sf::Vector2f& loc, std::vector<Game_Object*>& m_All_Objects)
 {
-	
+	char type = space;
 	for (int i = 0; i < m_All_Objects.size()-1 ; i++)
 	{
 		if (fabs(loc.x - (m_All_Objects[i]->get_loction().x)) < 10.1f &&
 			fabs(loc.y - (m_All_Objects[i]->get_loction().y )) < 10.1f)
 		{
-			return m_All_Objects[i]->get_Type();
+			type= m_All_Objects[i]->get_Type();
 		}
 	}
 	
-	
+	return type;
+}
+//===================================================================
+bool Moving_Object::check_ladder(sf::Vector2f& afterclick_Loc, std::vector<Game_Object*>& m_All_Objects, sf::Vector2f beforeclick_Loc)
+{
+
 }
