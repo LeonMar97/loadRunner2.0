@@ -9,7 +9,7 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 	{
 	case sf::Keyboard::Key::Up:
 		temp.move(0, -5.0f);
-		if(check_movment(temp,m_All_Objects,m_Elemnt_Of_Game.getPosition()))
+		if(check_movment(temp,m_All_Objects,m_Elemnt_Of_Game))
 			m_Elemnt_Of_Game.move(0, -5.0f);
 			
 		break;
@@ -18,7 +18,7 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 	case sf::Keyboard::Key::Down:
 		
 		 temp.move(0, 5.0f);
-		if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game.getPosition()))
+		if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game))
 			m_Elemnt_Of_Game.move(0, 5.0f);
 		break;
 
@@ -26,7 +26,7 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 	case sf::Keyboard::Key::Left:
 		
 		temp.move(-5.0f, 0);
-		if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game.getPosition()))
+		if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game))
 		{
 			if (direction){
 				m_Elemnt_Of_Game.scale(-1, 1);
@@ -40,7 +40,7 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 	case sf::Keyboard::Key::Right:
 		
 		 temp.move(5.0f, 0);
-		 if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game.getPosition()))
+		 if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game))
 		 {
 			 if (!direction) {
 				
@@ -55,27 +55,30 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 
 }
 //=============================================================================
-bool Moving_Object::check_movment(sf::RectangleShape &temp, std::vector<Game_Object*>& m_All_Objects,sf::Vector2f last_loc)
+bool Moving_Object::check_movment(sf::RectangleShape &temp, std::vector<Game_Object*>& m_All_Objects,
+																				sf::RectangleShape&last_loc)
 {
 	
 		
-			switch (What_In_Loc(temp, m_All_Objects)) {
-			case wall:
-				return false;
-				break;
+	switch (What_In_Loc(temp, m_All_Objects)) {
+	case wall:
+		return false;
+		break;
 
-			case ladder:
-				if (check_ladder(temp, m_All_Objects,last_loc))
-					return true;
-				else return false;
-				break;
+	case ladder:
+		if (check_ladder(temp, m_All_Objects, last_loc.getPosition()))
+			return true;
+		else return false;
+		break;
+
+		//case pole:if (check_pole(temp, m_All_Objects, last_loc)) {
+		//	if(last_loc.getGlobalBounds().height>temp.getGlobalBounds().height)
+	};
+
 			
-			//case pole :
-
-			
 
 
-			}
+		
 		
 	
 	return true;
@@ -101,7 +104,10 @@ bool Moving_Object::check_ladder(sf::RectangleShape& temp, std::vector<Game_Obje
 			{
 				return true;
 			}
-			
+			if (cur_Type == wall )
+			{
+				return true;
+			}
 			if (cur_Type == pole && next_Type == ladder)
 			{
 				return true;
@@ -112,6 +118,7 @@ bool Moving_Object::check_ladder(sf::RectangleShape& temp, std::vector<Game_Obje
 					
 					return true;
 			}
+			
 
 
 			

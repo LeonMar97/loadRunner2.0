@@ -82,6 +82,7 @@ sizeof_Map = m_Board.get_Size();
 //sf::Vector2f block_Size(sizeof_Angle,sizeof_Angle);
 sf::Vector2f block_Size(1280/sizeof_Map.x, 720/sizeof_Map.y);
 sf::Vector2f player_Size(900 / sizeof_Map.x, 600 / sizeof_Map.y);
+
 int i = 1,j=0;
 std::string name;
 Game_Object * object;
@@ -89,22 +90,19 @@ while (i < sizeof_Map.y+1) {
 	j = 0;
 	while (j < sizeof_Map.x) {
 		sf::RectangleShape cur_Rec(block_Size);
-		if(m_Board.what_In_Location(sf::Vector2i(i, j))==player||
-			m_Board.what_In_Location(sf::Vector2i(i, j)) == smart)
-			 cur_Rec.setSize( player_Size);
-		
-		
 		cur_Rec.setPosition(sf::Vector2f(start_Of_Map.x + j * 1280/ sizeof_Map.x,
 			start_Of_Map.y + (i-1) * 720 / sizeof_Map.y));
 		
 		cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
 		case player:
-			name = "player.png";
-			
+			name = "þþþþplayer.png";
+			cur_Rec.setSize(player_Size);
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
+		//settin the origin again because size is different
+			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 			object = new Player(cur_Rec, player);
 
 			break;
@@ -130,6 +128,7 @@ while (i < sizeof_Map.y+1) {
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
+			cur_Rec.setSize(player_Size);
 			object = new Enemy(cur_Rec, smart);
 			break;
 		case stupid:
@@ -137,6 +136,7 @@ while (i < sizeof_Map.y+1) {
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
+			cur_Rec.setSize(player_Size);
 			object = new Enemy(cur_Rec, stupid);
 			break;
 		case med:
@@ -144,6 +144,7 @@ while (i < sizeof_Map.y+1) {
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
+			cur_Rec.setSize(player_Size);
 			object = new Enemy(cur_Rec, med);
 			break;
 		case gift:
@@ -157,6 +158,7 @@ while (i < sizeof_Map.y+1) {
 			name = "pole.png";
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
+			cur_Rec.setSize(sf::Vector2f(block_Size.x, (block_Size.y)/2));
 			cur_Rec.setTexture(pic);
 			object = new Gift(cur_Rec, pole);
 			break;
@@ -206,7 +208,7 @@ void  Controller::free_fall(int place)
 	
 	
 	int key= sf::Keyboard::Down;
-	if (floor!=wall&&floor!=ladder&&floor!=pole)
+	if (floor!=wall&&floor!=ladder&&floor!=pole && floor != money)
 		m_All_Objects[place]->effect(&key,m_All_Objects);
 		
 }										
