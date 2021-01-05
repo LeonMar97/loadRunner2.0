@@ -13,7 +13,7 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 			m_Elemnt_Of_Game.move(0, -5.0f);
 			
 		break;
-
+		
 
 	case sf::Keyboard::Key::Down:
 		
