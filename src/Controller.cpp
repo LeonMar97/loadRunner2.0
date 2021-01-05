@@ -64,7 +64,7 @@ sizeof_Map = m_Board.get_Size();
 
 //sf::Vector2f block_Size(sizeof_Angle,sizeof_Angle);
 sf::Vector2f block_Size(1280/sizeof_Map.x, 720/sizeof_Map.y);
-
+sf::Vector2f player_Size(900 / sizeof_Map.x, 600 / sizeof_Map.y);
 int i = 1,j=0;
 std::string name;
 Game_Object * object;
@@ -72,6 +72,9 @@ while (i < sizeof_Map.y+1) {
 	j = 0;
 	while (j < sizeof_Map.x) {
 		sf::RectangleShape cur_Rec(block_Size);
+		if(m_Board.what_In_Location(sf::Vector2i(i, j))==player)
+			 cur_Rec.setSize( player_Size);
+		
 		//cur_Rec.setOutlineColor(sf::Color());
 		cur_Rec.setPosition(sf::Vector2f(start_Of_Map.x + j * 1280/ sizeof_Map.x,
 			start_Of_Map.y + (i-1) * 720 / sizeof_Map.y));
@@ -80,7 +83,7 @@ while (i < sizeof_Map.y+1) {
 		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
 		case player:
 			name = "player.png";
-			cur_Rec.setScale(1, 0.6);
+			
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);

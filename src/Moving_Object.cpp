@@ -2,38 +2,52 @@
 
 void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 {
+	
 	sf::Vector2f next_loc(m_Elemnt_Of_Game.getPosition());
 	sf::RectangleShape temp(m_Elemnt_Of_Game);
 	switch (*(sf::Keyboard::Key*)key)
 	{
 	case sf::Keyboard::Key::Up:
-		temp.move(0, -m_Elemnt_Of_Game.getLocalBounds().height );
+		temp.move(0, -5.0f);
 		if(check_movment(temp,m_All_Objects,m_Elemnt_Of_Game.getPosition()))
-			m_Elemnt_Of_Game.move(0,  - m_Elemnt_Of_Game.getLocalBounds().height);
+			m_Elemnt_Of_Game.move(0, -5.0f);
 			
 		break;
 
 
 	case sf::Keyboard::Key::Down:
 		
-		 temp.move(0, m_Elemnt_Of_Game.getLocalBounds().height );
+		 temp.move(0, 5.0f);
 		if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game.getPosition()))
-			m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getLocalBounds().height);
+			m_Elemnt_Of_Game.move(0, 5.0f);
 		break;
 
 
 	case sf::Keyboard::Key::Left:
 		
-		temp.move(-(m_Elemnt_Of_Game.getLocalBounds().width) , 0);
+		temp.move(-5.0f, 0);
 		if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game.getPosition()))
-			m_Elemnt_Of_Game.move(-(m_Elemnt_Of_Game.getLocalBounds().width), 0);
+		{
+			if (direction){
+				m_Elemnt_Of_Game.scale(-1, 1);
+			direction = false;
+		    }
+			m_Elemnt_Of_Game.move(-5.0f, 0);
+			
+		}
 		break;
 			
 	case sf::Keyboard::Key::Right:
 		
-		 temp.move((m_Elemnt_Of_Game.getLocalBounds().width) , 0);
-		if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game.getPosition()))
-			m_Elemnt_Of_Game.move((m_Elemnt_Of_Game.getLocalBounds().width), 0);
+		 temp.move(5.0f, 0);
+		 if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game.getPosition()))
+		 {
+			 if (!direction) {
+				 m_Elemnt_Of_Game.scale(-1, 1);
+				 direction = true;
+			 }
+			 m_Elemnt_Of_Game.move(5.0f, 0);
+		 }
 		break;
 
 	};

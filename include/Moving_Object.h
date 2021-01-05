@@ -14,4 +14,6 @@ public:
 	bool check_ladder(sf::RectangleShape& cur_loc, std::vector<Game_Object*>& m_All_Objects, sf::Vector2f last_loc);
 	char What_In_Loc(sf::RectangleShape& afterclick_Loc, std::vector<Game_Object*>& m_All_Objects);
 	
+private:
+	bool direction = true;
 };
