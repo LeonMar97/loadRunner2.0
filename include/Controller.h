@@ -22,8 +22,8 @@ class Controller {
 	private:
 		void set_G_O_Vector();
 		void swap_Location();
-		
-		
+		void  free_fall(int);
+		char What_In_Loc(Game_Object &);
 			
 		
 //------------------members-----------------------------------//		

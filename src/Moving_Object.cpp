@@ -43,6 +43,7 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 		 if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game.getPosition()))
 		 {
 			 if (!direction) {
+				
 				 m_Elemnt_Of_Game.scale(-1, 1);
 				 direction = true;
 			 }

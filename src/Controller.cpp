@@ -19,7 +19,24 @@ void Controller:: start_Game() {
 
 	//=============game loop==========================
 	while (m_Game_Window.isOpen()) {
+
+		sf::Time elapsed = m_Clock.getElapsedTime();
 		m_Game_Window.clear();
+		if (elapsed.asSeconds() > 0.05f) {
+			int i = 1;
+			int array[4] = { sf::Keyboard::Left,sf::Keyboard::Right,sf::Keyboard::Up,sf::Keyboard::Down };
+			int current;
+			while (i <= m_Enemys) {
+
+				current = array[rand() % 4];
+				int enemy_Loc = m_All_Objects.size() - 1 - i;
+				(m_All_Objects[enemy_Loc])->effect(&current, m_All_Objects);
+				free_fall(enemy_Loc);
+				free_fall(m_All_Objects.size()-1);
+				i++;
+			}
+			m_Clock.restart();
+		}
 		m_Game_Window.draw(bg);
 	//	m_Game_Window.clear();
 		for (int i = 0; i < m_All_Objects.size(); i++)
@@ -40,7 +57,7 @@ void Controller:: start_Game() {
 				
 				
 				(m_All_Objects[player_place])->effect(&(event.key.code),m_All_Objects);
-				
+				//free_fall(player_place);
 				
 				
 			}
@@ -72,14 +89,15 @@ while (i < sizeof_Map.y+1) {
 	j = 0;
 	while (j < sizeof_Map.x) {
 		sf::RectangleShape cur_Rec(block_Size);
-		if(m_Board.what_In_Location(sf::Vector2i(i, j))==player)
+		if(m_Board.what_In_Location(sf::Vector2i(i, j))==player||
+			m_Board.what_In_Location(sf::Vector2i(i, j)) == smart)
 			 cur_Rec.setSize( player_Size);
 		
-		//cur_Rec.setOutlineColor(sf::Color());
+		
 		cur_Rec.setPosition(sf::Vector2f(start_Of_Map.x + j * 1280/ sizeof_Map.x,
 			start_Of_Map.y + (i-1) * 720 / sizeof_Map.y));
 		
-
+		cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
 		case player:
 			name = "player.png";
@@ -181,3 +199,34 @@ void Controller::swap_Location() {
 	}
 
 //=====================================================================
+//function to fall until floor
+void  Controller::free_fall(int place)
+{
+	char floor = What_In_Loc(*m_All_Objects[place]);
+	
+	
+	int key= sf::Keyboard::Down;
+	if (floor!=wall&&floor!=ladder&&floor!=pole)
+		m_All_Objects[place]->effect(&key,m_All_Objects);
+		
+}										
+//=====================================================================
+char Controller::What_In_Loc(Game_Object& object)
+{
+	
+	char type = space;
+	sf::RectangleShape temp(object.get_rectangle());
+	temp.move(0, 5.0f);
+	for (int i = 0; i < m_All_Objects.size() ; i++)
+	{
+
+		if (temp.getGlobalBounds().intersects(m_All_Objects[i]->get_rectangle().getGlobalBounds())
+			&&m_All_Objects[i]->get_Type()!=object.get_Type())
+		{
+			return type = m_All_Objects[i]->get_Type();
+		}										
+	}
+
+	return space;
+}
+//===================================================================
