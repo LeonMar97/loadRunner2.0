@@ -58,15 +58,15 @@ void Controller:: start_Game() {
 				
 				
 				
-			//	(m_All_Objects[players][player_place])->effect(&(event.key.code),m_All_Objects);
-				//free_fall(player_place);
+				(m_All_Objects[players][0])->effect(&(event.key.code),m_All_Objects);
+				
 				
 				
 			}
 
 		}
 	
-	
+		free_Fall();
 	
 	}
 }
@@ -192,68 +192,29 @@ while (i < sizeof_Map.y+1) {
 }
 
 //----------------------------------------------------------------------------------------------//
-//function to make sure the players or the enemys will be printed last 
-/*
-void Controller::swap_Location() {
-
-void Controller::swap_Location() {
-	int loc_Of_Player = m_All_Objects.size() - 1, num_of_enemy = 0;;
-	int loc_Of_Enemy = loc_Of_Player - 1;
-	for (int i = 0;i < loc_Of_Player - num_of_enemy - 1;i++) {
-		if (m_All_Objects[i]->get_Type() == player)
-			std::swap(m_All_Objects[i], m_All_Objects[loc_Of_Player]);
-		if (m_All_Objects[i]->get_Type() == smart) {
-			std::swap(m_All_Objects[i], m_All_Objects[loc_Of_Enemy--]);
-			num_of_enemy++;
+//function calls every second to check if all the players/enemys falling
+void  Controller::free_Fall()
+{
+	for (int i = enemys;i <= players;i++) {
+		for (int j = 0;j < m_All_Objects[i].size();j++) {
+			dynamic_cast<Moving_Object*>(m_All_Objects[i][j])->on_Floor(m_All_Objects);
 		}
 	}
-	m_Enemys = num_of_enemy;
+
+
 }
-*/
-
-
-//=====================================================================
+//----------------------------------------------------------------------------------------------//
+//draws all the elements each time
 void Controller :: draw_On_map() {
 	
-	for (int i = 0;i <6;i++)
+	for (int i = 0;i <NUM_OF_OBJECTS;i++)
 	{
 		for (int j = 0;j < m_All_Objects[i].size();j++) {
 			m_All_Objects[i][j]->draw_On_Board(m_Game_Window);
 		}
 	}
 }
-
-
-/*
-//function to fall until floor
-void  Controller::free_fall(int place)
-{
-	char floor = What_In_Loc(*m_All_Objects[place]);
-	
-	
-	int key= sf::Keyboard::Down;
-	if (floor!=wall&&floor!=ladder&&floor!=pole && floor != money)
-		m_All_Objects[place]->effect(&key,m_All_Objects);
-		
-}										
 //=====================================================================
-char Controller::What_In_Loc(Game_Object& object)
-{
-	
-	char type = space;
-	sf::RectangleShape temp(object.get_rectangle());
-	temp.move(0, 5.0f);
-	for (int i = 0; i < m_All_Objects.size() ; i++)
-	{
 
-		if (temp.getGlobalBounds().intersects(m_All_Objects[i]->get_rectangle().getGlobalBounds())
-			&&m_All_Objects[i]->get_Type()!=object.get_Type())
-		{
-			return type = m_All_Objects[i]->get_Type();
-		}										
-	}
 
-	return space;
-}
-//===================================================================
-*/
+

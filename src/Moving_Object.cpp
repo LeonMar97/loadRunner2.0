@@ -1,6 +1,6 @@
 #include "Moving_Object.h"
 
-void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
+void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])
 {
 	
 	sf::Vector2f next_loc(m_Elemnt_Of_Game.getPosition());
@@ -9,7 +9,7 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 	{
 	case sf::Keyboard::Key::Up:
 		temp.move(0, -5.0f);
-		if(check_movment(temp,m_All_Objects,m_Elemnt_Of_Game))
+		if(check_movment(temp,m_All_Objects,*this))
 			m_Elemnt_Of_Game.move(0, -5.0f);
 			
 		break;
@@ -18,7 +18,7 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 	case sf::Keyboard::Key::Down:
 		
 		 temp.move(0, 5.0f);
-		if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game))
+		if (check_movment(temp, m_All_Objects,*this))
 			m_Elemnt_Of_Game.move(0, 5.0f);
 		break;
 
@@ -26,7 +26,7 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 	case sf::Keyboard::Key::Left:
 		
 		temp.move(-5.0f, 0);
-		if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game))
+		if (check_movment(temp, m_All_Objects, *this))
 		{
 			if (direction){
 				m_Elemnt_Of_Game.scale(-1, 1);
@@ -40,7 +40,7 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 	case sf::Keyboard::Key::Right:
 		
 		 temp.move(5.0f, 0);
-		 if (check_movment(temp, m_All_Objects, m_Elemnt_Of_Game))
+		 if (check_movment(temp, m_All_Objects, *this))
 		 {
 			 if (!direction) {
 				
@@ -55,10 +55,9 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 
 }
 //=============================================================================
-bool Moving_Object::check_movment(sf::RectangleShape &temp, std::vector<Game_Object*>& m_All_Objects,
-																				sf::RectangleShape&last_loc)
-{	
-	switch (What_In_Loc(temp, m_All_Objects)) {
+bool Moving_Object::check_movment(sf::RectangleShape& cur_Loc, std::vector<Game_Object*>m_All_Objects[],
+																				Game_Object& last_Loc){	
+	switch (What_In_Loc(cur_Loc, m_All_Objects)) {
 	case wall:  
 		std::cout << "im a wall" << std::endl;
 		return false;
@@ -66,7 +65,7 @@ bool Moving_Object::check_movment(sf::RectangleShape &temp, std::vector<Game_Obj
 
 	case ladder:
 		std::cout << "im a ladder"<<std::endl;
-		if (check_ladder( temp, m_All_Objects, last_loc))
+		if (check_ladder(cur_Loc, m_All_Objects, last_Loc))
 			return true;
 		else return false;
 		break;
@@ -84,14 +83,13 @@ bool Moving_Object::check_movment(sf::RectangleShape &temp, std::vector<Game_Obj
 	return true;
 }
 //=========================================================================
-bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc,std::vector<Game_Object*>& m_All_Objects,
-																						sf::RectangleShape& last_Loc)
+bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_Object*>m_All_Objects[],
+																						Game_Object& last_Loc)
 {
 	
-		char cur_Type = What_In_Loc(last_Loc,m_All_Objects);
-
-		sf::RectangleShape floor(m_Elemnt_Of_Game);
-		floor.move(0, m_All_Objects[m_All_Objects.size()-1]->get_rectangle().getGlobalBounds().height/2);
+		char cur_Type = What_In_Loc(m_Elemnt_Of_Game,m_All_Objects);
+		sf::RectangleShape floor(this->m_Elemnt_Of_Game);
+		floor.move(0, m_Elemnt_Of_Game.getGlobalBounds().height/2);//the floor under the current elemnt
 		if (What_In_Loc(floor, m_All_Objects) == wall)
 		{
 			return true;
@@ -108,7 +106,7 @@ bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc,std::vector<Game_Ob
 			break;
 			
 			case space:	
-				if (last_Loc.getPosition().y < cur_Loc.getPosition().y||floor.getPosition().y< cur_Loc.getPosition().y)
+				if (last_Loc.get_rectangle().getPosition().y< cur_Loc.getPosition().y||floor.getPosition().y< cur_Loc.getPosition().y)
 						return true;
 			break;
 			};
@@ -117,18 +115,35 @@ bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc,std::vector<Game_Ob
 }
 //===================================================================
 //get loc and return typy
-char Moving_Object::What_In_Loc(sf::RectangleShape&temp, std::vector<Game_Object*>& m_All_Objects)
+char Moving_Object::What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Object*>m_All_Objects[])
 {
+
 	char type = space;
-	for (int i = 0; i < m_All_Objects.size()-1 ; i++)
+	for (int i = 0; i <NUM_OF_OBJECTS ; i++)
 	{
-	
-		if(temp.getGlobalBounds().intersects(m_All_Objects[i]->get_rectangle().getGlobalBounds()))
-		{
-			return type= m_All_Objects[i]->get_Type();
+		for (int j = 0;j < m_All_Objects[i].size();j++) {
+
+			if (temp.getGlobalBounds().intersects(m_All_Objects[i][j]->get_rectangle().getGlobalBounds()))
+			{
+				return type = m_All_Objects[i][j]->get_Type();
+			}
+		
 		}
+
 	}
 	
-	return space;
+	return type;
+}
+//=====================================================================
+void Moving_Object::on_Floor( std::vector<Game_Object*>m_All_Objects[])
+{
+
+	sf::RectangleShape under_Me(this->m_Elemnt_Of_Game);
+	under_Me.move(0,1.5f);//the floor under the current elemnt
+	char under_Me_Type = What_In_Loc(under_Me, m_All_Objects);
+	int key = (sf::Keyboard::Down);
+	if (under_Me_Type != wall && under_Me_Type != ladder && under_Me_Type != pole && under_Me_Type != money)
+		this->effect(&key, m_All_Objects);
+
 }
 //===================================================================

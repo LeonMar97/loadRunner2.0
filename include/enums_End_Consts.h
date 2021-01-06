@@ -14,7 +14,8 @@ enum location_In_Vector {
 	walls = 0,
 	ladders=1,
 	poles=2,
-	enemys=3,
-	players=4,
-	disappear=5
+	disappear=3,
+	enemys = 4,
+	players = 5
 };
+const unsigned int NUM_OF_OBJECTS = 6;

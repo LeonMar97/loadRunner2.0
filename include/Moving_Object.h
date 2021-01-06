@@ -9,13 +9,13 @@ public:
 	using Game_Object::Game_Object;
 	//using Game_Object::effect;
 	//virtual void move(sf::Keyboard::Key key) {};
-	bool check_movment(sf::RectangleShape& cur_loc, std::vector<Game_Object*>& m_All_Objects, 
-																						sf::RectangleShape& last_loc);
-	void effect(void* key, std::vector<Game_Object*>&m_All_Objects)override;
-	bool check_ladder(sf::RectangleShape& cur_Loc,std::vector<Game_Object*>& m_All_Objects,
-																				sf::RectangleShape& last_Loc);
-	char What_In_Loc(sf::RectangleShape& afterclick_Loc, std::vector<Game_Object*>& m_All_Objects);
-	
+	bool check_movment(sf::RectangleShape& cur_loc, std::vector<Game_Object*>m_All_Objects[],
+																						Game_Object &last_Loc);
+	void effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])override;
+	bool check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_Object*>m_All_Objects[],
+																							Game_Object& last_Loc);
+	char What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Object*>m_All_Objects[]);
+	void on_Floor( std::vector<Game_Object*>m_All_Objects[]);
 private:
 	bool direction = true;
 };
