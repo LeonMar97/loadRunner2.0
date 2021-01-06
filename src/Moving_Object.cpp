@@ -57,16 +57,16 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>& m_All_Objects)
 //=============================================================================
 bool Moving_Object::check_movment(sf::RectangleShape &temp, std::vector<Game_Object*>& m_All_Objects,
 																				sf::RectangleShape&last_loc)
-{
-	
-		
+{	
 	switch (What_In_Loc(temp, m_All_Objects)) {
-	case wall:
+	case wall:  
+		std::cout << "im a wall" << std::endl;
 		return false;
 		break;
 
 	case ladder:
-		if (check_ladder(temp, m_All_Objects, last_loc.getPosition()))
+		std::cout << "im a ladder"<<std::endl;
+		if (check_ladder( temp, m_All_Objects, last_loc))
 			return true;
 		else return false;
 		break;
@@ -84,49 +84,34 @@ bool Moving_Object::check_movment(sf::RectangleShape &temp, std::vector<Game_Obj
 	return true;
 }
 //=========================================================================
-bool Moving_Object::check_ladder(sf::RectangleShape& temp, std::vector<Game_Object*>& m_All_Objects,sf::Vector2f beforeclick_Loc)
+bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc,std::vector<Game_Object*>& m_All_Objects,
+																						sf::RectangleShape& last_Loc)
 {
-	int player_place=m_All_Objects.size() - 1;
 	
-	{
-		sf::RectangleShape last(m_All_Objects[player_place]->get_rectangle());
-		char cur_Type = What_In_Loc(last, m_All_Objects);
-		char next_Type = What_In_Loc(temp, m_All_Objects);
+		char cur_Type = What_In_Loc(last_Loc,m_All_Objects);
 
 		sf::RectangleShape floor(m_Elemnt_Of_Game);
-		floor.move(0, m_All_Objects[player_place]->get_rectangle().getGlobalBounds().height/2);
-			if (What_In_Loc(floor, m_All_Objects) == wall)
-			{	
-				return true;
-			}
-			
-			if (cur_Type == ladder && next_Type == ladder)
-			{
-				return true;
-			}
-			if (cur_Type == wall )
-			{
-				return true;
-			}
-			if (cur_Type == pole && next_Type == ladder)
-			{
-				return true;
-			}
-			if (cur_Type == space && next_Type == ladder)
-			{
-				if (beforeclick_Loc.y < temp.getPosition().y)             
-					
-					return true;
-			}
-			
+		floor.move(0, m_All_Objects[m_All_Objects.size()-1]->get_rectangle().getGlobalBounds().height/2);
+		if (What_In_Loc(floor, m_All_Objects) == wall)
+		{
+			return true;
+		}
+	
+		switch (cur_Type) {
 
-
+			case  ladder:	// if im standing on a ladder
+				return true;
+			break;
 			
+			case pole:
+				return true;
+			break;
 			
-			
-			
-
-	}
+			case space:	
+				if (last_Loc.getPosition().y < cur_Loc.getPosition().y||floor.getPosition().y< cur_Loc.getPosition().y)
+						return true;
+			break;
+			};
 
 	return false;
 }

@@ -9,7 +9,7 @@ Controller::Controller()
 :m_Game_Window(sf::VideoMode(1920, 1080), "Game") {
 	
 	set_G_O_Vector(); 
-	swap_Location();
+	//swap_Location();
 }
 void Controller:: start_Game() {
 	sf::Texture background;
@@ -22,6 +22,7 @@ void Controller:: start_Game() {
 
 		sf::Time elapsed = m_Clock.getElapsedTime();
 		m_Game_Window.clear();
+	/*
 		if (elapsed.asSeconds() > 0.05f) {
 			int i = 1;
 			int array[4] = { sf::Keyboard::Left,sf::Keyboard::Right,sf::Keyboard::Up,sf::Keyboard::Down };
@@ -37,11 +38,12 @@ void Controller:: start_Game() {
 			}
 			m_Clock.restart();
 		}
-		m_Game_Window.draw(bg);
+		*/
+			m_Game_Window.draw(bg);
 	//	m_Game_Window.clear();
-		for (int i = 0; i < m_All_Objects.size(); i++)
-			m_All_Objects[i]->draw_On_Board(m_Game_Window);
-		m_Game_Window.display();
+		
+				 draw_On_map();
+				m_Game_Window.display();
 		sf::Event event;
 		while (m_Game_Window.pollEvent(event))
 		{
@@ -52,11 +54,11 @@ void Controller:: start_Game() {
 			if (event.type == sf::Event::KeyPressed)
 			{
 				
-				int player_place=m_All_Objects.size()-1;
+				//int player_place=m_All_Objects[players];
 				
 				
 				
-				(m_All_Objects[player_place])->effect(&(event.key.code),m_All_Objects);
+			//	(m_All_Objects[players][player_place])->effect(&(event.key.code),m_All_Objects);
 				//free_fall(player_place);
 				
 				
@@ -104,7 +106,7 @@ while (i < sizeof_Map.y+1) {
 		//settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 			object = new Player(cur_Rec, player);
-
+			m_All_Objects[players].push_back(object);
 			break;
 		case money:
 			name = "money.png";
@@ -112,6 +114,7 @@ while (i < sizeof_Map.y+1) {
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
 			object = new Money(cur_Rec, money);
+			m_All_Objects[disappear].push_back(object);
 			break;
 		case wall:
 			name = "wall.png";
@@ -121,7 +124,7 @@ while (i < sizeof_Map.y+1) {
 			cur_Rec.setOutlineThickness(1);
 			cur_Rec.setOutlineColor(sf::Color::Black);
 			object = new Wall(cur_Rec, wall);
-
+			m_All_Objects[walls].push_back(object);
 			break;
 		case smart:
 			name = "enemy.png";
@@ -130,6 +133,7 @@ while (i < sizeof_Map.y+1) {
 			cur_Rec.setTexture(pic);
 			cur_Rec.setSize(player_Size);
 			object = new Enemy(cur_Rec, smart);
+			m_All_Objects[enemys].push_back(object);
 			break;
 		case stupid:
 			name = "enemy.png";
@@ -138,6 +142,7 @@ while (i < sizeof_Map.y+1) {
 			cur_Rec.setTexture(pic);
 			cur_Rec.setSize(player_Size);
 			object = new Enemy(cur_Rec, stupid);
+			m_All_Objects[enemys].push_back(object);
 			break;
 		case med:
 			name = "enemy.png";
@@ -146,6 +151,7 @@ while (i < sizeof_Map.y+1) {
 			cur_Rec.setTexture(pic);
 			cur_Rec.setSize(player_Size);
 			object = new Enemy(cur_Rec, med);
+			m_All_Objects[enemys].push_back(object);
 			break;
 		case gift:
 			name = "money.png";
@@ -153,6 +159,7 @@ while (i < sizeof_Map.y+1) {
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
 			object = new Gift(cur_Rec, gift);
+			m_All_Objects[disappear].push_back(object);
 			break;
 		case pole:
 			name = "pole.png";
@@ -161,6 +168,7 @@ while (i < sizeof_Map.y+1) {
 			cur_Rec.setSize(sf::Vector2f(block_Size.x, (block_Size.y)/2));
 			cur_Rec.setTexture(pic);
 			object = new Gift(cur_Rec, pole);
+			m_All_Objects[poles].push_back(object);
 			break;
 		case ladder:
 			name = "ladder.png";
@@ -168,14 +176,14 @@ while (i < sizeof_Map.y+1) {
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
 			object = new Gift(cur_Rec, ladder);
-			break;
-		
+			m_All_Objects[ladders].push_back(object);
+			break;		
 		case ' ':
 			j++;
 			continue;
 		};
-				m_All_Objects.push_back(object);
-				j++;
+		j++;
+				
 	}
 	i++;
 
@@ -185,12 +193,14 @@ while (i < sizeof_Map.y+1) {
 
 //----------------------------------------------------------------------------------------------//
 //function to make sure the players or the enemys will be printed last 
+/*
+void Controller::swap_Location() {
 
 void Controller::swap_Location() {
 	int loc_Of_Player = m_All_Objects.size() - 1, num_of_enemy = 0;;
 	int loc_Of_Enemy = loc_Of_Player - 1;
-	for (int i = 0;i < loc_Of_Player- num_of_enemy-1;i++) {
-		if (m_All_Objects[i]->get_Type() == player) 
+	for (int i = 0;i < loc_Of_Player - num_of_enemy - 1;i++) {
+		if (m_All_Objects[i]->get_Type() == player)
 			std::swap(m_All_Objects[i], m_All_Objects[loc_Of_Player]);
 		if (m_All_Objects[i]->get_Type() == smart) {
 			std::swap(m_All_Objects[i], m_All_Objects[loc_Of_Enemy--]);
@@ -198,9 +208,23 @@ void Controller::swap_Location() {
 		}
 	}
 	m_Enemys = num_of_enemy;
-	}
+}
+*/
+
 
 //=====================================================================
+void Controller :: draw_On_map() {
+	
+	for (int i = 0;i <6;i++)
+	{
+		for (int j = 0;j < m_All_Objects[i].size();j++) {
+			m_All_Objects[i][j]->draw_On_Board(m_Game_Window);
+		}
+	}
+}
+
+
+/*
 //function to fall until floor
 void  Controller::free_fall(int place)
 {
@@ -232,3 +256,4 @@ char Controller::What_In_Loc(Game_Object& object)
 	return space;
 }
 //===================================================================
+*/

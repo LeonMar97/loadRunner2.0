@@ -21,16 +21,17 @@ class Controller {
 //--------------private--------functions-----------------------//		
 	private:
 		void set_G_O_Vector();
-		void swap_Location();
-		void  free_fall(int);
-		char What_In_Loc(Game_Object &);
-			
+		//void swap_Location();
+	//	void  free_fall(int);
+		//char What_In_Loc(Game_Object &);
+		void draw_On_map();
 		
 //------------------members-----------------------------------//		
 	private :
 		sf::RenderWindow m_Game_Window;
 		Board m_Board;
-		std::vector<Game_Object*>m_All_Objects;//for printing after drawing for displaying
+		
+		std::vector<Game_Object*>m_All_Objects[6];//for printing after drawing for displaying
 		sf::Clock m_Clock;
 		int m_Enemys = 0;
 	};
