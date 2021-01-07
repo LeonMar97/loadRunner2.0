@@ -98,10 +98,10 @@ while (i < sizeof_Map.y+1) {
 		cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
 		case player:
-			name = "þþþþcj2.png";
-			cur_Rec.setSize(player_Size);
+			//cur_Rec.setSize(player_Size);
 			pic = new sf::Texture;
-		//	pic->loadFromFile(name);
+			name = "player.png";
+			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
 		//settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
