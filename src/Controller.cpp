@@ -59,7 +59,7 @@ void Controller:: start_Game() {
 				
 				
 				(m_All_Objects[players][0])->effect(&(event.key.code),m_All_Objects);
-				
+			//	(m_All_Objects[][0])->effect(&(event.key.code), m_All_Objects);
 				
 				
 			}
@@ -98,10 +98,10 @@ while (i < sizeof_Map.y+1) {
 		cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
 		case player:
-			name = "þþþþplayer.png";
+			name = "þþþþcj2.png";
 			cur_Rec.setSize(player_Size);
 			pic = new sf::Texture;
-			pic->loadFromFile(name);
+		//	pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
 		//settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
@@ -132,6 +132,8 @@ while (i < sizeof_Map.y+1) {
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
 			cur_Rec.setSize(player_Size);
+			// settin the origin again because size is different
+			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 			object = new Enemy(cur_Rec, smart);
 			m_All_Objects[enemys].push_back(object);
 			break;
@@ -175,6 +177,8 @@ while (i < sizeof_Map.y+1) {
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
+			cur_Rec.setOutlineThickness(3);
+			cur_Rec.setOutlineColor(sf::Color::Transparent);
 			object = new Gift(cur_Rec, ladder);
 			m_All_Objects[ladders].push_back(object);
 			break;		
@@ -192,6 +196,7 @@ while (i < sizeof_Map.y+1) {
 }
 
 //----------------------------------------------------------------------------------------------//
+//has to be here so you could see the player falling 
 //function calls every second to check if all the players/enemys falling
 void  Controller::free_Fall()
 {
