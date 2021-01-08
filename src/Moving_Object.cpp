@@ -3,9 +3,7 @@
 void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])
 {
 	
-		
 
-	
 	sf::RectangleShape temp(m_Elemnt_Of_Game);
 	switch (*(sf::Keyboard::Key*)key)
 	{
@@ -179,16 +177,30 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 	
 }
 //===================================================================
+
 bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 	Game_Object& last_Loc, sf::RectangleShape& cur_Loc)
 {
+	sf::Texture* pic = new sf::Texture;
+		pic->loadFromFile("secondwall.png");
+	
+
+
+	
 	sf::RectangleShape temp(last_Loc.get_rectangle());
-	if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y < 0.1f)
-		return true;
-	if (What_In_Loc(temp, m_All_Objects) == '-')
+	if (What_In_Loc(temp, m_All_Objects) == pole)
 		return true;
 	else
+	{
+		if (cur_Loc.getPosition().y - last_Loc.get_loction().y < 0.1f) {
+			m_Elemnt_Of_Game.getTexture()->~Texture();
+			m_Elemnt_Of_Game.setTexture(pic);
+			m_Elemnt_Of_Game.rotate(75);
+			return true;
+		}
 		m_Elemnt_Of_Game.move(0, 0.5f + m_Elemnt_Of_Game.getLocalBounds().height / 2);
-	return false;
+		m_Elemnt_Of_Game.rotate(75);
+	}
+		return false;
 	
 }
