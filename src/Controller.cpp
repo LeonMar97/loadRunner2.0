@@ -172,6 +172,7 @@ while (i < sizeof_Map.y+1) {
 			pic->loadFromFile(name);
 			cur_Rec.setSize(sf::Vector2f(block_Size.x, (block_Size.y)/2));
 			cur_Rec.setTexture(pic);
+			cur_Rec.setScale(1,0.1);
 			object = new Gift(cur_Rec, pole);
 			m_All_Objects[poles].push_back(object);
 			break;
