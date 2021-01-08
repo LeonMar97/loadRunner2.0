@@ -59,6 +59,8 @@ void Controller:: start_Game() {
 				
 				
 				(m_All_Objects[players][0])->effect(&(event.key.code),m_All_Objects);
+
+
 			//	(m_All_Objects[][0])->effect(&(event.key.code), m_All_Objects);
 				
 				
@@ -123,6 +125,7 @@ while (i < sizeof_Map.y+1) {
 			cur_Rec.setTexture(pic);
 			cur_Rec.setOutlineThickness(1);
 			cur_Rec.setOutlineColor(sf::Color::Black);
+			cur_Rec.setScale(1, 0.9);
 			object = new Wall(cur_Rec, wall);
 			m_All_Objects[walls].push_back(object);
 			break;
@@ -177,8 +180,8 @@ while (i < sizeof_Map.y+1) {
 			pic = new sf::Texture;
 			pic->loadFromFile(name);
 			cur_Rec.setTexture(pic);
-			cur_Rec.setOutlineThickness(3);
-			cur_Rec.setOutlineColor(sf::Color::Transparent);
+			cur_Rec.setScale(1, 1.1);
+		//	cur_Rec.setOutlineColor(sf::Color::Transparent);
 			object = new Gift(cur_Rec, ladder);
 			m_All_Objects[ladders].push_back(object);
 			break;		

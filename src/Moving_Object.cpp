@@ -3,15 +3,20 @@
 void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])
 {
 	
-	sf::Vector2f next_loc(m_Elemnt_Of_Game.getPosition());
+		
+
+	
 	sf::RectangleShape temp(m_Elemnt_Of_Game);
 	switch (*(sf::Keyboard::Key*)key)
 	{
+
 	case sf::Keyboard::Key::Up:
-		temp.move(0, -7.0f);
+		std::cout << "my pos is : " << this->get_loction().x << "," <<
+			this->get_loction().y << std::endl;
+		temp.move(0, -5.0f);
 		if (check_movment(temp, m_All_Objects, *this))
 
-			m_Elemnt_Of_Game.move(0, -7.0f);
+			m_Elemnt_Of_Game.move(0, -5.0f);
 			
 		break;
 		
@@ -23,9 +28,13 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM
 			m_Elemnt_Of_Game.move(0, 5.0f);
 		break;
 
-
+	
 	case sf::Keyboard::Key::Left:
-		
+		std::cout << "my pos is : " << this->get_loction().x << "," <<
+			this->get_loction().y << std::endl;
+		std::cout << "walking left : " << temp.getPosition().x << "," <<
+			temp.getPosition().y << std::endl;
+
 		temp.move(-5.0f, 0);
 		if (check_movment(temp, m_All_Objects, *this))
 		{
@@ -39,16 +48,25 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM
 		break;
 			
 	case sf::Keyboard::Key::Right:
-		
+	
+		std::cout << "my pos is : " << this->get_loction().x << "," <<
+			this->get_loction().y << std::endl;
 		 temp.move(5.0f, 0);
+		 
+			 std::cout << "walking right : " << temp.getPosition().x << "," <<
+				 temp.getPosition().y << std::endl;
+
+		 
 		 if (check_movment(temp, m_All_Objects, *this))
 		 {
+		
 			 if (!direction) {
 				
 				 m_Elemnt_Of_Game.scale(-1, 1);
 				 direction = true;
 			 }
 			 m_Elemnt_Of_Game.move(5.0f, 0);
+			 
 		 }
 		break;
 
@@ -60,14 +78,14 @@ bool Moving_Object::check_movment(sf::RectangleShape& cur_Loc, std::vector<Game_
 																				Game_Object& last_Loc){	
 	switch (What_In_Loc(cur_Loc, m_All_Objects)) {
 	case wall:  
-		if(this->get_Type()==player)
-		std::cout << "im a wall" << std::endl;
+	
+		//std::cout << "im a wall" << std::endl;
 		return false;
 		break;
 
 	case ladder:
-		if (this->get_Type() == player)
-		std::cout << "im a ladder"<<std::endl;
+	
+			//std::cout << "im a ladder"<<std::endl;
 		if (check_ladder(cur_Loc, m_All_Objects, last_Loc))
 			return true;
 		else return false;
@@ -89,8 +107,8 @@ bool Moving_Object::check_movment(sf::RectangleShape& cur_Loc, std::vector<Game_
 bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_Object*>m_All_Objects[],
 																						Game_Object& last_Loc)
 {
-	
-		char cur_Type = What_In_Loc(m_Elemnt_Of_Game,m_All_Objects);
+	 sf::RectangleShape temp(last_Loc.get_rectangle());
+		char cur_Type = What_In_Loc(temp,m_All_Objects);
 	/*	sf::RectangleShape floor(this->m_Elemnt_Of_Game);
 		floor.move(0, m_Elemnt_Of_Game.getGlobalBounds().height);//the floor under the current elemnt
 		if (What_In_Loc(floor, m_All_Objects) == wall)
@@ -110,8 +128,7 @@ bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_O
 			break;
 			
 			case space:	
-				if (last_Loc.get_rectangle().getPosition().y<= cur_Loc.getPosition().y
-				|| (last_Loc.get_rectangle().getGlobalBounds().intersects(cur_Loc.getGlobalBounds())))
+				if (last_Loc.get_rectangle().getPosition().y<=cur_Loc.getPosition().y)
 						return true;
 				
 				break;
@@ -143,15 +160,16 @@ char Moving_Object::What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Objec
 	return type;
 }
 //=====================================================================
-void Moving_Object::on_Floor( std::vector<Game_Object*>m_All_Objects[])
+void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 {
 
 	sf::RectangleShape under_Me(m_Elemnt_Of_Game);
-	under_Me.move(0,0.1f);//the floor under the current elemnt
+	under_Me.move(0, 0.1f);//the floor under the current elemnt
 	char under_Me_Type = What_In_Loc(under_Me, m_All_Objects);
 	int key = (sf::Keyboard::Down);
-	if (under_Me_Type != wall  && under_Me_Type!=ladder&&under_Me_Type != pole )
+	if (under_Me_Type != wall && under_Me_Type != ladder && under_Me_Type != pole)
 		this->effect(&key, m_All_Objects);
-
+	
+	
 }
 //===================================================================
