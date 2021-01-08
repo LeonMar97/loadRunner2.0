@@ -90,7 +90,13 @@ bool Moving_Object::check_movment(sf::RectangleShape& cur_Loc, std::vector<Game_
 			return true;
 		else return false;
 		break;
-
+	case pole:
+		
+		return check_pole(m_All_Objects,last_Loc,cur_Loc);
+		
+		
+		
+		
 		//case pole:if (check_pole(temp, m_All_Objects, last_loc)) {
 		//	if(last_loc.getGlobalBounds().height>temp.getGlobalBounds().height)
 	};
@@ -173,3 +179,16 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 	
 }
 //===================================================================
+bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
+	Game_Object& last_Loc, sf::RectangleShape& cur_Loc)
+{
+	sf::RectangleShape temp(last_Loc.get_rectangle());
+	if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y < 0.1f)
+		return true;
+	if (What_In_Loc(temp, m_All_Objects) == '-')
+		return true;
+	else
+		m_Elemnt_Of_Game.move(0, 0.5f + m_Elemnt_Of_Game.getLocalBounds().height / 2);
+	return false;
+	
+}

@@ -13,9 +13,11 @@ public:
 																						Game_Object &last_Loc);
 	void effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])override;
 	bool check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_Object*>m_All_Objects[],
-																							Game_Object& last_Loc);
+							  											Game_Object& last_Loc);
 	char What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Object*>m_All_Objects[]);
 	void on_Floor( std::vector<Game_Object*>m_All_Objects[]);
+	bool check_pole(std::vector<Game_Object*>m_All_Objects[],
+		Game_Object& last_Loc, sf::RectangleShape& cur_Loc);
 private:
 	bool direction = true;
 };
