@@ -2,10 +2,9 @@
 
 void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])
 {
-	
+	//sf::RectangleShape floor(m_Elemnt_Of_Game);
+	//floor.move(0, 3.5f);
 		
-
-	
 	sf::RectangleShape temp(m_Elemnt_Of_Game);
 	switch (*(sf::Keyboard::Key*)key)
 	{
@@ -30,6 +29,11 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM
 
 	
 	case sf::Keyboard::Key::Left:
+		/*
+		if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == ladder&& //cant move from ladder
+			What_In_Loc(floor, m_All_Objects)!=wall)
+			break;
+			*/
 		std::cout << "my pos is : " << this->get_loction().x << "," <<
 			this->get_loction().y << std::endl;
 		std::cout << "walking left : " << temp.getPosition().x << "," <<
@@ -48,7 +52,11 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM
 		break;
 			
 	case sf::Keyboard::Key::Right:
-	
+		/*
+		if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == ladder &&//cant move from ladder
+			What_In_Loc(floor, m_All_Objects) != wall)
+			break;
+	*/
 		std::cout << "my pos is : " << this->get_loction().x << "," <<
 			this->get_loction().y << std::endl;
 		 temp.move(5.0f, 0);
@@ -123,9 +131,12 @@ bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_O
 			return true;
 		}
 	*/
+		sf::RectangleShape floor(m_Elemnt_Of_Game);
+		floor.move(0, 5.0f);
+		char under = What_In_Loc(floor, m_All_Objects);
 		switch (cur_Type) {
 
-			case  ladder:	// if im standing on a ladder
+			case  ladder:	
 				return true;
 			break;
 			
@@ -134,8 +145,19 @@ bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_O
 			break;
 			
 			case space:	
-				if (last_Loc.get_rectangle().getPosition().y<=cur_Loc.getPosition().y)
-						return true;
+				if (last_Loc.get_rectangle().getPosition().y<=cur_Loc.getPosition().y&&
+					(under==wall|| under == ladder))
+					if (last_Loc.get_rectangle().getPosition().x <= cur_Loc.getPosition().x) {
+						m_Elemnt_Of_Game.move(m_Elemnt_Of_Game.getGlobalBounds().width, 0);
+						return false;
+					}
+					
+					else
+					{
+						m_Elemnt_Of_Game.move(-m_Elemnt_Of_Game.getGlobalBounds().width , 0);
+						return false;
+					}
+						
 				
 				break;
 		
@@ -183,9 +205,10 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 	Game_Object& last_Loc, sf::RectangleShape& cur_Loc)
 {
 	sf::RectangleShape temp(last_Loc.get_rectangle());
-	if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y < 0.1f)
-		return true;
-	if (What_In_Loc(temp, m_All_Objects) == '-')
+	//if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y < 0.1f)
+		//return true;
+	if (What_In_Loc(temp, m_All_Objects) == '-'||
+		cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y < 0.1f)
 		return true;
 	else
 		m_Elemnt_Of_Game.move(0, 0.5f + m_Elemnt_Of_Game.getLocalBounds().height / 2);
