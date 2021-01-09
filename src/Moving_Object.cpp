@@ -2,7 +2,7 @@
 
 void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])
 {
-
+	bool ret=false;
 	sf::RectangleShape floor(m_Elemnt_Of_Game);
 	floor.move(0, 3.5f);
 
@@ -17,10 +17,10 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM
 		if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole)
 			break;
 		temp.move(0, -5.0f);
-		if (check_movment(temp, m_All_Objects, *this))
-
+		if (check_movment(temp, m_All_Objects, *this)) {
 			m_Elemnt_Of_Game.move(0, -5.0f);
-			
+			m_Elemnt_Of_Game.setTexture(m_Tex[0]);
+		}
 		break;
 		
 
@@ -31,8 +31,10 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM
 			 m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height*0.75);
 			 break;
 		 }
-		if (check_movment(temp, m_All_Objects,*this))
-			m_Elemnt_Of_Game.move(0, 5.0f);
+		 if (check_movment(temp, m_All_Objects, *this)) {
+			 m_Elemnt_Of_Game.move(0, 5.0f);
+			 m_Elemnt_Of_Game.setTexture(m_Tex[0]);
+		 }
 		break;
 
 	
@@ -227,19 +229,16 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 {
 	
 	sf::RectangleShape temp(last_Loc.get_rectangle());
-	if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y < 0.1f)
+	if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y < 0.1f) {
+		m_Elemnt_Of_Game.setTexture(this->m_Tex[1]);
 		return true;
-	if (What_In_Loc(temp, m_All_Objects) == '-')
+	}
+	if (What_In_Loc(temp, m_All_Objects) == pole)
 		return true;
 	else
 	{
-		if (cur_Loc.getPosition().y - last_Loc.get_loction().y < 0.1f) {
-			m_Elemnt_Of_Game.getTexture()->~Texture();
-
-			return true;
-		}
+		m_Elemnt_Of_Game.setTexture(this->m_Tex[1]);
 		m_Elemnt_Of_Game.move(0, 0.5f + m_Elemnt_Of_Game.getLocalBounds().height / 2);
-;
 	}
 		return false;
 	

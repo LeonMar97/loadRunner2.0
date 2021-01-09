@@ -99,6 +99,7 @@ while (i < sizeof_Map.y+1) {
 		sf::RectangleShape cur_Rec(block_Size);
 		cur_Rec.setPosition(sf::Vector2f(start_Of_Map.x + j * 1280/ sizeof_Map.x,
 			start_Of_Map.y + (i-1) * 720 / sizeof_Map.y));
+
 		cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 //----------------------
 
@@ -202,7 +203,7 @@ void Controller::load_pic(std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS]) 
 						  {"pole.png"},
 						  {"money.png"},
 						  {"enemy.png"},
-						  {"player.png"} };
+						  {"player.png","secondwall.png"} };
 
 	int i, j;
 	sf::Texture *pic;
