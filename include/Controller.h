@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Wall.h"
+#include "Ladder.h"
 #pragma once
 
 class Controller {
@@ -25,12 +26,13 @@ class Controller {
 		void  free_Fall();
 		//char What_In_Loc(Game_Object &);
 		void draw_On_map();
-		
+		void setTEx(std::vector<sf::Texture*>texvec, Game_Object current);
+		void load_pic(std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS]);
+
 //------------------members-----------------------------------//		
 	private :
 		sf::RenderWindow m_Game_Window;
 		Board m_Board;
-		
 		std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS];//for printing after drawing for displaying
 		sf::Clock m_Clock;
 		int m_Enemys = 0;

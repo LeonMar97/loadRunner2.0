@@ -2,8 +2,10 @@
 
 void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])
 {
+
 	sf::RectangleShape floor(m_Elemnt_Of_Game);
 	floor.move(0, 3.5f);
+
 		
 	sf::RectangleShape temp(m_Elemnt_Of_Game);
 	switch (*(sf::Keyboard::Key*)key)
@@ -12,6 +14,8 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM
 	case sf::Keyboard::Key::Up:
 		std::cout << "my pos is : " << this->get_loction().x << "," <<
 			this->get_loction().y << std::endl;
+		if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole)
+			break;
 		temp.move(0, -5.0f);
 		if (check_movment(temp, m_All_Objects, *this))
 
@@ -221,11 +225,6 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 	Game_Object& last_Loc, sf::RectangleShape& cur_Loc)
 {
-	sf::Texture* pic = new sf::Texture;
-		pic->loadFromFile("secondwall.png");
-	
-
-
 	
 	sf::RectangleShape temp(last_Loc.get_rectangle());
 	if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y < 0.1f)
@@ -236,12 +235,11 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 	{
 		if (cur_Loc.getPosition().y - last_Loc.get_loction().y < 0.1f) {
 			m_Elemnt_Of_Game.getTexture()->~Texture();
-			m_Elemnt_Of_Game.setTexture(pic);
-			m_Elemnt_Of_Game.rotate(75);
+
 			return true;
 		}
 		m_Elemnt_Of_Game.move(0, 0.5f + m_Elemnt_Of_Game.getLocalBounds().height / 2);
-		m_Elemnt_Of_Game.rotate(75);
+;
 	}
 		return false;
 	

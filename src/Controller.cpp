@@ -75,7 +75,9 @@ void Controller:: start_Game() {
 //--------------------------------------------------------//
 //setting the game controller vector
 void Controller::set_G_O_Vector(){
-
+	std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS];
+	load_pic(all_Objects);//now all the loaded pictures located in vector
+	
 	sf::Vector2f start_Of_Map(300,100);//start location
 sf::Texture* pic;
 sf::Vector2i sizeof_Map;
@@ -93,97 +95,65 @@ Game_Object * object;
 while (i < sizeof_Map.y+1) {
 	j = 0;
 	while (j < sizeof_Map.x) {
+//----------------------creating block and setting their size--------------------------------------------------
 		sf::RectangleShape cur_Rec(block_Size);
 		cur_Rec.setPosition(sf::Vector2f(start_Of_Map.x + j * 1280/ sizeof_Map.x,
 			start_Of_Map.y + (i-1) * 720 / sizeof_Map.y));
-		
 		cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
+//----------------------
+
 		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
 		case player:
 			cur_Rec.setSize(player_Size);
-			pic = new sf::Texture;
-			name = "player.png";
-			pic->loadFromFile(name);
-			cur_Rec.setTexture(pic);
 		//settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-			object = new Player(cur_Rec, player);
+			
+			object = new Player(cur_Rec,all_Objects[players], player);
 			m_All_Objects[players].push_back(object);
 			break;
 		case money:
-			name = "money.png";
-			pic = new sf::Texture;
-			pic->loadFromFile(name);
-			cur_Rec.setTexture(pic);
-			object = new Money(cur_Rec, money);
+			cur_Rec.setScale(0.5, 0.5);
+			object = new Money(cur_Rec, all_Objects[disappear],money);
 			m_All_Objects[disappear].push_back(object);
 			break;
 		case wall:
-			name = "wall.png";
-			pic = new sf::Texture;
-			pic->loadFromFile(name);
-			cur_Rec.setTexture(pic);
 			cur_Rec.setOutlineThickness(1);
 			cur_Rec.setOutlineColor(sf::Color::Black);
 			cur_Rec.setScale(1, 0.9);
-			object = new Wall(cur_Rec, wall);
+			object = new Wall(cur_Rec, all_Objects[walls], wall);
 			m_All_Objects[walls].push_back(object);
 			break;
 		case smart:
-			name = "enemy.png";
-			pic = new sf::Texture;
-			pic->loadFromFile(name);
-			cur_Rec.setTexture(pic);
 			cur_Rec.setSize(player_Size);
 			// settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-			object = new Enemy(cur_Rec, smart);
+			object = new Enemy(cur_Rec, all_Objects[enemys], smart);
 			m_All_Objects[enemys].push_back(object);
 			break;
 		case stupid:
-			name = "enemy.png";
-			pic = new sf::Texture;
-			pic->loadFromFile(name);
-			cur_Rec.setTexture(pic);
 			cur_Rec.setSize(player_Size);
-			object = new Enemy(cur_Rec, stupid);
+			object = new Enemy(cur_Rec, all_Objects[enemys], stupid);
 			m_All_Objects[enemys].push_back(object);
 			break;
 		case med:
-			name = "enemy.png";
-			pic = new sf::Texture;
-			pic->loadFromFile(name);
-			cur_Rec.setTexture(pic);
+			
 			cur_Rec.setSize(player_Size);
-			object = new Enemy(cur_Rec, med);
+			object = new Enemy(cur_Rec, all_Objects[enemys], med);
 			m_All_Objects[enemys].push_back(object);
 			break;
 		case gift:
-			name = "money.png";
-			pic = new sf::Texture;
-			pic->loadFromFile(name);
-			cur_Rec.setTexture(pic);
-			object = new Gift(cur_Rec, gift);
+			object = new Gift(cur_Rec, all_Objects[disappear], gift);
 			m_All_Objects[disappear].push_back(object);
 			break;
 		case pole:
-			name = "pole.png";
-			pic = new sf::Texture;
-			pic->loadFromFile(name);
 			cur_Rec.setSize(sf::Vector2f(block_Size.x, (block_Size.y)/2));
-			cur_Rec.setTexture(pic);
 			cur_Rec.setScale(1,0.1);
-			object = new Gift(cur_Rec, pole);
+			object = new Gift(cur_Rec, all_Objects[poles], pole);
 			m_All_Objects[poles].push_back(object);
 			break;
 		case ladder:
-			name = "ladder.png";
-			pic = new sf::Texture;
-			pic->loadFromFile(name);
-			cur_Rec.setTexture(pic);
 			cur_Rec.setScale(1, 1.1);
-		//	cur_Rec.setOutlineColor(sf::Color::Transparent);
-			object = new Gift(cur_Rec, ladder);
+			object = new Ladder(cur_Rec, all_Objects[ladders],ladder);
 			m_All_Objects[ladders].push_back(object);
 			break;		
 		case ' ':
@@ -224,6 +194,35 @@ void Controller :: draw_On_map() {
 	}
 }
 //=====================================================================
+//loadding all the pictures to save runtime
+void Controller::load_pic(std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS]) {
+	std::vector<std::string>names[] = {
+						  {"wall.png"},
+						  {"ladder.png"},
+						  {"pole.png"},
+						  {"money.png"},
+						  {"enemy.png"},
+						  {"player.png"} };
+
+	int i, j;
+	sf::Texture *pic;
+	for (i = walls; i < NUM_OF_OBJECTS; i++) {
+		for (j = 0; j < names[i].size(); j++) {
+			pic = new sf::Texture;
+			pic->loadFromFile(names[i][j]);
+			all_Objects[i].push_back(pic);
+		}
+
+	}
+}
+
+
+//=====================================================================
+
+
+
+
+
 
 
 
