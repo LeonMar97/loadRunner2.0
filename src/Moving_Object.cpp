@@ -174,6 +174,8 @@ bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_O
 				}
 				
 				break;
+			case money:
+				 return true;
 		
 			};
 
