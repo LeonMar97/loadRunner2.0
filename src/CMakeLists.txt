@@ -9,5 +9,5 @@ target_sources (Project_adi_gutman_leon_markovich PRIVATE
 													"Moving_Object.cpp"
 													"Player.cpp"
 													"Wall.cpp"
-													"Ladder.cpp"
+													##"Ladder.cpp"
 													"main.cpp")

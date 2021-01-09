@@ -182,6 +182,8 @@ bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_O
 				break;
 			case money:
 				 return true;
+			case smart:
+				return true;
 		
 			};
 
@@ -214,7 +216,7 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 {
 
 	sf::RectangleShape under_Me(m_Elemnt_Of_Game);
-	under_Me.move(0, 0.1f);//the floor under the current elemnt
+	under_Me.move(0, 0.5f);//the floor under the current elemnt
 	char under_Me_Type = What_In_Loc(under_Me, m_All_Objects);
 	int key = (sf::Keyboard::Down);
 	if (under_Me_Type != wall && under_Me_Type != ladder && under_Me_Type != pole)
