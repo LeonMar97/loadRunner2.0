@@ -2,9 +2,8 @@
 
 void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])
 {
-
-	//sf::RectangleShape floor(m_Elemnt_Of_Game);
-	//floor.move(0, 3.5f);
+	sf::RectangleShape floor(m_Elemnt_Of_Game);
+	floor.move(0, 3.5f);
 		
 	sf::RectangleShape temp(m_Elemnt_Of_Game);
 	switch (*(sf::Keyboard::Key*)key)
@@ -24,6 +23,10 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM
 	case sf::Keyboard::Key::Down:
 		
 		 temp.move(0, 5.0f);
+		 if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole) {
+			 m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height*0.75);
+			 break;
+		 }
 		if (check_movment(temp, m_All_Objects,*this))
 			m_Elemnt_Of_Game.move(0, 5.0f);
 		break;
@@ -142,25 +145,37 @@ bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_O
 			break;
 			
 			case pole:
+				if (last_Loc.get_rectangle().getPosition().x <= cur_Loc.getPosition().x )
+				 {
+				m_Elemnt_Of_Game.move(m_Elemnt_Of_Game.getGlobalBounds().width * 1.3f, 0);
+				return false;
+			    }
+			    if (last_Loc.get_rectangle().getPosition().x >= cur_Loc.getPosition().x)
+				 {
+				 m_Elemnt_Of_Game.move(-m_Elemnt_Of_Game.getGlobalBounds().width * 1.3f, 0);
+				 return false;
+				 }
 				return true;
 			break;
 			
 			case space:	
-				if (last_Loc.get_rectangle().getPosition().y<=cur_Loc.getPosition().y&&
-					(under==wall|| under == ladder))
-					if (last_Loc.get_rectangle().getPosition().x <= cur_Loc.getPosition().x) {
-						m_Elemnt_Of_Game.move(m_Elemnt_Of_Game.getGlobalBounds().width, 0);
-						return false;
-					}
-					
-					else
-					{
-						m_Elemnt_Of_Game.move(-m_Elemnt_Of_Game.getGlobalBounds().width , 0);
-						return false;
-					}
-						
+				if (last_Loc.get_rectangle().getPosition().y <= cur_Loc.getPosition().y &&
+					(under == ladder))
+					return true;
+				if (last_Loc.get_rectangle().getPosition().x <= cur_Loc.getPosition().x &&
+					(under == wall)) {
+					m_Elemnt_Of_Game.move(m_Elemnt_Of_Game.getGlobalBounds().width*1.3f , 0);
+					return false;
+				}
+				if (last_Loc.get_rectangle().getPosition().x >= cur_Loc.getPosition().x &&
+					(under == wall)) {
+					m_Elemnt_Of_Game.move(-m_Elemnt_Of_Game.getGlobalBounds().width*1.3f, 0);
+					return false;
+				}
 				
 				break;
+			case money:
+				 return true;
 		
 			};
 
@@ -213,14 +228,9 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 
 	
 	sf::RectangleShape temp(last_Loc.get_rectangle());
-<<<<<<< HEAD
-	if (What_In_Loc(temp, m_All_Objects) == pole)
-=======
-	//if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y < 0.1f)
-		//return true;
-	if (What_In_Loc(temp, m_All_Objects) == '-'||
-		cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y < 0.1f)
->>>>>>> 63c650aed2606105f7f7927f834032de22d3d212
+	if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y < 0.1f)
+		return true;
+	if (What_In_Loc(temp, m_All_Objects) == '-')
 		return true;
 	else
 	{
