@@ -99,7 +99,7 @@ bool Moving_Object::check_ladder(sf::RectangleShape& after_Click, std::vector<Ga
 			case  ladder:
 				if ((under != wall) &&( before_Click.get_rectangle().getPosition().y - after_Click.getPosition().y > 0.1f||
 					after_Click.getPosition().y - before_Click.get_rectangle().getPosition().y > 0.1f)) {
-					move_to_center(m_All_Objects);
+					move_to_center_ladder(m_All_Objects);
 				}
 				return true;
 			    break;
@@ -163,7 +163,7 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 	}
 	if ((under_Me_Type) == pole)//if we are on pole dont drop
 	{
-		m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.5f);
+		m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);
 		move_to_center_pole(m_All_Objects);
 		return;
 	}
@@ -201,7 +201,7 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 }
 //-------------------------------------------------------------------------------
 //move object to the center of ladder or pole
-void Moving_Object::move_to_center(std::vector<Game_Object*>m_All_Objects[])
+void Moving_Object::move_to_center_ladder(std::vector<Game_Object*>m_All_Objects[])
 {
 	for (int i = 0; i < NUM_OF_OBJECTS; i++)
 	{
@@ -243,6 +243,7 @@ void Moving_Object::change__Curr_Texture(std::vector<Game_Object*>m_All_Objects[
 		m_Elemnt_Of_Game.setTexture(m_Tex[0]);
 }
 //---------------------------------------------------------------------
+//move object to center of pole
 void Moving_Object::move_to_center_pole(std::vector<Game_Object*>m_All_Objects[])
 {
 	for (int i = 0; i < NUM_OF_OBJECTS; i++)
