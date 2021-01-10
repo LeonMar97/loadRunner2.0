@@ -69,7 +69,6 @@ bool Moving_Object::check_movment(sf::RectangleShape& after_Click, std::vector<G
 																				Game_Object& before_Click){	
 	switch (What_In_Loc(after_Click, m_All_Objects)) {
 	case wall:  
-	
 		return false;
 		break;
 
@@ -165,7 +164,7 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 	if ((under_Me_Type) == pole)//if we are on pole dont drop
 	{
 		m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.5f);
-		
+		move_to_center_pole(m_All_Objects);
 		return;
 	}
 	if ((under_Me_Type != wall && under_Me_Type != ladder))
@@ -188,13 +187,15 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 	}
 	if(What_In_Loc(temp, m_All_Objects) == ladder)
 	{
-		
+		move_to_center_pole(m_All_Objects);
 		return true;
 	}
 	if (What_In_Loc(temp,m_All_Objects)==pole)
 	{
+		move_to_center_pole(m_All_Objects);
 		return true;
 	}
+    	move_to_center_pole(m_All_Objects);
 		return true;
 	
 }
@@ -240,4 +241,24 @@ void Moving_Object::change__Curr_Texture(std::vector<Game_Object*>m_All_Objects[
 		m_Elemnt_Of_Game.setTexture(m_Tex[1]);
 	else
 		m_Elemnt_Of_Game.setTexture(m_Tex[0]);
+}
+//---------------------------------------------------------------------
+void Moving_Object::move_to_center_pole(std::vector<Game_Object*>m_All_Objects[])
+{
+	for (int i = 0; i < NUM_OF_OBJECTS; i++)
+	{
+		for (int j = 0; j < m_All_Objects[i].size(); j++) {
+
+			if (m_Elemnt_Of_Game.getGlobalBounds().intersects(m_All_Objects[i][j]->get_rectangle().getGlobalBounds()))
+			{
+				if (m_All_Objects[i][j]->get_Type() != this->get_Type()) {
+					if (m_All_Objects[i][j]->get_Type() == pole)
+						m_Elemnt_Of_Game.setPosition( m_Elemnt_Of_Game.getPosition().x, m_All_Objects[i][j]->get_loction().y);
+
+				}
+			}
+
+		}
+
+	}
 }
