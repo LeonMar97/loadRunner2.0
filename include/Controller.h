@@ -28,6 +28,7 @@ class Controller {
 		void draw_On_map();
 		void setTEx(std::vector<sf::Texture*>texvec, Game_Object current);
 		void load_pic(std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS]);
+		void updateGameObjects();
 
 //------------------members-----------------------------------//		
 	private :

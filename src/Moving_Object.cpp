@@ -1,65 +1,26 @@
 #include "Moving_Object.h"
 
-void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])
+
+
+
+void Moving_Object::move_Object(sf::Vector2f &Direction,sf::Time delta_time, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])
 {
 	
 
 		
 	sf::RectangleShape temp(m_Elemnt_Of_Game);
-	switch (*(sf::Keyboard::Key*)key)
-	{
-
-	case sf::Keyboard::Key::Up:
-		
-		
-		temp.move(0, -m_Elemnt_Of_Game.getGlobalBounds().height*0.1f);
+	
+	float size = (m_Elemnt_Of_Game.getTexture()->getSize().x)/4;
+		temp.move(Direction *size * delta_time.asSeconds());
 		if (check_movment(temp, m_All_Objects, *this)) {
-			m_Elemnt_Of_Game.move(0, -m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);
-			m_Elemnt_Of_Game.setTexture(m_Tex[0]);
+			
+			m_Elemnt_Of_Game.move(Direction  *size * delta_time.asSeconds());
+			
 		}
-		break;
+	
 		
-
-	case sf::Keyboard::Key::Down:
-		
-		 temp.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);
-		 if (check_movment(temp, m_All_Objects, *this)) {
-			 m_Elemnt_Of_Game.move(0,m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);
-			 m_Elemnt_Of_Game.setTexture(m_Tex[0]);
-		 }
-		break;
 
 	
-	case sf::Keyboard::Key::Left:
-		temp.move(-m_Elemnt_Of_Game.getGlobalBounds().width*0.2f, 0);
-		if (check_movment(temp, m_All_Objects, *this))
-		{
-			if (direction){
-				m_Elemnt_Of_Game.scale(-1, 1);
-			direction = false;
-		    }
-			m_Elemnt_Of_Game.move(-m_Elemnt_Of_Game.getGlobalBounds().width * 0.2f, 0);
-			
-		}
-		break;
-			
-	case sf::Keyboard::Key::Right:
-		
-		 temp.move(m_Elemnt_Of_Game.getGlobalBounds().width * 0.2f, 0);
-		 if (check_movment(temp, m_All_Objects, *this))
-		 {
-		
-			 if (!direction) {
-				
-				 m_Elemnt_Of_Game.scale(-1, 1);
-				 direction = true;
-			 }
-			 m_Elemnt_Of_Game.move(m_Elemnt_Of_Game.getGlobalBounds().width * 0.2f, 0);
-			 
-		 }
-		break;
-
-	};
 	change__Curr_Texture(m_All_Objects);
 	
 }
@@ -156,7 +117,9 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 	sf::RectangleShape under_Me(m_Elemnt_Of_Game);
 	under_Me.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);//the floor under the current elemnt
 	char under_Me_Type = What_In_Loc(under_Me, m_All_Objects);
-	int key = (sf::Keyboard::Down);
+	//int key = (sf::Keyboard::Down);
+
+	sf::Vector2f key(0,m_Elemnt_Of_Game.getGlobalBounds().height*0.1f);
 	if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole)//if we are on pole dont drop
 	{
 		return;
@@ -168,7 +131,7 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 		return;
 	}
 	if ((under_Me_Type != wall && under_Me_Type != ladder))
-		this->effect(&key, m_All_Objects);
+		m_Elemnt_Of_Game.move(0,key.y);
 	
 }
 //===================================================================

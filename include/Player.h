@@ -16,7 +16,8 @@ public:
 	int getscore()const;
 	int getlives()const;
 	void setlives(int);
-
+	void effect(void* DeltaTime, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])override;
+	sf::Vector2f dirFromKey();
 	//void effect(void *)override;
 	//bool getmovement();
 	//bool handleSpecialKey(int c);

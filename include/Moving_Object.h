@@ -11,7 +11,7 @@ public:
 	//virtual void move(sf::Keyboard::Key key) {};
 	bool check_movment(sf::RectangleShape& cur_loc, std::vector<Game_Object*>m_All_Objects[],
 																						Game_Object &last_Loc);
-	void effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])override;
+	void move_Object(sf::Vector2f& DIrection, sf::Time delta_time, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS]);
 	bool check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_Object*>m_All_Objects[],
 							  											Game_Object& last_Loc);
 	char What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Object*>m_All_Objects[]);

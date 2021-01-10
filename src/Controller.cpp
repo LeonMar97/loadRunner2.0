@@ -40,33 +40,19 @@ void Controller:: start_Game() {
 		}
 		*/
 			m_Game_Window.draw(bg);
-	//	m_Game_Window.clear();
-		
+	
 				 draw_On_map();
 				m_Game_Window.display();
 		sf::Event event;
 		while (m_Game_Window.pollEvent(event))
 		{
-			
+
 			if (event.type == sf::Event::Closed)
 				m_Game_Window.close();
-
-			if (event.type == sf::Event::KeyPressed)
-			{
-				
-				//int player_place=m_All_Objects[players];
-				
-				
-				
-				(m_All_Objects[players][0])->effect(&(event.key.code),m_All_Objects);
-
-
-			//	(m_All_Objects[][0])->effect(&(event.key.code), m_All_Objects);
-				
-				
-			}
-
 		}
+			updateGameObjects();
+
+		
 	
 		free_Fall();
 	
@@ -220,7 +206,12 @@ void Controller::load_pic(std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS]) 
 
 //=====================================================================
 
+void Controller::updateGameObjects()
+{
+	 auto deltaTime = m_Clock.restart();
 
+	m_All_Objects[players][0]->effect(&deltaTime,m_All_Objects);
+}
 
 
 
