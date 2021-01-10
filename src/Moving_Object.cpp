@@ -2,8 +2,7 @@
 
 void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])
 {
-	sf::RectangleShape floor(m_Elemnt_Of_Game);
-	floor.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.75);
+	
 
 		
 	sf::RectangleShape temp(m_Elemnt_Of_Game);
@@ -12,8 +11,7 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM
 
 	case sf::Keyboard::Key::Up:
 		
-		if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole)
-			break;
+		
 		temp.move(0, -m_Elemnt_Of_Game.getGlobalBounds().height*0.1f);
 		if (check_movment(temp, m_All_Objects, *this)) {
 			m_Elemnt_Of_Game.move(0, -m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);
@@ -25,12 +23,6 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM
 	case sf::Keyboard::Key::Down:
 		
 		 temp.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);
-		/* if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole) {
-			 m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height*0.75);
-			 break;
-		 }
-		 */
-		 
 		 if (check_movment(temp, m_All_Objects, *this)) {
 			 m_Elemnt_Of_Game.move(0,m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);
 			 m_Elemnt_Of_Game.setTexture(m_Tex[0]);
@@ -72,34 +64,31 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM
 }
 //=============================================================================
 //check what in the next loc user pressed
-bool Moving_Object::check_movment(sf::RectangleShape& cur_Loc, std::vector<Game_Object*>m_All_Objects[],
-																				Game_Object& last_Loc){	
-	switch (What_In_Loc(cur_Loc, m_All_Objects)) {
+bool Moving_Object::check_movment(sf::RectangleShape& after_Click, std::vector<Game_Object*>m_All_Objects[],
+																				Game_Object& before_Click){	
+	switch (What_In_Loc(after_Click, m_All_Objects)) {
 	case wall:  
 	
 		return false;
 		break;
 
 	case ladder:
-		if (check_ladder(cur_Loc, m_All_Objects, last_Loc))
-			return true;
-		else return false;
-		break;
+		return (check_ladder(after_Click, m_All_Objects, before_Click));
 	case pole:
-		
-		return check_pole(m_All_Objects,last_Loc,cur_Loc);
-		
+		return check_pole(m_All_Objects,before_Click,after_Click);
+	case space:
+		return check_space(m_All_Objects, before_Click, after_Click);
 		
 	};
 	
 	return true;
 }
 //=========================================================================
-//check if next loc is ladder
-bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_Object*>m_All_Objects[],
-																						Game_Object& last_Loc)
+//check if next loc is ladder,last_loc before click ,cur_loc after click
+bool Moving_Object::check_ladder(sf::RectangleShape& after_Click, std::vector<Game_Object*>m_All_Objects[],
+																						Game_Object& before_Click)
 {
-	 sf::RectangleShape temp(last_Loc.get_rectangle());
+	 sf::RectangleShape temp(before_Click.get_rectangle());
 		char cur_Type = What_In_Loc(temp,m_All_Objects);
 	
 		sf::RectangleShape floor(m_Elemnt_Of_Game);
@@ -108,8 +97,8 @@ bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_O
 		switch (cur_Type) {
 
 			case  ladder:
-				if ((under != wall) &&( last_Loc.get_rectangle().getPosition().y - cur_Loc.getPosition().y > 0.1f||
-					cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y > 0.1f)) {
+				if ((under != wall) &&( before_Click.get_rectangle().getPosition().y - after_Click.getPosition().y > 0.1f||
+					after_Click.getPosition().y - before_Click.get_rectangle().getPosition().y > 0.1f)) {
 					move_to_center(m_All_Objects);
 				}
 				return true;
@@ -121,7 +110,7 @@ bool Moving_Object::check_ladder(sf::RectangleShape& cur_Loc, std::vector<Game_O
 			
 			case space:	
 				
-				if (last_Loc.get_rectangle().getPosition().y <= cur_Loc.getPosition().y &&
+				if (before_Click.get_rectangle().getPosition().y <= after_Click.getPosition().y &&
 					(under == ladder))
 					return true;
 				if (under == wall||under==pole) {
@@ -169,48 +158,44 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 	char under_Me_Type = What_In_Loc(under_Me, m_All_Objects);
 	int key = (sf::Keyboard::Down);
 	if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole)//if we are on pole dont drop
+	{
 		return;
-	if ((under_Me_Type != wall && under_Me_Type != ladder && under_Me_Type != pole))
+	}
+	if ((under_Me_Type) == pole)//if we are on pole dont drop
+	{
+		m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.5f);
+		m_Elemnt_Of_Game.setTexture(m_Tex[1]);
+		return;
+	}
+	if ((under_Me_Type != wall && under_Me_Type != ladder))
 		this->effect(&key, m_All_Objects);
 	
 }
 //===================================================================
-
 bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
-	Game_Object& last_Loc, sf::RectangleShape& cur_Loc)
+	Game_Object& before_Click, sf::RectangleShape& after_Click)
 {
-	/*
-	sf::RectangleShape temp(last_Loc.get_rectangle());
-	if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y <0.1f) {
-		m_Elemnt_Of_Game.setTexture(this->m_Tex[1]);
-		m_Elemnt_Of_Game.move(0, 10.5f + m_Elemnt_Of_Game.getLocalBounds().height / 2);
-		//move_to_center(m_All_Objects);
-		return false;
+	
+	sf::RectangleShape temp(before_Click.get_rectangle());
+	if (after_Click.getPosition().y - before_Click.get_loction().y > 0.1f){
+		after_Click.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.6);
+		if (What_In_Loc(after_Click, m_All_Objects) != wall) {
+			m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.6);
+			m_Elemnt_Of_Game.setTexture(m_Tex[0]);
+			return false;
+		}
 	}
-	if (What_In_Loc(temp, m_All_Objects) == pole) {
-
+	if(What_In_Loc(temp, m_All_Objects) == ladder)
+	{
+		m_Elemnt_Of_Game.setTexture(m_Tex[1]);
+		return true;
+	}
+	if (What_In_Loc(temp,m_All_Objects)==pole)
+	{
 		return true;
 	}
 	else
-	{
-		m_Elemnt_Of_Game.setTexture(this->m_Tex[1]);
-		m_Elemnt_Of_Game.move(0, 0.5f+ m_Elemnt_Of_Game.getLocalBounds().height /2);
-		return false;
-		//move_to_center(m_All_Objects);
-		
-	}
-	*/
-	sf::RectangleShape temp(cur_Loc);
-	temp.move(0, 0.5f);
-	//if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y > 0.1f && What_In_Loc(cur_Loc, m_All_Objects) == space)
-	if (What_In_Loc(temp,m_All_Objects)==pole)
-	{
-		m_Elemnt_Of_Game.setTexture(this->m_Tex[1]);
-
-		m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getLocalBounds().height / 4);
-	}
-	if(What_In_Loc(cur_Loc,m_All_Objects)==space)
-	m_Elemnt_Of_Game.setTexture(this->m_Tex[1]);
+		m_Elemnt_Of_Game.setTexture(m_Tex[1]);
 		return true;
 	
 }
@@ -224,11 +209,29 @@ void Moving_Object::move_to_center(std::vector<Game_Object*>m_All_Objects[])
 
 			if (m_Elemnt_Of_Game.getGlobalBounds().intersects(m_All_Objects[i][j]->get_rectangle().getGlobalBounds()))
 			{
-				if (m_All_Objects[i][j]->get_Type() != this->get_Type())
-					m_Elemnt_Of_Game.setPosition(m_All_Objects[i][j]->get_loction().x,m_Elemnt_Of_Game.getPosition().y);
+				if (m_All_Objects[i][j]->get_Type() != this->get_Type()) {
+					if (m_All_Objects[i][j]->get_Type() == ladder)
+						m_Elemnt_Of_Game.setPosition(m_All_Objects[i][j]->get_loction().x, m_Elemnt_Of_Game.getPosition().y);
+					if (m_All_Objects[i][j]->get_Type() == pole)
+						m_Elemnt_Of_Game.setPosition(m_Elemnt_Of_Game.getPosition().x,m_All_Objects[i][j]->get_loction().y);
+				}
 			}
 
 		}
 
 	}
+}
+//---------------------------------------------------------------------
+///function check going in to air
+bool Moving_Object::check_space(std::vector<Game_Object*>m_All_Objects[],
+	Game_Object& before_Click, sf::RectangleShape& after_Click)
+{
+	sf::RectangleShape temp_loc(before_Click.get_rectangle());
+	switch (What_In_Loc(temp_loc, m_All_Objects)) {
+	case ladder:
+		return check_ladder(after_Click, m_All_Objects, before_Click);
+	case pole:
+		return check_pole( m_All_Objects, before_Click, after_Click);
+	};
+	return true;
 }
