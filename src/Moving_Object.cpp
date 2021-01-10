@@ -170,9 +170,8 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 	under_Me.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);//the floor under the current elemnt
 	char under_Me_Type = What_In_Loc(under_Me, m_All_Objects);
 	int key = (sf::Keyboard::Down);
-	if (under_Me_Type != wall && under_Me_Type != ladder && under_Me_Type != pole)
+	if ((under_Me_Type != wall && under_Me_Type != ladder && under_Me_Type != pole)&&What_In_Loc(m_Elemnt_Of_Game, m_All_Objects)!=pole)
 		this->effect(&key, m_All_Objects);
-	
 	
 }
 //===================================================================
@@ -182,26 +181,25 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 {
 	
 	sf::RectangleShape temp(last_Loc.get_rectangle());
-	if (What_In_Loc(temp, m_All_Objects) == pole) {
-		
+	if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y <0.1f) {
+		m_Elemnt_Of_Game.setTexture(this->m_Tex[1]);
+		//m_Elemnt_Of_Game.move(0, 10.5f + m_Elemnt_Of_Game.getLocalBounds().height / 2);
+		//move_to_center(m_All_Objects);
 		return true;
 	}
-	if (cur_Loc.getPosition().y - last_Loc.get_rectangle().getPosition().y <0) {
-		m_Elemnt_Of_Game.setTexture(this->m_Tex[1]);
-		m_Elemnt_Of_Game.move(0, 10.5f + m_Elemnt_Of_Game.getLocalBounds().height / 2);
-		//move_to_center(m_All_Objects);
-		return false;
+	if (What_In_Loc(temp, m_All_Objects) == pole) {
+
+		return true;
 	}
-	
 	else
 	{
 		m_Elemnt_Of_Game.setTexture(this->m_Tex[1]);
-		m_Elemnt_Of_Game.move(0, 10.5f+ m_Elemnt_Of_Game.getLocalBounds().height /2);
+		m_Elemnt_Of_Game.move(0, 0.5f+ m_Elemnt_Of_Game.getLocalBounds().height /2);
 		return false;
 		//move_to_center(m_All_Objects);
 		
 	}
-	
+	m_Elemnt_Of_Game.move(0, 0.5f + m_Elemnt_Of_Game.getLocalBounds().height / 2);
 		return false;
 	
 }
