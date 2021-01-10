@@ -19,3 +19,7 @@ enum location_In_Vector {
 	players = 5
 };
 const unsigned int NUM_OF_OBJECTS = 6;
+enum Direction_left_right {
+	left = 0,
+	right=1
+};

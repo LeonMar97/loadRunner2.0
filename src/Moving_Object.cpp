@@ -10,7 +10,7 @@ void Moving_Object::move_Object(sf::Vector2f &Direction,sf::Time delta_time, std
 		
 	sf::RectangleShape temp(m_Elemnt_Of_Game);
 	
-	float size = (m_Elemnt_Of_Game.getTexture()->getSize().x)/4;
+	float size = (m_Elemnt_Of_Game.getTexture()->getSize().x)/3;
 		temp.move(Direction *size * delta_time.asSeconds());
 		if (check_movment(temp, m_All_Objects, *this)) {
 			
@@ -21,7 +21,7 @@ void Moving_Object::move_Object(sf::Vector2f &Direction,sf::Time delta_time, std
 		
 
 	
-	change__Curr_Texture(m_All_Objects);
+	change__Curr_Texture(m_All_Objects,Direction);
 	
 }
 //=============================================================================
@@ -198,8 +198,18 @@ bool Moving_Object::check_space(std::vector<Game_Object*>m_All_Objects[],
 	return true;
 }
 //====================================================================
-void Moving_Object::change__Curr_Texture(std::vector<Game_Object*>m_All_Objects[])
+void Moving_Object::change__Curr_Texture(std::vector<Game_Object*>m_All_Objects[], sf::Vector2f& Direction)
 {
+	if (Direction.x == 1 && m_direction == left ) {
+		m_Elemnt_Of_Game.setScale(1, 1);
+		m_direction = !m_direction;
+	}
+	if (Direction.x == -1 && m_direction == right)
+	{
+		m_Elemnt_Of_Game.setScale(-1, 1);
+		m_direction = !m_direction;
+	}
+	
 	if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole)
 		m_Elemnt_Of_Game.setTexture(m_Tex[1]);
 	else

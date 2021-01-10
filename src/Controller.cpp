@@ -51,10 +51,7 @@ void Controller:: start_Game() {
 				m_Game_Window.close();
 		}
 			updateGameObjects();
-
-		
-	
-		free_Fall();
+	    	free_Fall();
 	
 	}
 }
