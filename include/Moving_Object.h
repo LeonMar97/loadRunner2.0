@@ -18,6 +18,7 @@ public:
 	void on_Floor( std::vector<Game_Object*>m_All_Objects[]);
 	bool check_pole(std::vector<Game_Object*>m_All_Objects[],
 		Game_Object& last_Loc, sf::RectangleShape& cur_Loc);
+	void move_to_center(std::vector<Game_Object*>m_All_Objects[]);
 private:
 	bool direction = true;
 };
