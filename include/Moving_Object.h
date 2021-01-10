@@ -21,6 +21,7 @@ public:
 	bool check_space(std::vector<Game_Object*>m_All_Objects[],
 		Game_Object& last_Loc, sf::RectangleShape& cur_Loc);
 	void move_to_center(std::vector<Game_Object*>m_All_Objects[]);
+	void change__Curr_Texture(std::vector<Game_Object*>m_All_Objects[]);
 private:
 	bool direction = true;
 };

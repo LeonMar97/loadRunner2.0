@@ -60,7 +60,8 @@ void Moving_Object::effect(void* key, std::vector<Game_Object*>m_All_Objects[NUM
 		break;
 
 	};
-
+	change__Curr_Texture(m_All_Objects);
+	
 }
 //=============================================================================
 //check what in the next loc user pressed
@@ -164,7 +165,7 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 	if ((under_Me_Type) == pole)//if we are on pole dont drop
 	{
 		m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.5f);
-		m_Elemnt_Of_Game.setTexture(m_Tex[1]);
+		
 		return;
 	}
 	if ((under_Me_Type != wall && under_Me_Type != ladder))
@@ -181,21 +182,19 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 		after_Click.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.6);
 		if (What_In_Loc(after_Click, m_All_Objects) != wall) {
 			m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.6);
-			m_Elemnt_Of_Game.setTexture(m_Tex[0]);
+			
 			return false;
 		}
 	}
 	if(What_In_Loc(temp, m_All_Objects) == ladder)
 	{
-		m_Elemnt_Of_Game.setTexture(m_Tex[1]);
+		
 		return true;
 	}
 	if (What_In_Loc(temp,m_All_Objects)==pole)
 	{
 		return true;
 	}
-	else
-		m_Elemnt_Of_Game.setTexture(m_Tex[1]);
 		return true;
 	
 }
@@ -212,8 +211,7 @@ void Moving_Object::move_to_center(std::vector<Game_Object*>m_All_Objects[])
 				if (m_All_Objects[i][j]->get_Type() != this->get_Type()) {
 					if (m_All_Objects[i][j]->get_Type() == ladder)
 						m_Elemnt_Of_Game.setPosition(m_All_Objects[i][j]->get_loction().x, m_Elemnt_Of_Game.getPosition().y);
-					if (m_All_Objects[i][j]->get_Type() == pole)
-						m_Elemnt_Of_Game.setPosition(m_Elemnt_Of_Game.getPosition().x,m_All_Objects[i][j]->get_loction().y);
+					
 				}
 			}
 
@@ -234,4 +232,12 @@ bool Moving_Object::check_space(std::vector<Game_Object*>m_All_Objects[],
 		return check_pole( m_All_Objects, before_Click, after_Click);
 	};
 	return true;
+}
+//====================================================================
+void Moving_Object::change__Curr_Texture(std::vector<Game_Object*>m_All_Objects[])
+{
+	if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole)
+		m_Elemnt_Of_Game.setTexture(m_Tex[1]);
+	else
+		m_Elemnt_Of_Game.setTexture(m_Tex[0]);
 }
