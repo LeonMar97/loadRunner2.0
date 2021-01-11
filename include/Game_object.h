@@ -3,6 +3,11 @@
 #include <iostream>
 #include "enums_End_Consts.h"
 #pragma once
+class Movable;
+class Money;
+class Gift;
+class Enemy;
+class Player;
 class Game_Object {
 
 public:
@@ -13,7 +18,11 @@ public:
         m_Elemnt_Of_Game.setTexture(m_Tex[0]);
     }
                                                                             
-                                                                                                
+    virtual void handleCollision(Game_Object& gameObject) = 0;
+    virtual void handleCollision(Player& gameObject) = 0;
+    virtual void handleCollision(Enemy& gameObject) = 0;
+    virtual void handleCollision(Gift& gameObject) = 0;
+    virtual void handleCollision(Money& gameObject) = 0;
    virtual void draw_On_Board(sf::RenderWindow &game_screen) ;
    virtual void effect(void*, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS]) {};
 
@@ -24,6 +33,7 @@ public:
   
     //virtual void effect() = 0;
 protected:
+    
      sf::RectangleShape m_Elemnt_Of_Game;
      char m_Type;//just to know which object is it
      std::vector<sf::Texture*>m_Tex;//for the textures.

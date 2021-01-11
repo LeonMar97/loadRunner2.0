@@ -1,5 +1,6 @@
  #include "Controller.h"
 #include <cmath>
+#include <experimental/vector>
 #pragma once
 //--------------------------------------------------------//
 
@@ -22,27 +23,10 @@ void Controller:: start_Game() {
 
 		sf::Time elapsed = m_Clock.getElapsedTime();
 		m_Game_Window.clear();
-	/*
-		if (elapsed.asSeconds() > 0.05f) {
-			int i = 1;
-			int array[4] = { sf::Keyboard::Left,sf::Keyboard::Right,sf::Keyboard::Up,sf::Keyboard::Down };
-			int current;
-			while (i <= m_Enemys) {
+		m_Game_Window.draw(bg);
 
-				current = array[rand() % 4];
-				int enemy_Loc = m_All_Objects.size() - 1 - i;
-				(m_All_Objects[enemy_Loc])->effect(&current, m_All_Objects);
-				free_fall(enemy_Loc);
-				free_fall(m_All_Objects.size()-1);
-				i++;
-			}
-			m_Clock.restart();
-		}
-		*/
-			m_Game_Window.draw(bg);
-	
-				 draw_On_map();
-				m_Game_Window.display();
+		draw_On_map();
+		m_Game_Window.display();
 		sf::Event event;
 		while (m_Game_Window.pollEvent(event))
 		{
@@ -50,11 +34,17 @@ void Controller:: start_Game() {
 			if (event.type == sf::Event::Closed)
 				m_Game_Window.close();
 		}
-			updateGameObjects();
-	    	free_Fall();
-	
+		updateGameObjects();
+		free_Fall();
+		
+		std::experimental::erase_if(m_All_Objects[disappear], [](auto const& item)
+			{
+				return dynamic_cast<Disappearing_Object*>(item)->get_deleted();
+			});
+
 	}
-}
+	}
+
 //--------------------------------------------------------//
 //setting the game controller vector
 void Controller::set_G_O_Vector(){
@@ -209,6 +199,8 @@ void Controller::updateGameObjects()
 
 	m_All_Objects[players][0]->effect(&deltaTime,m_All_Objects);
 }
+//============================================================
+//erase money and gift
 
 
 

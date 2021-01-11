@@ -17,7 +17,7 @@ void Moving_Object::move_Object(sf::Vector2f &Direction,sf::Time delta_time, std
 			m_Elemnt_Of_Game.move(Direction  *size * delta_time.asSeconds());
 			
 		}
-	
+		handleCollision_moving(*this,m_All_Objects);
 		
 
 	
@@ -41,8 +41,9 @@ bool Moving_Object::check_movment(sf::RectangleShape& after_Click, std::vector<G
 		return check_space(m_All_Objects, before_Click, after_Click);
 		
 	};
+
 	
-	return true;
+	return true;//return true if enemy score or player
 }
 //=========================================================================
 //check if next loc is ladder,last_loc before click ,cur_loc after click
@@ -230,6 +231,22 @@ void Moving_Object::move_to_center_pole(std::vector<Game_Object*>m_All_Objects[]
 						m_Elemnt_Of_Game.setPosition( m_Elemnt_Of_Game.getPosition().x, m_All_Objects[i][j]->get_loction().y);
 
 				}
+			}
+
+		}
+
+	}
+}
+//==========================================================================
+void Moving_Object::handleCollision_moving(Game_Object& me, std::vector<Game_Object*>m_All_Objects[])
+{
+	for (int i = disappear; i < NUM_OF_OBJECTS; i++)
+	{
+		for (int j = 0; j < m_All_Objects[i].size(); j++) {
+
+			if (me.get_rectangle().getGlobalBounds().intersects(m_All_Objects[i][j]->get_rectangle().getGlobalBounds()))
+			{
+				me.handleCollision(*m_All_Objects[i][j]);
 			}
 
 		}

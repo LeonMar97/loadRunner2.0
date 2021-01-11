@@ -7,12 +7,11 @@ class Enemy :public Moving_Object {
 	//--------------public--------functions-----------------------//
 public:
 	using Moving_Object::Moving_Object;
-	//Player(sf::Vector2f player_first_loc);
-	//virtual void move() {};//using the move of the moving object
-	//bool getmovement();
-	//bool handleSpecialKey(int c);
-	//bool location_valid(sf::Sprite next);
-	//int get_lives();
-	//int get_score();
+	void handleCollision(Game_Object& gameObject)override;
+	void handleCollision(Enemy& gameObject)override ;
+	void handleCollision(Money& gameObject)override ;
+	void handleCollision(Player& gameObject)override ;
+	void handleCollision(Gift& gameObject)override ;
+
 //--------------private--------members-----------------------//
 };

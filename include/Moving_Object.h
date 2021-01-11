@@ -23,6 +23,9 @@ public:
 	void move_to_center_ladder(std::vector<Game_Object*>m_All_Objects[]);
 	void change__Curr_Texture(std::vector<Game_Object*>m_All_Objects[], sf::Vector2f& Direction);
 	void move_to_center_pole(std::vector<Game_Object*>m_All_Objects[]);
+	void handleCollision_moving(Game_Object& me, std::vector<Game_Object*>m_All_Objects[]);
+	
+
 private:
 	bool m_direction = right;
 };

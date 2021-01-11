@@ -24,7 +24,7 @@ void Player::effect(void* deltaTime, std::vector<Game_Object*>m_All_Objects[NUM_
 }
 
 
-
+//===================================================
 sf::Vector2f Player::dirFromKey()
 {
 		
@@ -49,8 +49,23 @@ sf::Vector2f Player::dirFromKey()
 		return { 0, 0 };
 	}
 
-/*
-{ sf::Keyboard::Right, { m_Elemnt_Of_Game.getGlobalBounds().width*0.1f, 0 } },
-			{ sf::Keyboard::Left , { -m_Elemnt_Of_Game.getGlobalBounds().width * 0.1f, 0 } },
-			{ sf::Keyboard::Up   , { 0, -m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f } },
-			{ sf::Keyboard::Down , { 0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f } },*/
+//==========================================================
+void Player::handleCollision(Game_Object& gameObject)
+{
+	if (&gameObject == this) return;
+	//double dispatch
+	gameObject.handleCollision(*this);
+}
+//===========================================================
+void Player::handleCollision(Money& money) 
+{
+	++m_Score;
+	
+}
+//==============================================================
+void Player::handleCollision(Enemy& enemy) 
+{
+	m_Lives--;
+	std::cout << m_Lives << "\n";
+}
+//============================================================

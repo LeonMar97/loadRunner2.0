@@ -6,6 +6,8 @@
 class Ladder :public Disappearing_Object {
 public:
 	using Disappearing_Object::Disappearing_Object;
+	
+
 
 private:
 
