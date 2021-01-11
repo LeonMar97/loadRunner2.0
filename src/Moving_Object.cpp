@@ -80,14 +80,11 @@ bool Moving_Object::check_ladder(sf::RectangleShape& after_Click, std::vector<Ga
 				}
 				
 				break;
-			case money:
-				 return true;
-			case smart:
-				return true;
+			
 		
 			};
 
-	return false;
+	return true;
 }
 //===================================================================
 //get loc and return typy
