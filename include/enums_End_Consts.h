@@ -23,3 +23,4 @@ enum Direction_left_right {
 	left = 0,
 	right=1
 };
+const sf::Vector2f start_Of_Map(350, 100);//start location
