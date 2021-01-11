@@ -235,8 +235,10 @@ void Controller::set_Background_And_Score() {
 	float s = m_Score_Board.getGlobalBounds().height / 5;
 	font->loadFromFile("Love America.ttf");
 		for (int i = 0; i <= lf; i++) {
+
 			m_Scoreboard_Text[i].setPosition(m_Score_Board.getPosition().x + m_Score_Board.getGlobalBounds().width / 2,
 				m_Score_Board.getPosition().y + ((s)*(i + 1) + (i*s) / 2));
+
 		m_Scoreboard_Text[i].setFont(*font);
 		m_Scoreboard_Text[i].setFillColor(sf::Color::Red);
 		m_Scoreboard_Text[i].setCharacterSize(24);
