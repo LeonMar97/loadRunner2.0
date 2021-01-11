@@ -18,6 +18,18 @@ void Controller:: start_Game() {
 	background.loadFromFile("background.png");
 	sf::Sprite bg;
 	bg.setTexture(background);
+	sf::Texture scoreBoard_pic;
+	scoreBoard_pic.loadFromFile("scoreBoard.png");
+	sf::RectangleShape score_Board;
+	score_Board.setSize(sf::Vector2f( 300.0f, 250.0f));
+	score_Board.setTexture(&scoreBoard_pic);
+	sf::Text lives;
+	lives.setString("hello world");
+	lives.setFillColor(sf::Color::Red) ;
+	lives.setCharacterSize(24);
+	lives.setStyle(sf::Text::Bold | sf::Text::Underlined);
+	//score_Board.setPosition(start_Of_Map.x+(900/2),start_Of_Map.y+700 );
+	score_Board.setPosition(bg.getGlobalBounds().width/2-score_Board.getGlobalBounds().width/2, start_Of_Map.y + 700);
 
 	//=============game loop==========================
 	while (m_Game_Window.isOpen()) {
@@ -51,7 +63,7 @@ void Controller::set_G_O_Vector(){
 	std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS];
 	load_pic(all_Objects);//now all the loaded pictures located in vector
 	
-	sf::Vector2f start_Of_Map(300,100);//start location
+	
 sf::Texture* pic;
 sf::Vector2i sizeof_Map;
 sizeof_Map = m_Board.get_Size();
