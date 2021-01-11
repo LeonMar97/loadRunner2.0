@@ -13,6 +13,7 @@ Controller::Controller()
 	//swap_Location();
 }
 void Controller:: start_Game() {
+	
 	sf::Texture background;
 	background.loadFromFile("background.png");
 	sf::Sprite bg;
@@ -24,7 +25,6 @@ void Controller:: start_Game() {
 		sf::Time elapsed = m_Clock.getElapsedTime();
 		m_Game_Window.clear();
 		m_Game_Window.draw(bg);
-
 		draw_On_map();
 		m_Game_Window.display();
 		sf::Event event;
@@ -176,7 +176,7 @@ void Controller::load_pic(std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS]) 
 						  {"pole.png"},
 						  {"money.png"},
 						  {"enemy.png"},
-						  {"player.png","secondwall.png","playerHurt.png"} };
+						  {"player.png","secondwall.png"} };
 
 	int i, j;
 	sf::Texture *pic;
