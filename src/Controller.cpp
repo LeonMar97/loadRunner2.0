@@ -13,30 +13,14 @@ Controller::Controller()
 	//swap_Location();
 }
 void Controller:: start_Game() {
+	set_Background_And_Score();//setting everything before the start
 	
-	sf::Texture background;
-	background.loadFromFile("background.png");
-	sf::Sprite bg;
-	bg.setTexture(background);
-	sf::Texture scoreBoard_pic;
-	scoreBoard_pic.loadFromFile("scoreBoard.png");
-	sf::RectangleShape score_Board;
-	score_Board.setSize(sf::Vector2f( 300.0f, 250.0f));
-	score_Board.setTexture(&scoreBoard_pic);
-	sf::Text lives;
-	lives.setString("hello world");
-	lives.setFillColor(sf::Color::Red) ;
-	lives.setCharacterSize(24);
-	lives.setStyle(sf::Text::Bold | sf::Text::Underlined);
-	//score_Board.setPosition(start_Of_Map.x+(900/2),start_Of_Map.y+700 );
-	score_Board.setPosition(bg.getGlobalBounds().width/2-score_Board.getGlobalBounds().width/2, start_Of_Map.y + 700);
-
 	//=============game loop==========================
 	while (m_Game_Window.isOpen()) {
 
 		sf::Time elapsed = m_Clock.getElapsedTime();
 		m_Game_Window.clear();
-		m_Game_Window.draw(bg);
+		draw_Score_Board();
 		draw_On_map();
 		m_Game_Window.display();
 		sf::Event event;
@@ -48,11 +32,8 @@ void Controller:: start_Game() {
 		}
 		updateGameObjects();
 		free_Fall();
+		check_Erace();
 		
-		std::experimental::erase_if(m_All_Objects[disappear], [](auto const& item)
-			{
-				return dynamic_cast<Disappearing_Object*>(item)->get_deleted();
-			});
 
 	}
 	}
@@ -213,9 +194,50 @@ void Controller::updateGameObjects()
 }
 //============================================================
 //erase money and gift
+void Controller::draw_Score_Board() {
+	m_Scoreboard_Text[sc].setString(std::to_string((dynamic_cast<Player*>(m_All_Objects[players][0]))->getscore()));
+	m_Scoreboard_Text[lvl].setString(std::to_string(m_Lvl));
+	m_Scoreboard_Text[lf].setString(std::to_string((dynamic_cast<Player*>(m_All_Objects[players][0]))->getlives()));
+	m_Game_Window.draw(m_bg);
+	m_Game_Window.draw(m_Score_Board);
+	for (int i = 0; i <= lf; i++) {
+		m_Game_Window.draw(m_Scoreboard_Text[i]);
+	}
+}
+//============================================================
+
+void Controller:: check_Erace() {
+	std::experimental::erase_if(m_All_Objects[disappear], [](auto const& item)
+		{
+			return dynamic_cast<Disappearing_Object*>(item)->get_deleted();
+		});
 
 
+}
+void Controller::set_Background_And_Score() {
+	//------------------------setting scoreboard and background--------------------------
 
+	sf::Texture *background=new sf::Texture();
+	sf::Texture* scoreBoard_pic = new sf::Texture();
+	background->loadFromFile("background.png");
+	scoreBoard_pic->loadFromFile("scoreBoard.png");
+	m_bg.setTexture(*background);
+	m_Score_Board.setTexture(scoreBoard_pic);
+	m_Score_Board.setSize(sf::Vector2f(300.0f, 250.0f));
+	m_Score_Board.setPosition(m_bg.getGlobalBounds().width / 2 -
+		m_Score_Board.getGlobalBounds().width / 2, start_Of_Map.y + 700);
 
-
-
+	//------------------------setting font--------------------------	
+	sf::Font *font=new sf::Font() ;
+	float s = m_Score_Board.getGlobalBounds().height / 4.5;
+	font->loadFromFile("Love America.ttf");
+		for (int i = 0; i <= lf; i++) {
+		m_Scoreboard_Text[i].setPosition(m_Score_Board.getPosition().x+m_Score_Board.getGlobalBounds().width/2,
+			m_Score_Board.getPosition().y+ (m_Score_Board.getGlobalBounds().height/4.5)*(i)+s);
+		m_Scoreboard_Text[i].setFont(*font);
+		m_Scoreboard_Text[i].setFillColor(sf::Color::Red);
+		m_Scoreboard_Text[i].setCharacterSize(24);
+		m_Scoreboard_Text[i].setStyle(sf::Text::Bold | sf::Text::Underlined);
+		}
+		
+}

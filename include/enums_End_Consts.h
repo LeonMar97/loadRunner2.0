@@ -18,9 +18,16 @@ enum location_In_Vector {
 	enemys = 4,
 	players = 5
 };
-const unsigned int NUM_OF_OBJECTS = 6;
 enum Direction_left_right {
 	left = 0,
 	right=1
 };
+enum scores {
+	sc = 0,
+	lvl = 1,
+	lf = 2
+};
+
+
 const sf::Vector2f start_Of_Map(350, 100);//start location
+const unsigned int NUM_OF_OBJECTS = 6;

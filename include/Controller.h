@@ -26,9 +26,11 @@ class Controller {
 		void  free_Fall();
 		//char What_In_Loc(Game_Object &);
 		void draw_On_map();
-		void setTEx(std::vector<sf::Texture*>texvec, Game_Object current);
 		void load_pic(std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS]);
 		void updateGameObjects();
+		void draw_Score_Board();
+		void check_Erace();
+		void set_Background_And_Score();
 
 //------------------members-----------------------------------//		
 	private :
@@ -37,5 +39,9 @@ class Controller {
 		std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS];//for printing after drawing for displaying
 		sf::Clock m_Clock;
 		int m_Enemys = 0;
+		sf::Sprite m_bg; // the background
+		sf::Text m_Scoreboard_Text[3];
+		sf::RectangleShape m_Score_Board;
+		int m_Lvl=1;
 	};
 	
