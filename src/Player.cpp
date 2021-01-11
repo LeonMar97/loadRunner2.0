@@ -59,7 +59,7 @@ void Player::handleCollision(Game_Object& gameObject)
 //===========================================================
 void Player::handleCollision(Money& money) 
 {
-	++m_Score;
+	m_Score+=2;
 	
 }
 //==============================================================
