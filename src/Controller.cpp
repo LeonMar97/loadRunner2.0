@@ -176,7 +176,7 @@ void Controller::load_pic(std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS]) 
 						  {"pole.png"},
 						  {"money.png"},
 						  {"enemy.png"},
-						  {"player.png","secondwall.png"} };
+						  {"player.png","secondwall.png","playerHurt.png"} };
 
 	int i, j;
 	sf::Texture *pic;

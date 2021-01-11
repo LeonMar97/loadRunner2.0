@@ -65,6 +65,7 @@ void Player::handleCollision(Money& money)
 //==============================================================
 void Player::handleCollision(Enemy& enemy) 
 {
+	//m_elemtsetTexture(m_Tex[2]);
 	m_Lives--;
 	std::cout << m_Lives << "\n";
 }
