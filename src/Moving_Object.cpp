@@ -34,6 +34,7 @@ bool Moving_Object::check_movment(sf::RectangleShape& after_Click, std::vector<G
 																				Game_Object& before_Click){	
 	switch (What_In_Loc(after_Click, m_All_Objects)) {
 	case wall:
+		
 		return false;
 	case ladder:
 		return (check_ladder(after_Click, m_All_Objects, before_Click));
@@ -101,7 +102,7 @@ char Moving_Object::What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Objec
 			if (temp.getGlobalBounds().intersects(m_All_Objects[i][j]->get_rectangle().getGlobalBounds()))
 			{
 				if (m_All_Objects[i][j]->get_Type() != this->get_Type()) {
-					if (m_All_Objects[i][j]->get_Print_Me()|| m_All_Objects[i][j]->get_loction().y<1820.f)
+					if (m_All_Objects[i][j]->get_Print_Me()|| this->get_loction().y>760.f|| this->get_loction().x >1420.f|| this->get_loction().x <349.f)
 				//		|| m_All_Objects[i][j]->get_loction().x>1080|| m_All_Objects[i][j]->get_loction().x<250)
 						return type = m_All_Objects[i][j]->get_Type();
 					
@@ -145,7 +146,7 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 	
 	sf::RectangleShape temp(before_Click.get_rectangle());
 	if (after_Click.getPosition().y - before_Click.get_loction().y > 0.1f){
-		after_Click.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.6);
+		after_Click.move(0,( m_Elemnt_Of_Game.getGlobalBounds().height * 0.000000000000001f));
 		if (What_In_Loc(after_Click, m_All_Objects) != wall) {
 			m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.6);
 			
