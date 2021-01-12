@@ -33,6 +33,7 @@ class Controller {
 		void check_hits();
 		void set_Background_And_Score();
 		void check_Gifts();
+		void delete_vector();
 //------------------members-----------------------------------//		
 	private :
 		sf::RenderWindow m_Game_Window;

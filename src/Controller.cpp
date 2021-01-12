@@ -21,10 +21,7 @@ void Controller:: start_Game() {
 
 		sf::Time elapsed = m_Game_Clock.getElapsedTime();
 		if ((int)elapsed.asSeconds() > 3) {
-			std::experimental::erase_if(*m_All_Objects, [](auto const& item)
-				{
-					return true;
-				});
+			delete_vector();
 			set_G_O_Vector();
 		}
 		
@@ -301,3 +298,11 @@ void Controller::check_Gifts() {
 
 
 //=========================================================================
+void Controller::delete_vector()
+{
+	for (int i = 0; i < NUM_OF_OBJECTS; i++)
+	{
+			m_All_Objects[i].clear();
+	}
+	
+}
