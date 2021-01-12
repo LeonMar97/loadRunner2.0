@@ -6,7 +6,7 @@ void Gift::handleCollision(Player& gameObject)
     int lives, score;
     srand(time(NULL));
     //randomizing gifts 
-    switch (4) {
+    switch ((rand() % 4) + 1) {
     case gift_1:
          lives = gameObject.getlives();
         gameObject.setlives(++lives);
