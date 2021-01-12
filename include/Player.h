@@ -22,9 +22,12 @@ public:
 	void handleCollision(Enemy& gameObject)override;
 	void handleCollision(Player& gameObject)override {};
 	void handleCollision(Gift& gameObject)override {};
+	void set_hit(bool);
+	bool get_hit();
 	
 //--------------private--------members-----------------------//
 private:
 	int m_Score = 0, m_Lives = 3;
+	bool m_got_Hit = false;
 
 };

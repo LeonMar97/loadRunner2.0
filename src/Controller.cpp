@@ -16,7 +16,8 @@ void Controller:: start_Game() {
 	set_Background_And_Score();//setting everything before the start
 	
 	//=============game loop==========================
-	while (m_Game_Window.isOpen()) {
+	while (m_Game_Window.isOpen())
+	{
 
 		sf::Time elapsed = m_Clock.getElapsedTime();
 		m_Game_Window.clear();
@@ -33,9 +34,10 @@ void Controller:: start_Game() {
 		updateGameObjects();
 		free_Fall();
 		check_Erace();
+		check_hits();
 		
 
-	}
+	 }
 	}
 
 //--------------------------------------------------------//
@@ -63,8 +65,9 @@ while (i < sizeof_Map.y+1) {
 	while (j < sizeof_Map.x) {
 //----------------------creating block and setting their size--------------------------------------------------
 		sf::RectangleShape cur_Rec(block_Size);
-		cur_Rec.setPosition(sf::Vector2f(start_Of_Map.x + j * 1280/ sizeof_Map.x,
-			start_Of_Map.y + (i-1) * 720 / sizeof_Map.y));
+		sf::Vector2f rec_Loc(sf::Vector2f(start_Of_Map.x + j * 1280 / sizeof_Map.x,
+			start_Of_Map.y + (i - 1) * 720 / sizeof_Map.y));
+		cur_Rec.setPosition(rec_Loc);
 
 		cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 //----------------------
@@ -75,52 +78,52 @@ while (i < sizeof_Map.y+1) {
 		//settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 			
-			object = new Player(cur_Rec,all_Objects[players], player);
+			object = new Player(cur_Rec,all_Objects[players], rec_Loc, player);
 			m_All_Objects[players].push_back(object);
 			break;
 		case money:
 			cur_Rec.setScale(0.5, 0.5);
-			object = new Money(cur_Rec, all_Objects[disappear],money);
+			object = new Money(cur_Rec, all_Objects[disappear], rec_Loc, money);
 			m_All_Objects[disappear].push_back(object);
 			break;
 		case wall:
 			cur_Rec.setOutlineThickness(1);
 			cur_Rec.setOutlineColor(sf::Color::Black);
 			cur_Rec.setScale(1, 0.9);
-			object = new Wall(cur_Rec, all_Objects[walls], wall);
+			object = new Wall(cur_Rec, all_Objects[walls], rec_Loc, wall);
 			m_All_Objects[walls].push_back(object);
 			break;
 		case smart:
 			cur_Rec.setSize(player_Size);
 			// settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-			object = new Enemy(cur_Rec, all_Objects[enemys], smart);
+			object = new Enemy(cur_Rec, all_Objects[enemys], rec_Loc, smart);
 			m_All_Objects[enemys].push_back(object);
 			break;
 		case stupid:
 			cur_Rec.setSize(player_Size);
-			object = new Enemy(cur_Rec, all_Objects[enemys], stupid);
+			object = new Enemy(cur_Rec, all_Objects[enemys], rec_Loc, stupid);
 			m_All_Objects[enemys].push_back(object);
 			break;
 		case med:
 			
 			cur_Rec.setSize(player_Size);
-			object = new Enemy(cur_Rec, all_Objects[enemys], med);
+			object = new Enemy(cur_Rec, all_Objects[enemys], rec_Loc, med);
 			m_All_Objects[enemys].push_back(object);
 			break;
 		case gift:
-			object = new Gift(cur_Rec, all_Objects[disappear], gift);
+			object = new Gift(cur_Rec, all_Objects[disappear], rec_Loc, gift);
 			m_All_Objects[disappear].push_back(object);
 			break;
 		case pole:
 			cur_Rec.setSize(sf::Vector2f(block_Size.x, (block_Size.y)/2));
 			cur_Rec.setScale(1,0.1);
-			object = new Gift(cur_Rec, all_Objects[poles], pole);
+			object = new Gift(cur_Rec, all_Objects[poles], rec_Loc, pole);
 			m_All_Objects[poles].push_back(object);
 			break;
 		case ladder:
 			cur_Rec.setScale(1, 1.1);
-			object = new Ladder(cur_Rec, all_Objects[ladders],ladder);
+			object = new Ladder(cur_Rec, all_Objects[ladders], rec_Loc, ladder);
 			m_All_Objects[ladders].push_back(object);
 			break;		
 		case ' ':
@@ -232,12 +235,32 @@ void Controller::set_Background_And_Score() {
 	float s = m_Score_Board.getGlobalBounds().height / 5;
 	font->loadFromFile("Love America.ttf");
 		for (int i = 0; i <= lf; i++) {
-		m_Scoreboard_Text[i].setPosition(m_Score_Board.getPosition().x+m_Score_Board.getGlobalBounds().width/2,
-			m_Score_Board.getPosition().y+ ((s)*(i+1)+(i*s)/2));
+
+			m_Scoreboard_Text[i].setPosition(m_Score_Board.getPosition().x + m_Score_Board.getGlobalBounds().width / 2,
+				m_Score_Board.getPosition().y + ((s)*(i + 1) + (i*s) / 2));
+
 		m_Scoreboard_Text[i].setFont(*font);
 		m_Scoreboard_Text[i].setFillColor(sf::Color::Red);
 		m_Scoreboard_Text[i].setCharacterSize(24);
 		m_Scoreboard_Text[i].setStyle(sf::Text::Bold | sf::Text::Underlined);
 		}
 		
+}
+//=========================================================================
+void Controller::check_hits()
+{
+	
+	if (dynamic_cast<Player*>((m_All_Objects[players][0]))->get_hit())
+	{
+		for (int i = 0; i < NUM_OF_OBJECTS; i++)
+		{
+			for (int j = 0; j < m_All_Objects[i].size(); j++) {
+				sf::Vector2f first_Loc(m_All_Objects[i][j]->get_First_loc());
+				m_All_Objects[i][j]->set_loction(first_Loc);
+
+			}
+
+		}
+	}
+	dynamic_cast<Player*>((m_All_Objects[players][0]))->set_hit(false);
 }

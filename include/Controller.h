@@ -30,6 +30,7 @@ class Controller {
 		void updateGameObjects();
 		void draw_Score_Board();
 		void check_Erace();
+		void check_hits();
 		void set_Background_And_Score();
 
 //------------------members-----------------------------------//		

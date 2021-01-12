@@ -12,9 +12,9 @@ class Game_Object {
 
 public:
     //-----------------------------functions------------------------------//
-    Game_Object(sf::RectangleShape cur_rec,  std::vector<sf::Texture*>tex, char icon = ' ') :
+    Game_Object(sf::RectangleShape cur_rec,  std::vector<sf::Texture*>tex,sf::Vector2f loction, char icon = ' ') :
         m_Elemnt_Of_Game(cur_rec),
-        m_Tex(tex), m_Type(icon) {
+        m_Tex(tex),m_first_Loc(loction), m_Type(icon) {
         m_Elemnt_Of_Game.setTexture(m_Tex[0]);
     }
                                                                             
@@ -30,11 +30,12 @@ public:
    sf::Vector2f get_loction()const;
    void set_loction(sf::Vector2f& new_loc);
    sf::RectangleShape get_rectangle()const;
-  
+   sf::Vector2f get_First_loc() { return m_first_Loc; };
     //virtual void effect() = 0;
 protected:
     
      sf::RectangleShape m_Elemnt_Of_Game;
      char m_Type;//just to know which object is it
      std::vector<sf::Texture*>m_Tex;//for the textures.
+     sf::Vector2f m_first_Loc;
 };

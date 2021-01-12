@@ -32,7 +32,7 @@ sf::Vector2f Player::dirFromKey()
 			std::initializer_list<std::pair<sf::Keyboard::Key, sf::Vector2f>>
 			keyToVectorMapping =
 		{
-			{ sf::Keyboard::Right, { 1, 0 } },
+			{ sf::Keyboard::Right , { 1, 0 } },
 			{ sf::Keyboard::Left , { -1, 0 } },
 			{ sf::Keyboard::Up   , { 0, -1 } },
 			{ sf::Keyboard::Down , { 0, 1 } },
@@ -65,8 +65,17 @@ void Player::handleCollision(Money& money)
 //==============================================================
 void Player::handleCollision(Enemy& enemy) 
 {
-	//m_elemtsetTexture(m_Tex[2]);
 	m_Lives--;
-	std::cout << m_Lives << "\n";
+	m_got_Hit = true;
+}
+//============================================================
+void Player::set_hit(bool hit)
+{
+	m_got_Hit = hit;
+}
+//============================================================
+bool Player::get_hit()
+{
+	return m_got_Hit;
 }
 //============================================================
