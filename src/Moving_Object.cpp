@@ -146,9 +146,9 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 	
 	sf::RectangleShape temp(before_Click.get_rectangle());
 	if (after_Click.getPosition().y - before_Click.get_loction().y > 0.1f){
-		after_Click.move(0,( m_Elemnt_Of_Game.getGlobalBounds().height * 0.000000000000001f));
+		after_Click.move(0,( m_Elemnt_Of_Game.getGlobalBounds().height * 0.5f));
 		if (What_In_Loc(after_Click, m_All_Objects) != wall) {
-			m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.6);
+			m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.5f);
 			
 			return false;
 		}
@@ -164,8 +164,8 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 		move_to_center_pole(m_All_Objects);
 		return true;
 	}
-
 	*/
+	
     	move_to_center_pole(m_All_Objects);
 		return true;
 }

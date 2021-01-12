@@ -41,5 +41,5 @@ enum digging {
 };
 
 
-const sf::Vector2f start_Of_Map(350, 100);//start location
+const sf::Vector2f start_Of_Map(350, 200);//start location
 const unsigned int NUM_OF_OBJECTS = 7;

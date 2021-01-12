@@ -72,7 +72,7 @@ while (i < sizeof_Map.y+1) {
 //----------------------creating block and setting their size--------------------------------------------------
 		sf::RectangleShape cur_Rec(block_Size);
 		sf::Vector2f rec_Loc(sf::Vector2f(start_Of_Map.x + j * 1280 / sizeof_Map.x,
-			start_Of_Map.y + (i - 1) * 720 / sizeof_Map.y));
+			400 + (i - 1) * 720 / sizeof_Map.y));
 		cur_Rec.setPosition(rec_Loc);
 
 		cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
@@ -328,12 +328,20 @@ void Controller:: check_Rest_Time() {
 	
 	
 
-	if ((int)m_wall_clock.getElapsedTime().asSeconds() > 5)
+	if ((int)m_wall_clock.getElapsedTime().asSeconds() > 3)
 	{
 		m_wall_clock.restart();
 		for (int i = 0; i < m_All_Objects[walls].size(); i++)
+		{
 			m_All_Objects[walls][i]->set_Print_Me(true);
-		
+			if(m_All_Objects[players][0]->get_rectangle()
+				.getGlobalBounds().intersects(m_All_Objects[walls][i]->get_rectangle().getGlobalBounds()))
+			{
+				m_All_Objects[players][0]->get_rectangle()
+					.move(0, -m_All_Objects[players][0]->get_rectangle().getGlobalBounds().height*3);
+			}
+
+		}
 	}
 
 }
