@@ -48,7 +48,7 @@ void Board::set_Size() {
 void Board::set_Map() {
 	int i = 0;
 	auto cur = std::string();
-	for (i;i <= m_Size.x;i++) {
+	for (i;i <= m_Size.y;i++) {
 		std::getline(m_Cf, cur);
 
 		m_Board.push_back(cur);
@@ -100,7 +100,6 @@ char Board::what_In_Location(const sf::Vector2i cur_Loc)const {
 * loading new map for each lvl
 */
 bool Board::rebuild_Map() {
-
 	m_Board.clear();
 	set_Size();
 	if (m_Size.x > 0&& m_Size.y > 0) {
