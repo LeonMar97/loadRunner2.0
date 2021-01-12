@@ -21,6 +21,7 @@ void Controller:: start_Game() {
 
 		sf::Time elapsed = m_Game_Clock.getElapsedTime();
 		if ((int)elapsed.asSeconds() > 3) {
+			m_Game_Clock.restart();
 			delete_vector();
 			set_G_O_Vector();
 		}
@@ -294,9 +295,6 @@ void Controller::check_Gifts() {
 
 	}
 }
-
-
-
 //=========================================================================
 void Controller::delete_vector()
 {
@@ -304,5 +302,5 @@ void Controller::delete_vector()
 	{
 			m_All_Objects[i].clear();
 	}
-	
+	m_All_Objects->clear();
 }
