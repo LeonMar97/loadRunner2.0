@@ -26,6 +26,7 @@ public:
 	void set_Map();	//sets the map on vector
 	
 	int get_Time()const { return m_Time; };
+	void set_time(int time) { m_Time = time; };
 //--------------private--------functions-----------------------//
 private:
 	void file_close();

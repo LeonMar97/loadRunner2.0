@@ -13,9 +13,10 @@ public:
 	void handleCollision(Player& gameObject)override ;
 	void handleCollision(Gift& gameObject)override {};
 	bool get_Bad_Gift()const { return m_Get_Enemy; };//returns controller info new enemy needed
+	bool get_time_Gift()const { return m_Plus_Time; };
 private:
 	bool m_Get_Enemy=false;
-	
+	bool m_Plus_Time = false;
 };
 
 

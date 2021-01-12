@@ -1,6 +1,8 @@
  #include "Controller.h"
 #include <cmath>
 #include <experimental/vector>
+#include <sstream>
+#include <string>
 #pragma once
 //--------------------------------------------------------//
 
@@ -20,9 +22,9 @@ void Controller:: start_Game() {
 	{
 
 		check_Rest_Time();
-		draw_Time();
 		m_Game_Window.clear();
 		draw_Score_Board();
+		draw_Time();
 		draw_On_map();
 		m_Game_Window.display();
 		sf::Event event;
@@ -211,6 +213,7 @@ void Controller::draw_Score_Board() {
 	for (int i = 0; i <= lf; i++) {
 		m_Game_Window.draw(m_Scoreboard_Text[i]);
 	}
+	
 }
 //============================================================
 
@@ -253,6 +256,12 @@ void Controller::set_Background_And_Score() {
 		m_Scoreboard_Text[i].setCharacterSize(24);
 		m_Scoreboard_Text[i].setStyle(sf::Text::Bold | sf::Text::Underlined);
 		}
+		time_to_screen.setFont(*font);
+		time_to_screen.setPosition(750, 20);
+		time_to_screen.setFillColor(sf::Color::Blue);
+		time_to_screen.setCharacterSize(40);
+		time_to_screen.setStyle(sf::Text::Bold | sf::Text::Underlined);
+		
 		
 }
 //=========================================================================
@@ -286,6 +295,10 @@ void Controller::check_Gifts() {
 			vasia->set_loction(fir);
 			m_All_Objects[enemys].push_back(vasia);
 		}
+		if (dynamic_cast<Gift*>((m_All_Objects[gifts][i]))->get_time_Gift())
+		{
+			m_Board.set_time(m_Board.get_Time() +30);
+		}
 	
 
 	}
@@ -311,8 +324,13 @@ void Controller:: check_Rest_Time() {
 		dynamic_cast<Player*>(m_All_Objects[players][0])->
 			setlives(lif);
 	}
+
 }
 //=========================================================================
 void Controller::draw_Time() {
-
+	sf::Time elapsed = m_Game_Clock.getElapsedTime();
+	std::stringstream time;
+	time << "Time left   [00:" << std::to_string(m_Board.get_Time() - (int)elapsed.asSeconds())<<"]";
+	time_to_screen.setString(time.str());
+	m_Game_Window.draw(time_to_screen);
 }
