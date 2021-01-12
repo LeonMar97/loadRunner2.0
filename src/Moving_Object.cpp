@@ -264,7 +264,7 @@ void Moving_Object::handle_dig
 {
 	float size = (m_Elemnt_Of_Game.getTexture()->getSize().x) / 3;
 	sf::RectangleShape temp(me.get_rectangle());
-	temp.move((Direction.x*m_Elemnt_Of_Game.getGlobalBounds().width)*2,m_Elemnt_Of_Game.getGlobalBounds().height/2);
+	temp.move((Direction.x*m_Elemnt_Of_Game.getGlobalBounds().width)*2,m_Elemnt_Of_Game.getGlobalBounds().height);
 		for (int j = 0; j < m_All_Objects[walls].size(); j++) {
 
 			if (temp.getGlobalBounds().intersects(m_All_Objects[walls][j]->get_rectangle().getGlobalBounds()))
