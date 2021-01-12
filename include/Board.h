@@ -24,6 +24,8 @@ public:
 	void set_Size();
 
 	void set_Map();	//sets the map on vector
+	
+	int get_Time()const { return m_Time; };
 //--------------private--------functions-----------------------//
 private:
 	void file_close();
@@ -34,4 +36,5 @@ private:
 	sf::Vector2i m_Size;
 	std::vector<std::string>m_Board;
 	std::ifstream m_Cf;
+	int m_Time;
 };

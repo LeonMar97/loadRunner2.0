@@ -20,7 +20,7 @@ void Controller:: start_Game() {
 	{
 
 		sf::Time elapsed = m_Game_Clock.getElapsedTime();
-		if ((int)elapsed.asSeconds() > 3) {
+		if ((int)elapsed.asSeconds() > 10) {
 			delete_vector();
 			set_G_O_Vector();
 		}
