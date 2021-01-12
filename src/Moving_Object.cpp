@@ -237,7 +237,7 @@ void Moving_Object::move_to_center_pole(std::vector<Game_Object*>m_All_Objects[]
 //==========================================================================
 void Moving_Object::handleCollision_moving(Game_Object& me, std::vector<Game_Object*>m_All_Objects[])
 {
-	for (int i = disappear; i < NUM_OF_OBJECTS; i++)
+	for (int i = moneys; i < NUM_OF_OBJECTS; i++)
 	{
 		for (int j = 0; j < m_All_Objects[i].size(); j++) {
 

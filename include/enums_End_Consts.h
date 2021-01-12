@@ -5,7 +5,7 @@ enum element {
 	smart = '%',
 	stupid = '&',
 	med = '$',
-	gift = '!',
+	gift = 'G',
 	pole = '-',
 	ladder = 'H',
 	space = 'r'
@@ -14,9 +14,10 @@ enum location_In_Vector {
 	walls = 0,
 	ladders=1,
 	poles=2,
-	disappear=3,
-	enemys = 4,
-	players = 5
+	moneys=3,
+	gifts = 4,
+	enemys = 5,
+	players = 6
 };
 enum Direction_left_right {
 	left = 0,
@@ -27,7 +28,13 @@ enum scores {
 	lvl = 1,
 	lf = 2
 };
+enum Gifts_Kinds {
+	gift_1 = 1,
+	gift_2 = 2,
+	gift_3 = 3,
+	gift_4 = 4
+};
 
 
 const sf::Vector2f start_Of_Map(350, 100);//start location
-const unsigned int NUM_OF_OBJECTS = 6;
+const unsigned int NUM_OF_OBJECTS = 7;

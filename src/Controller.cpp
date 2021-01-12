@@ -19,7 +19,15 @@ void Controller:: start_Game() {
 	while (m_Game_Window.isOpen())
 	{
 
-		sf::Time elapsed = m_Clock.getElapsedTime();
+		sf::Time elapsed = m_Game_Clock.getElapsedTime();
+		if ((int)elapsed.asSeconds() > 3) {
+			std::experimental::erase_if(*m_All_Objects, [](auto const& item)
+				{
+					return true;
+				});
+			set_G_O_Vector();
+		}
+		
 		m_Game_Window.clear();
 		draw_Score_Board();
 		draw_On_map();
@@ -33,8 +41,10 @@ void Controller:: start_Game() {
 		}
 		updateGameObjects();
 		free_Fall();
-		check_Erace();
+		check_Gifts();//getting info after collision with gifts
 		check_hits();
+		check_Erace();
+
 		
 
 	 }
@@ -83,8 +93,8 @@ while (i < sizeof_Map.y+1) {
 			break;
 		case money:
 			cur_Rec.setScale(0.5, 0.5);
-			object = new Money(cur_Rec, all_Objects[disappear], rec_Loc, money);
-			m_All_Objects[disappear].push_back(object);
+			object = new Money(cur_Rec, all_Objects[moneys], rec_Loc, money);
+			m_All_Objects[moneys].push_back(object);
 			break;
 		case wall:
 			cur_Rec.setOutlineThickness(1);
@@ -112,8 +122,9 @@ while (i < sizeof_Map.y+1) {
 			m_All_Objects[enemys].push_back(object);
 			break;
 		case gift:
-			object = new Gift(cur_Rec, all_Objects[disappear], rec_Loc, gift);
-			m_All_Objects[disappear].push_back(object);
+			cur_Rec.setScale(0.5, 0.5);
+			object = new Gift(cur_Rec, all_Objects[gifts], rec_Loc, gift);
+			m_All_Objects[gifts].push_back(object);
 			break;
 		case pole:
 			cur_Rec.setSize(sf::Vector2f(block_Size.x, (block_Size.y)/2));
@@ -171,6 +182,7 @@ void Controller::load_pic(std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS]) 
 						  {"ladder.png"},
 						  {"pole.png"},
 						  {"money.png"},
+						  {"gift.png"},
 						  {"enemy.png"},
 						  {"player.png","secondwall.png"} };
 
@@ -210,7 +222,11 @@ void Controller::draw_Score_Board() {
 //============================================================
 
 void Controller:: check_Erace() {
-	std::experimental::erase_if(m_All_Objects[disappear], [](auto const& item)
+	std::experimental::erase_if(m_All_Objects[moneys], [](auto const& item)
+		{
+			return dynamic_cast<Disappearing_Object*>(item)->get_deleted();
+		});
+	std::experimental::erase_if(m_All_Objects[gifts], [](auto const& item)
 		{
 			return dynamic_cast<Disappearing_Object*>(item)->get_deleted();
 		});
@@ -247,6 +263,7 @@ void Controller::set_Background_And_Score() {
 		
 }
 //=========================================================================
+//checking if player got hit by enemy and reset lvl without coins
 void Controller::check_hits()
 {
 	
@@ -264,3 +281,23 @@ void Controller::check_hits()
 	}
 	dynamic_cast<Player*>((m_All_Objects[players][0]))->set_hit(false);
 }
+//=========================================================================
+//checking info from gift
+void Controller::check_Gifts() {
+	for (int i = 0; i < m_All_Objects[gifts].size(); i++) {
+
+		if (dynamic_cast<Gift*>((m_All_Objects[gifts][i]))->get_Bad_Gift()) {
+			
+			Enemy* vasia = new Enemy(*dynamic_cast<Enemy*>(m_All_Objects[enemys][0]));
+			sf::Vector2f fir(m_All_Objects[players][0]->get_First_loc());
+			vasia->set_loction(fir);
+			m_All_Objects[enemys].push_back(vasia);
+		}
+	
+
+	}
+}
+
+
+
+//=========================================================================
