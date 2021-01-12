@@ -34,6 +34,8 @@ class Controller {
 		void set_Background_And_Score();
 		void check_Gifts();
 		void delete_vector();
+		void check_Rest_Time();
+		void draw_Time();
 //------------------members-----------------------------------//		
 	private :
 		sf::RenderWindow m_Game_Window;

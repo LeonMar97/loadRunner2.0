@@ -36,7 +36,7 @@ Board::Board()
 */
 void Board::set_Size() {
 	
-	m_Cf >>m_Size.y>>m_Size.x ;
+	m_Cf >>m_Size.y>>m_Size.x>>m_Time;
 
 }
 //--------------------------------------------------
@@ -110,5 +110,7 @@ bool Board::rebuild_Map() {
 	else
 		return false;
 }
+
 //--------------------------------------------------
+
 

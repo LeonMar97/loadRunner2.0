@@ -19,12 +19,8 @@ void Controller:: start_Game() {
 	while (m_Game_Window.isOpen())
 	{
 
-		sf::Time elapsed = m_Game_Clock.getElapsedTime();
-		if ((int)elapsed.asSeconds() > 10) {
-			delete_vector();
-			set_G_O_Vector();
-		}
-		
+		check_Rest_Time();
+		draw_Time();
 		m_Game_Window.clear();
 		draw_Score_Board();
 		draw_On_map();
@@ -294,9 +290,6 @@ void Controller::check_Gifts() {
 
 	}
 }
-
-
-
 //=========================================================================
 void Controller::delete_vector()
 {
@@ -304,5 +297,22 @@ void Controller::delete_vector()
 	{
 			m_All_Objects[i].clear();
 	}
-	
+	m_All_Objects->clear();
+}
+//=========================================================================
+//resting the time
+void Controller:: check_Rest_Time() {
+	sf::Time elapsed = m_Game_Clock.getElapsedTime();
+	if ((int)elapsed.asSeconds() > m_Board.get_Time()) {
+		m_Game_Clock.restart();
+		int lif = (dynamic_cast<Player*>(m_All_Objects[players][0])->getlives()) - 1;
+		delete_vector();
+		set_G_O_Vector();
+		dynamic_cast<Player*>(m_All_Objects[players][0])->
+			setlives(lif);
+	}
+}
+//=========================================================================
+void Controller::draw_Time() {
+
 }
