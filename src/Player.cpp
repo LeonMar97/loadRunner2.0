@@ -36,8 +36,8 @@ sf::Vector2f Player::dirFromKey()
 			{ sf::Keyboard::Left , { -1, 0 } },
 			{ sf::Keyboard::Up   , { 0, -1 } },
 			{ sf::Keyboard::Down , { 0, 1 } },
-			{ sf::Keyboard::X , { 3, 0 } },
-			{sf::Keyboard::Z, { -3,0  }
+			{ sf::Keyboard::X , { 1, 1 } },
+			{sf::Keyboard::Z, { -1,1  }
 }
 		};
 
@@ -51,6 +51,7 @@ sf::Vector2f Player::dirFromKey()
 				{
 					return pair.second;
 				}
+				/*
 				if ((pair.second == sf::Vector2f(3, 0))) 
 				{
 					m_dig = right_dig;
@@ -61,7 +62,7 @@ sf::Vector2f Player::dirFromKey()
 					m_dig = left_dig;
 					
 				}
-
+				*/
 			}
 			
 		}

@@ -11,6 +11,7 @@ public://functions
 	void handleCollision(Money& gameObject)override {};
 	void handleCollision(Player& gameObject)override {};
 	void handleCollision(Gift& gameObject)override {};
+	void handleCollision(Wall& enemy) override{};
 	bool get_deleted() {return m_deleted;}
 private:
 

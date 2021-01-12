@@ -1,5 +1,6 @@
 #include "Game_Object.h"
  void Game_Object::draw_On_Board(sf::RenderWindow& game_screen) {
+	 if(this->print_me)
 	 game_screen.draw(this ->m_Elemnt_Of_Game);
 }
  sf::Vector2f Game_Object:: get_loction()const

@@ -6,7 +6,7 @@
 class Wall :public Disappearing_Object {
 public:
 	using Disappearing_Object::Disappearing_Object;
-	
+	void handleCollision(Player& enemy) ;
 
 
 private:

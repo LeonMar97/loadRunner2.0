@@ -9,8 +9,12 @@ void Moving_Object::move_Object(sf::Vector2f &Direction,sf::Time delta_time, std
 
 		
 	sf::RectangleShape temp(m_Elemnt_Of_Game);
-	
-	float size = (m_Elemnt_Of_Game.getTexture()->getSize().x)/3;
+	if ((int)Direction.y == 1 && ((int)Direction.x == -1 || (int)Direction.x == 1)) {
+		handle_dig(*this, m_All_Objects, Direction, delta_time);
+		change__Curr_Texture(m_All_Objects, Direction);
+		return;
+	}
+	    float size = (m_Elemnt_Of_Game.getTexture()->getSize().x)/3;
 		temp.move(Direction *size * delta_time.asSeconds());
 		if (check_movment(temp, m_All_Objects, *this)) {
 			
@@ -29,8 +33,8 @@ void Moving_Object::move_Object(sf::Vector2f &Direction,sf::Time delta_time, std
 bool Moving_Object::check_movment(sf::RectangleShape& after_Click, std::vector<Game_Object*>m_All_Objects[],
 																				Game_Object& before_Click){	
 	switch (What_In_Loc(after_Click, m_All_Objects)) {
-	case wall:  
-		return check_wall(m_All_Objects, before_Click, after_Click);
+	case wall:
+		return false;
 	case ladder:
 		return (check_ladder(after_Click, m_All_Objects, before_Click));
 	case pole:
@@ -82,7 +86,7 @@ bool Moving_Object::check_ladder(sf::RectangleShape& after_Click, std::vector<Ga
 		
 			};
 
-	return true;
+	return false;
 }
 //===================================================================
 //get loc and return typy
@@ -97,6 +101,7 @@ char Moving_Object::What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Objec
 			if (temp.getGlobalBounds().intersects(m_All_Objects[i][j]->get_rectangle().getGlobalBounds()))
 			{
 				if (m_All_Objects[i][j]->get_Type() != this->get_Type())
+					if(m_All_Objects[i][j]->get_Print_Me())
 				return type = m_All_Objects[i][j]->get_Type();
 			}
 		
@@ -144,6 +149,7 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 			return false;
 		}
 	}
+	/*
 	if(What_In_Loc(temp, m_All_Objects) == ladder)
 	{
 		move_to_center_pole(m_All_Objects);
@@ -154,9 +160,10 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 		move_to_center_pole(m_All_Objects);
 		return true;
 	}
+
+	*/
     	move_to_center_pole(m_All_Objects);
 		return true;
-	
 }
 //-------------------------------------------------------------------------------
 //move object to the center of ladder or pole
@@ -235,7 +242,7 @@ void Moving_Object::move_to_center_pole(std::vector<Game_Object*>m_All_Objects[]
 //==========================================================================
 void Moving_Object::handleCollision_moving(Game_Object& me, std::vector<Game_Object*>m_All_Objects[])
 {
-	for (int i = 0; i < NUM_OF_OBJECTS; i++)
+	for (int i = moneys; i < NUM_OF_OBJECTS; i++)
 	{
 		for (int j = 0; j < m_All_Objects[i].size(); j++) {
 
@@ -249,11 +256,20 @@ void Moving_Object::handleCollision_moving(Game_Object& me, std::vector<Game_Obj
 	}
 }
 //========================================================================
-//if pressed x or z function allow dig throw wall *only player*
-bool Moving_Object::check_wall(std::vector<Game_Object*>m_All_Objects[],
-	Game_Object& before_Click, sf::RectangleShape& after_Click)
+void Moving_Object::handle_dig
+(Game_Object& me, std::vector<Game_Object*>m_All_Objects[], sf::Vector2f& Direction, sf::Time delta_time)
 {
-	if (this->get_Type() != player)//if enemy
-		return false;
-	return false;
+	float size = (m_Elemnt_Of_Game.getTexture()->getSize().x) / 3;
+	sf::RectangleShape temp(me.get_rectangle());
+	temp.move((Direction.x*m_Elemnt_Of_Game.getGlobalBounds().width)*2,m_Elemnt_Of_Game.getGlobalBounds().height/2);
+		for (int j = 0; j < m_All_Objects[walls].size(); j++) {
+
+			if (temp.getGlobalBounds().intersects(m_All_Objects[walls][j]->get_rectangle().getGlobalBounds()))
+			{
+				me.handleCollision(*m_All_Objects[walls][j]);
+			}
+
+		}
+
+	
 }

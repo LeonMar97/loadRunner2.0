@@ -40,6 +40,7 @@ void Controller:: start_Game() {
 		check_hits();
 		check_Erace();
 
+
 		
 
 	 }
@@ -324,6 +325,8 @@ void Controller:: check_Rest_Time() {
 		dynamic_cast<Player*>(m_All_Objects[players][0])->
 			setlives(lif);
 	}
+	
+
 
 }
 //=========================================================================
