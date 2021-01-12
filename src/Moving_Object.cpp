@@ -100,9 +100,12 @@ char Moving_Object::What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Objec
 
 			if (temp.getGlobalBounds().intersects(m_All_Objects[i][j]->get_rectangle().getGlobalBounds()))
 			{
-				if (m_All_Objects[i][j]->get_Type() != this->get_Type())
-					if(m_All_Objects[i][j]->get_Print_Me())
-				return type = m_All_Objects[i][j]->get_Type();
+				if (m_All_Objects[i][j]->get_Type() != this->get_Type()) {
+					if (m_All_Objects[i][j]->get_Print_Me()|| m_All_Objects[i][j]->get_loction().y<1820.f)
+				//		|| m_All_Objects[i][j]->get_loction().x>1080|| m_All_Objects[i][j]->get_loction().x<250)
+						return type = m_All_Objects[i][j]->get_Type();
+					
+				}
 			}
 		
 		}
