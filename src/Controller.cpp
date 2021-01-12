@@ -37,8 +37,10 @@ void Controller:: start_Game() {
 		updateGameObjects();
 		free_Fall();
 		check_Gifts();//getting info after collision with gifts
-		check_hits();
+		check_Hits();
 		check_Erace();
+		check_Score();
+
 
 
 		
@@ -267,7 +269,7 @@ void Controller::set_Background_And_Score() {
 }
 //=========================================================================
 //checking if player got hit by enemy and reset lvl without coins
-void Controller::check_hits()
+void Controller::check_Hits()
 {
 	
 	if (dynamic_cast<Player*>((m_All_Objects[players][0]))->get_hit())
@@ -352,4 +354,18 @@ void Controller::draw_Time() {
 	time << "Time left   [00:" << std::to_string(m_Board.get_Time() - (int)elapsed.asSeconds())<<"]";
 	time_to_screen.setString(time.str());
 	m_Game_Window.draw(time_to_screen);
+}
+//=====================================================================
+void Controller::check_Score() {
+	if (m_All_Objects[moneys].size() == 0) {
+		
+		m_Board.rebuild_Map();
+		m_Lvl++;
+		int score = (dynamic_cast<Player*>(m_All_Objects[players][0]))->getscore();
+		score += 50;
+		delete_vector();
+		set_G_O_Vector();
+		dynamic_cast<Player*>(m_All_Objects[players][0])->setscore(score);
+		
+	}
 }

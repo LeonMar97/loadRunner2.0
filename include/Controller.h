@@ -30,12 +30,13 @@ class Controller {
 		void updateGameObjects();
 		void draw_Score_Board();
 		void check_Erace();
-		void check_hits();
+		void check_Hits();
 		void set_Background_And_Score();
 		void check_Gifts();
 		void delete_vector();
 		void check_Rest_Time();
 		void draw_Time();
+		void check_Score();
 //------------------members-----------------------------------//		
 	private :
 		sf::RenderWindow m_Game_Window;
