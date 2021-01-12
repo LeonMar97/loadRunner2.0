@@ -164,8 +164,8 @@ bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],
 		move_to_center_pole(m_All_Objects);
 		return true;
 	}
-
 	*/
+	
     	move_to_center_pole(m_All_Objects);
 		return true;
 }

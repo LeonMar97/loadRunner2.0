@@ -326,7 +326,23 @@ void Controller:: check_Rest_Time() {
 			setlives(lif);
 	}
 	
+	
 
+	if ((int)m_wall_clock.getElapsedTime().asSeconds() > 3)
+	{
+		m_wall_clock.restart();
+		for (int i = 0; i < m_All_Objects[walls].size(); i++)
+		{
+			m_All_Objects[walls][i]->set_Print_Me(true);
+			if(m_All_Objects[players][0]->get_rectangle()
+				.getGlobalBounds().intersects(m_All_Objects[walls][i]->get_rectangle().getGlobalBounds()))
+			{
+				m_All_Objects[players][0]->get_rectangle()
+					.move(0, -m_All_Objects[players][0]->get_rectangle().getGlobalBounds().height*3);
+			}
+
+		}
+	}
 
 }
 //=========================================================================
