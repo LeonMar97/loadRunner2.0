@@ -1,5 +1,5 @@
 #include "Moving_Object.h"
-
+class Player;
 
 
 
@@ -30,9 +30,7 @@ bool Moving_Object::check_movment(sf::RectangleShape& after_Click, std::vector<G
 																				Game_Object& before_Click){	
 	switch (What_In_Loc(after_Click, m_All_Objects)) {
 	case wall:  
-		return false;
-		break;
-
+		return check_wall(m_All_Objects, before_Click, after_Click);
 	case ladder:
 		return (check_ladder(after_Click, m_All_Objects, before_Click));
 	case pole:
@@ -237,7 +235,7 @@ void Moving_Object::move_to_center_pole(std::vector<Game_Object*>m_All_Objects[]
 //==========================================================================
 void Moving_Object::handleCollision_moving(Game_Object& me, std::vector<Game_Object*>m_All_Objects[])
 {
-	for (int i = moneys; i < NUM_OF_OBJECTS; i++)
+	for (int i = 0; i < NUM_OF_OBJECTS; i++)
 	{
 		for (int j = 0; j < m_All_Objects[i].size(); j++) {
 
@@ -249,4 +247,13 @@ void Moving_Object::handleCollision_moving(Game_Object& me, std::vector<Game_Obj
 		}
 
 	}
+}
+//========================================================================
+//if pressed x or z function allow dig throw wall *only player*
+bool Moving_Object::check_wall(std::vector<Game_Object*>m_All_Objects[],
+	Game_Object& before_Click, sf::RectangleShape& after_Click)
+{
+	if (this->get_Type() != player)//if enemy
+		return false;
+	return false;
 }

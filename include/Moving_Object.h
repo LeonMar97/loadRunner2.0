@@ -24,8 +24,11 @@ public:
 	void change__Curr_Texture(std::vector<Game_Object*>m_All_Objects[], sf::Vector2f& Direction);
 	void move_to_center_pole(std::vector<Game_Object*>m_All_Objects[]);
 	void handleCollision_moving(Game_Object& me, std::vector<Game_Object*>m_All_Objects[]);
+	bool check_wall(std::vector<Game_Object*>m_All_Objects[],
+		Game_Object& before_Click, sf::RectangleShape& after_Click);
 	
 
-private:
+protected:
 	bool m_direction = right;
+	int m_dig = undig;
 };

@@ -36,14 +36,34 @@ sf::Vector2f Player::dirFromKey()
 			{ sf::Keyboard::Left , { -1, 0 } },
 			{ sf::Keyboard::Up   , { 0, -1 } },
 			{ sf::Keyboard::Down , { 0, 1 } },
+			{ sf::Keyboard::X , { 3, 0 } },
+			{sf::Keyboard::Z, { -3,0  }
+}
 		};
 
 		for (const auto& pair : keyToVectorMapping)
 		{
+			
 			if (sf::Keyboard::isKeyPressed(pair.first))
 			{
-				return pair.second;
+				
+				if (pair.second != sf::Vector2f(3, 0)&& pair.second != sf::Vector2f(-3, 0))
+				{
+					return pair.second;
+				}
+				if ((pair.second == sf::Vector2f(3, 0))) 
+				{
+					m_dig = right_dig;
+					
+				}
+				if (pair.second == sf::Vector2f(-3, 0))
+				{
+					m_dig = left_dig;
+					
+				}
+
 			}
+			
 		}
 
 		return { 0, 0 };

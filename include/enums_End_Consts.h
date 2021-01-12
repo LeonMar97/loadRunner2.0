@@ -34,6 +34,11 @@ enum Gifts_Kinds {
 	gift_3 = 3,
 	gift_4 = 4
 };
+enum digging {
+	left_dig=1,
+	right_dig=2,
+	undig=0
+};
 
 
 const sf::Vector2f start_Of_Map(350, 100);//start location
