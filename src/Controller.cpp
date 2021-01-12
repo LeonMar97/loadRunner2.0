@@ -326,7 +326,15 @@ void Controller:: check_Rest_Time() {
 			setlives(lif);
 	}
 	
+	
 
+	if ((int)m_wall_clock.getElapsedTime().asSeconds() > 5)
+	{
+		m_wall_clock.restart();
+		for (int i = 0; i < m_All_Objects[walls].size(); i++)
+			m_All_Objects[walls][i]->set_Print_Me(true);
+		
+	}
 
 }
 //=========================================================================

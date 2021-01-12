@@ -34,6 +34,7 @@ public:
    sf::RectangleShape get_rectangle()const;
    sf::Vector2f get_First_loc() { return m_first_Loc; };
    bool get_Print_Me()const { return print_me; }
+   void set_Print_Me(bool item) { print_me=item; }
     //virtual void effect() = 0;
 protected:
     
