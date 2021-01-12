@@ -234,7 +234,7 @@ void Controller::set_Background_And_Score() {
 
 	sf::Texture *background=new sf::Texture();
 	sf::Texture* scoreBoard_pic = new sf::Texture();
-	background->loadFromFile("background.png");
+	background->loadFromFile("background2.png");
 	scoreBoard_pic->loadFromFile("scoreBoard.png");
 	m_bg.setTexture(*background);
 	m_Score_Board.setTexture(scoreBoard_pic);
