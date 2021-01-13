@@ -324,10 +324,12 @@ void Controller:: check_Rest_Time() {
 	if ((int)elapsed.asSeconds() > m_Board.get_Time()) {
 		m_Game_Clock.restart();
 		int lif = (dynamic_cast<Player*>(m_All_Objects[players][0])->getlives()) - 1;
+		int score = (dynamic_cast<Player*>(m_All_Objects[players][0])->getscore());
 		delete_vector();
 		set_G_O_Vector();
 		dynamic_cast<Player*>(m_All_Objects[players][0])->
 			setlives(lif);
+		dynamic_cast<Player*>(m_All_Objects[players][0])->setscore(score);
 	}
 	
 	
