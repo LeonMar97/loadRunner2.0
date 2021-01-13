@@ -302,7 +302,7 @@ void Controller::check_Gifts() {
 		}
 		if (dynamic_cast<Gift*>((m_All_Objects[gifts][i]))->get_time_Gift())
 		{
-			m_Board.set_time(m_Board.get_Time() +30);
+			m_Board.set_time(m_Board.get_Time() +EXTRA_TIME);
 		}
 	
 

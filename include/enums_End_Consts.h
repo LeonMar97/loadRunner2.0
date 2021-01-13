@@ -33,6 +33,7 @@ enum Gifts_Kinds {
 	gift_2 = 2,
 	gift_3 = 3,
 	gift_4 = 4
+
 };
 enum digging {
 	left_dig=1,
@@ -40,6 +41,6 @@ enum digging {
 	undig=0
 };
 
-
+const int EXTRA_TIME = 30;
 const sf::Vector2f start_Of_Map(350, 150);//start location
 const unsigned int NUM_OF_OBJECTS = 7;
