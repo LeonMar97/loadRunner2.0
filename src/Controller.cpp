@@ -368,6 +368,7 @@ void Controller::check_Score() {
 		delete_vector();
 		set_G_O_Vector();
 		dynamic_cast<Player*>(m_All_Objects[players][0])->setscore(score);
+		m_Game_Clock.restart();
 		
 	}
 }
