@@ -8,7 +8,7 @@
 //--------------------------------------------------------//
 
 //main loop of the game
-
+int Money::m_Num_of_Money = 0;
 Controller::Controller()
 :m_Game_Window(sf::VideoMode(1920, 1080), "Game") {
 	
@@ -334,7 +334,7 @@ void Controller:: check_Rest_Time() {
 		set_G_O_Vector();
 		dynamic_cast<Player*>(m_All_Objects[players][0])->
 			setlives(lif);
-		dynamic_cast<Player*>(m_All_Objects[players][0])->setscore(score);
+		dynamic_cast<Player*>(m_All_Objects[players][0])->setscore(m_Player_enter_score);
 	}
 	
 	
@@ -357,15 +357,14 @@ void Controller::draw_Time() {
 //=====================================================================
 void Controller::check_Score() {
 	if (m_All_Objects[moneys].size() == 0) {
-		
 		m_Board.rebuild_Map();
 		m_Lvl++;
 		m_Game_Clock.restart();
-		int score = (dynamic_cast<Player*>(m_All_Objects[players][0]))->getscore();
-		score += 50;
+		m_Player_enter_score = (dynamic_cast<Player*>(m_All_Objects[players][0]))->getscore();
+		m_Player_enter_score += 50;
 		delete_vector();
 		set_G_O_Vector();
-		dynamic_cast<Player*>(m_All_Objects[players][0])->setscore(score);
+		dynamic_cast<Player*>(m_All_Objects[players][0])->setscore(m_Player_enter_score);
 		m_Game_Clock.restart();
 		
 	}

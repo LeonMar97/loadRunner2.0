@@ -29,11 +29,11 @@ public:
    virtual void draw_On_Board(sf::RenderWindow &game_screen) ;
    virtual void effect(void*, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS]) {};
 
-   char get_Type() const { return m_Type; };
+   char get_Type() const { return m_Type; }
    sf::Vector2f get_loction()const;
    void set_loction(sf::Vector2f& new_loc);
    sf::RectangleShape get_rectangle()const;
-   sf::Vector2f get_First_loc() { return m_first_Loc; };
+   sf::Vector2f get_First_loc() { return m_first_Loc; }
    bool get_Print_Me()const { return print_me; }
    void set_Print_Me(bool item) { print_me=item; }
     //virtual void effect() = 0;

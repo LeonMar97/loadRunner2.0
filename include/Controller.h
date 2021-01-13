@@ -43,12 +43,12 @@ class Controller {
 		std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS];//for printing after drawing for displaying
 		sf::Clock m_Clock;//moving clock
 		sf::Clock m_Game_Clock;//game clock
-		int m_Enemys = 0;
+		
 		sf::Sprite m_bg; // the background
 		sf::Text m_Scoreboard_Text[3];
 		sf::Text time_to_screen;
 		sf::RectangleShape m_Score_Board;
 		int m_Lvl=1;
-		int m_money_Took = 0;
+		int m_Player_enter_score = 0;
 	};
 	
