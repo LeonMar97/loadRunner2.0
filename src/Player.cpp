@@ -46,9 +46,10 @@ sf::Vector2f Player::dirFromKey()
 			
 			if (sf::Keyboard::isKeyPressed(pair.first))
 			{
-				{
-					return pair.second;
-				}
+				
+				return pair.second;
+
+	
 			}
 			
 		}
@@ -57,21 +58,48 @@ sf::Vector2f Player::dirFromKey()
 	}
 
 //==========================================================
-void Player::handleCollision(Game_Object& gameObject)
-{
-	if (&gameObject == this) return;
-	//double dispatch
-	gameObject.handleCollision(*this);
-}
+	void Player::handleCollision(Game_Object& gameObject)
+	{
+		if (&gameObject == this) return;
+		//double dispatch
+		gameObject.handleCollision(*this);
+	}
+
+	//==========================================================
+ void Player::set_Sounds() {
+	 std::vector<std::string>names = { "grunt4.wav" };
+
+	 int j;
+	 sf::SoundBuffer *sd=new sf::SoundBuffer;//sound
+	 sf::Sound * sound=new sf::Sound;
+		 for (j = 0; j < names.size(); j++) {
+			 if (!sd->loadFromFile("grunt4.wav")) {
+				 std::cout << "couldnt load//";
+		}
+			 sound->setBuffer(*sd);
+			 s_Buf.push_back(sound);
+		 }
+
+	 }
+ 
+
+
 //===========================================================
 void Player::handleCollision(Money& money) 
 {
 	m_Score+=2;
-	
+	//add music here
 }
 //==============================================================
+void Player::handleCollision(Wall& gameObject)
+{
+	m_Elemnt_Of_Game.move(0, -m_Elemnt_Of_Game.getGlobalBounds().height / 3);
+}
+//==============================================================
+
 void Player::handleCollision(Enemy& enemy) 
 {
+	s_Buf[0]->play();
 	m_Lives--;
 	m_got_Hit = true;
 }
@@ -86,7 +114,3 @@ bool Player::get_hit()
 	return m_got_Hit;
 }
 //============================================================
-void Player::handleCollision(Wall& gameObject)
-{
-	m_Elemnt_Of_Game.move(0, -m_Elemnt_Of_Game.getGlobalBounds().height/3);
-}

@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "enums_End_Consts.h"
+#include <SFML/Audio.hpp>
 #pragma once
 class Moving_Object;
 class Money;
@@ -13,7 +14,7 @@ class Game_Object {
 
 public:
     //-----------------------------functions------------------------------//
-    Game_Object(sf::RectangleShape cur_rec,  std::vector<sf::Texture*>tex,sf::Vector2f loction, char icon = ' ') :
+     Game_Object(sf::RectangleShape cur_rec,  std::vector<sf::Texture*>tex,sf::Vector2f loction, char icon = ' ') :
         m_Elemnt_Of_Game(cur_rec),
         m_Tex(tex),m_first_Loc(loction), m_Type(icon) {
         m_Elemnt_Of_Game.setTexture(m_Tex[0]);

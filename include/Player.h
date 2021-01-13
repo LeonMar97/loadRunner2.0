@@ -6,11 +6,13 @@
 class Player :public Moving_Object {
 //--------------public--------functions-----------------------//
 public:
-	using Moving_Object::Moving_Object;
+	//using Moving_Object::Moving_Object;
+	Player(sf::RectangleShape cur_rec, std::vector<sf::Texture*>tex, sf::Vector2f loction, char icon = ' ') :
+		Moving_Object(cur_rec,(tex),(loction),(icon)){
+		set_Sounds();
+		
+	}
 
-	
-
-	
 	void setscore(int);
 	int getscore()const;
 	int getlives()const;
@@ -25,12 +27,13 @@ public:
 	void handleCollision(Wall& gameObject)override;
 	void set_hit(bool);
 	bool get_hit();
-	
+private:
+	void set_Sounds();
 	
 //--------------private--------members-----------------------//
 private:
 	int m_Score = 0, m_Lives = 3;
 	bool m_got_Hit = false;
-	
+	std::vector<sf::Sound*>s_Buf;
 
 };

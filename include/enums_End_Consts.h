@@ -40,6 +40,9 @@ enum digging {
 	right_dig=2,
 	undig=0
 };
+enum sounds {
+	player_Sounds =3
+};
 
 const int EXTRA_TIME = 30;
 const sf::Vector2f start_Of_Map(350, 150);//start location
