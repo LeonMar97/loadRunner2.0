@@ -66,18 +66,21 @@ sf::Vector2f Player::dirFromKey()
 	}
 
 	//==========================================================
+	//setting player sounds..
  void Player::set_Sounds() {
-	 std::vector<std::string>names = { "grunt4.wav" };
+	 std::vector<std::string>names = { "grunt4.wav","money.wav","sound_062.wav" };
 
 	 int j;
-	 sf::SoundBuffer *sd=new sf::SoundBuffer;//sound
+	 sf::SoundBuffer* sd ;//sound
 	 sf::Sound * sound=new sf::Sound;
 		 for (j = 0; j < names.size(); j++) {
-			 if (!sd->loadFromFile("grunt4.wav")) {
+			 sound = new sf::Sound;
+			 sd = new sf::SoundBuffer;
+			 if (!sd->loadFromFile(names[j])) {
 				 std::cout << "couldnt load//";
 		}
 			 sound->setBuffer(*sd);
-			 s_Buf.push_back(sound);
+			 m_S_Buf.push_back(sound);
 		 }
 
 	 }
@@ -88,18 +91,19 @@ sf::Vector2f Player::dirFromKey()
 void Player::handleCollision(Money& money) 
 {
 	m_Score+=2;
-	//add music here
+	m_S_Buf[player_money]->play();
 }
 //==============================================================
 void Player::handleCollision(Wall& gameObject)
 {
+	m_S_Buf[player_hole]->play();
 	m_Elemnt_Of_Game.move(0, -m_Elemnt_Of_Game.getGlobalBounds().height / 3);
 }
 //==============================================================
 
 void Player::handleCollision(Enemy& enemy) 
 {
-	s_Buf[0]->play();
+	m_S_Buf[player_hit]->play();
 	m_Lives--;
 	m_got_Hit = true;
 }

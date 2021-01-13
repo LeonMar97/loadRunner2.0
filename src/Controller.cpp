@@ -240,8 +240,9 @@ void Controller:: check_Erace() {
 
 }
 void Controller::set_Background_And_Score() {
-	//------------------------setting scoreboard and background--------------------------
 
+
+	//------------------------setting scoreboard and background--------------------------
 	sf::Texture *background=new sf::Texture();
 	sf::Texture* scoreBoard_pic = new sf::Texture();
 	background->loadFromFile("background2.png");
@@ -331,8 +332,13 @@ void Controller:: check_Rest_Time() {
 		int lif = (dynamic_cast<Player*>(m_All_Objects[players][0])->getlives()) - 1;
 		delete_vector();
 		set_G_O_Vector();
+		
+		dynamic_cast<Player*>(m_All_Objects[players][0])->
+			setscore(m_Player_enter_score);
+	
 		dynamic_cast<Player*>(m_All_Objects[players][0])->
 			setlives(lif);
+		m_Game_Clock.restart();
 	}
 	
 	
@@ -355,16 +361,15 @@ void Controller::draw_Time() {
 //=====================================================================
 void Controller::check_Score() {
 	if (m_All_Objects[moneys].size() == 0) {
-		
 		m_Board.rebuild_Map();
 		m_Lvl++;
-		m_Game_Clock.restart();
-		int score = (dynamic_cast<Player*>(m_All_Objects[players][0]))->getscore();
-		score += 50;
+
+		m_Player_enter_score = (dynamic_cast<Player*>(m_All_Objects[players][0]))->getscore();
+		m_Player_enter_score += 50;
 		delete_vector();
 		set_G_O_Vector();
-		dynamic_cast<Player*>(m_All_Objects[players][0])->setscore(score);
+		dynamic_cast<Player*>(m_All_Objects[players][0])->setscore(m_Player_enter_score);
 		m_Game_Clock.restart();
-		
+
 	}
 }

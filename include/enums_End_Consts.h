@@ -41,9 +41,14 @@ enum digging {
 	undig=0
 };
 enum sounds {
-	player_Sounds =3
+	player_hit = 0,
+	player_money = 1,
+	player_hole = 2,
+	gift_life = 0,
+	gift_score = 1,
+	gift_enemy=2,
+	gift_time =3
 };
-
 const int EXTRA_TIME = 30;
 const sf::Vector2f start_Of_Map(350, 150);//start location
 const unsigned int NUM_OF_OBJECTS = 7;

@@ -18,6 +18,7 @@ add_executable (Project_adi_gutman_leon_markovich "")
 add_subdirectory (include)
 add_subdirectory (src)
 add_subdirectory (resources)
+add_subdirectory (sounds_Of_Objects)
 
 
 configure_file (C:/SFML/SFML-2.5.1/bin/openal32.dll ${CMAKE_BINARY_DIR} COPYONLY)

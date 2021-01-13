@@ -7,10 +7,10 @@ class Player :public Moving_Object {
 //--------------public--------functions-----------------------//
 public:
 	//using Moving_Object::Moving_Object;
-	Player(sf::RectangleShape cur_rec, std::vector<sf::Texture*>tex, sf::Vector2f loction, char icon = ' ') :
+	Player(sf::RectangleShape cur_rec, std::vector<sf::Texture*>tex,
+												sf::Vector2f loction, char icon = ' ') :
 		Moving_Object(cur_rec,(tex),(loction),(icon)){
 		set_Sounds();
-		
 	}
 
 	void setscore(int);
@@ -34,6 +34,6 @@ private:
 private:
 	int m_Score = 0, m_Lives = 3;
 	bool m_got_Hit = false;
-	std::vector<sf::Sound*>s_Buf;
+	std::vector<sf::Sound*>m_S_Buf;
 
 };

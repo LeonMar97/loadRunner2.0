@@ -49,5 +49,6 @@ class Controller {
 		sf::Text time_to_screen;
 		sf::RectangleShape m_Score_Board;
 		int m_Lvl=1;
+		int m_Player_enter_score=0;
 	};
 	
