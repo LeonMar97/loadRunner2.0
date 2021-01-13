@@ -2,6 +2,7 @@
 
 void Gift::handleCollision(Player& gameObject)
 {
+    
     m_deleted = true;
     int lives, score;
     srand(time(NULL));

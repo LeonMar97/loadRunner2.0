@@ -17,6 +17,7 @@ public:
 private:
 	bool m_Get_Enemy=false;
 	bool m_Plus_Time = false;
+	
 };
 
 

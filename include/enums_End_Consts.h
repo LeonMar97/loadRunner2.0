@@ -39,7 +39,9 @@ enum digging {
 	right_dig=2,
 	undig=0
 };
-
+enum sounds {
+	player_Sounds =3
+};
 
 const sf::Vector2f start_Of_Map(350, 150);//start location
 const unsigned int NUM_OF_OBJECTS = 7;

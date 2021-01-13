@@ -3,6 +3,7 @@
 #include <experimental/vector>
 #include <sstream>
 #include <string>
+
 #pragma once
 //--------------------------------------------------------//
 
@@ -16,6 +17,10 @@ Controller::Controller()
 }
 void Controller:: start_Game() {
 	set_Background_And_Score();//setting everything before the start
+	sf::Music music;
+	music.openFromFile("theme song.ogg");
+	music.play();
+	music.setVolume(50);
 	
 	//=============game loop==========================
 	while (m_Game_Window.isOpen())

@@ -46,23 +46,9 @@ sf::Vector2f Player::dirFromKey()
 			
 			if (sf::Keyboard::isKeyPressed(pair.first))
 			{
-				
-				if (pair.second != sf::Vector2f(3, 0)&& pair.second != sf::Vector2f(-3, 0))
-				{
 					return pair.second;
-				}
-				/*
-				if ((pair.second == sf::Vector2f(3, 0))) 
-				{
-					m_dig = right_dig;
-					
-				}
-				if (pair.second == sf::Vector2f(-3, 0))
-				{
-					m_dig = left_dig;
-					
-				}
-				*/
+				
+		
 			}
 			
 		}
@@ -81,11 +67,12 @@ void Player::handleCollision(Game_Object& gameObject)
 void Player::handleCollision(Money& money) 
 {
 	m_Score+=2;
-	
+	//add music here
 }
 //==============================================================
 void Player::handleCollision(Enemy& enemy) 
 {
+	s_Buf[0]->play();
 	m_Lives--;
 	m_got_Hit = true;
 }
@@ -100,3 +87,20 @@ bool Player::get_hit()
 	return m_got_Hit;
 }
 //============================================================
+
+ void Player::set_Sounds() {
+	 std::vector<std::string>names = { "grunt4.wav" };
+
+	 int j;
+	 sf::SoundBuffer *sd=new sf::SoundBuffer;//sound
+	 sf::Sound * sound=new sf::Sound;
+		 for (j = 0; j < names.size(); j++) {
+			 if (!sd->loadFromFile("grunt4.wav")) {
+				 std::cout << "couldnt load//";
+		}
+			 sound->setBuffer(*sd);
+			 s_Buf.push_back(sound);
+		 }
+
+	 }
+ 
