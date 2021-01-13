@@ -46,23 +46,9 @@ sf::Vector2f Player::dirFromKey()
 			
 			if (sf::Keyboard::isKeyPressed(pair.first))
 			{
-				
-				if (pair.second != sf::Vector2f(3, 0)&& pair.second != sf::Vector2f(-3, 0))
 				{
 					return pair.second;
 				}
-				/*
-				if ((pair.second == sf::Vector2f(3, 0))) 
-				{
-					m_dig = right_dig;
-					
-				}
-				if (pair.second == sf::Vector2f(-3, 0))
-				{
-					m_dig = left_dig;
-					
-				}
-				*/
 			}
 			
 		}

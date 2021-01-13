@@ -125,6 +125,8 @@ while (i < sizeof_Map.y+1) {
 			m_All_Objects[gifts].push_back(object);
 			break;
 		case pole:
+			cur_Rec.setFillColor(sf::Color::Red);
+			cur_Rec.setOutlineColor(sf::Color::Red);
 			cur_Rec.setSize(sf::Vector2f(block_Size.x, (block_Size.y)/2));
 			cur_Rec.setScale(1,0.1);
 			object = new Gift(cur_Rec, all_Objects[poles], rec_Loc, pole);
@@ -357,6 +359,7 @@ void Controller::check_Score() {
 		delete_vector();
 		set_G_O_Vector();
 		dynamic_cast<Player*>(m_All_Objects[players][0])->setscore(score);
+		m_Game_Clock.restart();
 		
 	}
 }
