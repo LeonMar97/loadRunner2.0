@@ -100,3 +100,7 @@ bool Player::get_hit()
 	return m_got_Hit;
 }
 //============================================================
+void Player::handleCollision(Wall& gameObject)
+{
+	m_Elemnt_Of_Game.move(0, -m_Elemnt_Of_Game.getGlobalBounds().height/3);
+}

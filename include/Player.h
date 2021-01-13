@@ -22,6 +22,7 @@ public:
 	void handleCollision(Enemy& gameObject)override;
 	void handleCollision(Player& gameObject)override {};
 	void handleCollision(Gift& gameObject)override {};
+	void handleCollision(Wall& gameObject)override;
 	void set_hit(bool);
 	bool get_hit();
 	
