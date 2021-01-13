@@ -21,7 +21,7 @@ void Enemy::handleCollision(Enemy& gameObject)
 
 void Enemy::handleCollision(Gift& gameObject)
 {
-    // move back
+    // ignore
 }
 
 void Enemy::handleCollision(Money& gameObject)

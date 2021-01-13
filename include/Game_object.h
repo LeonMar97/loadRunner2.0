@@ -19,7 +19,7 @@ public:
         m_Tex(tex),m_first_Loc(loction), m_Type(icon) {
         m_Elemnt_Of_Game.setTexture(m_Tex[0]);
     }
-                                                                            
+    ~Game_Object()=default;
     virtual void handleCollision(Game_Object& gameObject) = 0;
     virtual void handleCollision(Player& gameObject) = 0;
     virtual void handleCollision(Enemy& gameObject) = 0;
