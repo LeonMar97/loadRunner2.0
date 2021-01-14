@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "Wall.h"
 #include "Ladder.h"
+#include "Menu.h"
 #pragma once
 
 class Controller {
@@ -50,5 +51,6 @@ class Controller {
 		sf::RectangleShape m_Score_Board;
 		int m_Lvl=1;
 		int m_Player_enter_score = 0;
+		Menu m_Game_menu;
 	};
 	

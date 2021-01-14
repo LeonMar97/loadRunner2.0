@@ -21,12 +21,11 @@ void Controller:: start_Game() {
 	music.openFromFile("theme song.ogg");
 	music.play();
 	music.setVolume(50);
-	
+	m_Game_menu.draw(m_Game_Window);
 	//=============game loop==========================
 	while (m_Game_Window.isOpen())
 	{
 
-		check_Rest_Time();
 		m_Game_Window.clear();
 		draw_Score_Board();
 		draw_Time();
