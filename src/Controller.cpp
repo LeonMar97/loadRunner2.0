@@ -87,56 +87,54 @@ while (i < sizeof_Map.y+1) {
 			cur_Rec.setSize(player_Size);
 		//settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-			
-			object = new Player(cur_Rec, m_All_textures[players], rec_Loc, player);
+			object = new Player(cur_Rec, rec_Loc);
 			m_All_Objects[players].push_back(object);
 			break;
 		case money:
-			cur_Rec.setScale(0.5, 0.5);
-			object = new Money(cur_Rec, m_All_textures[moneys], rec_Loc, money);
+			object = new Money(cur_Rec, rec_Loc);
 			m_All_Objects[moneys].push_back(object);
 			break;
 		case wall:
-			cur_Rec.setOutlineThickness(1);
-			cur_Rec.setOutlineColor(sf::Color::Black);
-			cur_Rec.setScale(1, 0.9);
-			object = new Wall(cur_Rec, m_All_textures[walls], rec_Loc, wall);
+			object = new Wall(cur_Rec, rec_Loc);
 			m_All_Objects[walls].push_back(object);
 			break;
-		case smart:
+		case enemy:
 			cur_Rec.setSize(player_Size);
 			// settin the origin again because size is different
-			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-			object = new Enemy(cur_Rec, m_All_textures[enemys], rec_Loc, smart);
-			m_All_Objects[enemys].push_back(object);
-			break;
-		case stupid:
-			cur_Rec.setSize(player_Size);
-			object = new Enemy(cur_Rec, m_All_textures[enemys], rec_Loc, stupid);
-			m_All_Objects[enemys].push_back(object);
-			break;
-		case med:
 			
-			cur_Rec.setSize(player_Size);
-			object = new Enemy(cur_Rec, m_All_textures[enemys], rec_Loc, med);
-			m_All_Objects[enemys].push_back(object);
+			srand(time(NULL));
+			//randomizing enemys
+			switch ((rand() % 4) + 1) {
+				
+
+			case 1:	object = new Smart_Enemy(cur_Rec, rec_Loc);
+				m_All_Objects[enemys].push_back(object);
+				break;
+			case 2:
+				object = new Med_Enemy(cur_Rec, rec_Loc);
+				m_All_Objects[enemys].push_back(object);
+				break;
+			case 3:
+				object = new Stupid_Enemy(cur_Rec, rec_Loc);
+				m_All_Objects[enemys].push_back(object);
+				break;
+
+				};
+
+		
 			break;
+	
 		case gift:
-			cur_Rec.setScale(0.5, 0.5);
-			object = new Gift(cur_Rec, m_All_textures[gifts], rec_Loc, gift);
+			object = new Gift(cur_Rec, rec_Loc);
 			m_All_Objects[gifts].push_back(object);
 			break;
 		case pole:
-			cur_Rec.setFillColor(sf::Color::Red);
-			cur_Rec.setOutlineColor(sf::Color::Red);
 			cur_Rec.setSize(sf::Vector2f(block_Size.x, (block_Size.y)/2));
-			cur_Rec.setScale(1,0.1);
-			object = new Gift(cur_Rec, m_All_textures[poles], rec_Loc, pole);
+			object = new Pole(cur_Rec, rec_Loc);
 			m_All_Objects[poles].push_back(object);
 			break;
 		case ladder:
-			cur_Rec.setScale(1, 1.1);
-			object = new Ladder(cur_Rec, m_All_textures[ladders], rec_Loc, ladder);
+			object = new Ladder(cur_Rec, rec_Loc);
 			m_All_Objects[ladders].push_back(object);
 			break;		
 		case ' ':

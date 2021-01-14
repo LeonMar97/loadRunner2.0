@@ -11,6 +11,11 @@
 #include "Wall.h"
 #include "Ladder.h"
 #include "Menu.h"
+#include "Pole.h"
+#include "Textures.h"
+#include "Med_Enemy.h"
+#include "Smart_Enemy.h"
+#include "Stupid_Enemy.h"
 #pragma once
 
 class Controller {

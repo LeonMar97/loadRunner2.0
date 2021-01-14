@@ -2,9 +2,7 @@ enum element {
 	player = '@',
 	money = '*',
 	wall = '#',
-	smart = '%',
-	stupid = '&',
-	med = '$',
+	enemy='%',
 	gift = 'G',
 	pole = '-',
 	ladder = 'H',
@@ -12,11 +10,11 @@ enum element {
 	};
 enum location_In_Vector {
 	walls = 0,
-	ladders=1,
-	poles=2,
-	moneys=3,
+	ladders = 1,
+	poles = 2,
+	moneys = 3,
 	gifts = 4,
-	enemys = 5,
+	enemys=5,
 	players = 6
 };
 enum Direction_left_right {
@@ -49,9 +47,22 @@ enum sounds {
 	gift_enemy=2,
 	gift_time =3
 };
+enum texture_names {
+	walls_T = 0,
+	ladders_T = 1,
+	poles_T = 2,
+	moneys_T = 3,
+	gifts_T = 4,
+	smartEnemys_T=5,
+	medEnemys_T=6,
+	stupidEnemys_T=7,
+	players_T = 8
+};
 const int SOUND_TYPES = 2;
 const int PLAYER_SOUNDS = 0;
 const int GIFT_SOUNDS = 1;
 const int EXTRA_TIME = 30;
 const sf::Vector2f start_Of_Map(350, 150);//start location
 const unsigned int NUM_OF_OBJECTS = 7;
+const unsigned int NUM_OF_TEXTURE_OBJECTS = 9;
+

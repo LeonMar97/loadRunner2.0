@@ -33,33 +33,4 @@ case gift_1:
 
 }
 //==========================================================
-/*setting player sounds..
-void Gift::set_Sounds() {
-    
-    std::vector<std::string>names = {"GENERIC_THANKS_02.wav","GAME_WIN_SELF_01.wav",
-                                    "ARRESTED_DRUNK_03.wav",
-                                    "BASEJUMP_ABOUT_TO_JUMP_03.wav" };
-                                    
-    int j;
-    sf::SoundBuffer* sd;//sound
-    sf::Sound* sound ;
-    for (j = 0; j < names.size(); j++) {
-        sound = new sf::Sound;
-        sd = new sf::SoundBuffer;
-        if (!sd->loadFromFile(names[j])) {
-            std::cout << "couldnt load//"<<names[j]<<std::endl;
-        }
-        sound->setBuffer(*sd);
-        m_S_Buf.push_back(sound);
-    }
-    
 
-}
-*/
-
-
-//===========================================================
-/*
- "GAME_WIN_SELF_01.wav",
-                                    "ARRESTED_DRUNK_03.wav",
-                                    "BASEJUMP_ABOUT_TO_JUMP_03.wav"*/
