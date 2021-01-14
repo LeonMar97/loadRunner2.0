@@ -37,7 +37,7 @@ void Enemy::effect(void* deltaTime, std::vector<Game_Object*>m_All_Objects[NUM_O
 //============================================
 sf::Vector2f Enemy::dirFromKey()
 {
-    srand(time(NULL));
+    srand(rand());
 	static const
 		std::initializer_list<std::pair<sf::Keyboard::Key, sf::Vector2f>>
 		keyToVectorMapping =
@@ -48,16 +48,29 @@ sf::Vector2f Enemy::dirFromKey()
 		{ sf::Keyboard::Down , { 0, 1 } }
 	};
     
-    if (m_enemy_Clock.getElapsedTime().asMilliseconds() > 20)
+    if (m_enemy_Clock.getElapsedTime().asMilliseconds() >10)
     {
        
         m_enemy_Clock.restart();
-        int random = (rand() % 2) -1 ;
+        int random = (rand() % 4) + 1;
+        switch (random) {
 
-        sf::Vector2f temp (random, 0);
-            return { temp.x, 0 };
-           
-        
+        case 1:
+            return { -5, 0 };
+            break;
+
+        case 2:
+            return { 0, 0 };
+            break;
+        case 3:
+            return { 5, 0 };
+            break;
+
+        case 4:
+            return { 0, 0 };
+            break;
+       
+        }
     }
 
 	
