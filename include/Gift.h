@@ -10,8 +10,9 @@ public:
 	Gift(sf::RectangleShape cur_rec, std::vector<sf::Texture*>tex,
 		sf::Vector2f loction, char icon = ' ') :
 		Disappearing_Object(cur_rec, (tex), (loction), (icon)) {
-		set_Sounds();
+		//set_Sounds();
 	}
+	~Gift() { m_S_Buf.clear(); }
 	void handleCollision(Game_Object& gameObject)override {};
 	void handleCollision(Enemy& gameObject)override {};
 	void handleCollision(Money& gameObject)override {};
