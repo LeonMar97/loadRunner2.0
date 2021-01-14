@@ -11,6 +11,7 @@ public:
 		Disappearing_Object(cur_rec, (tex), (loction), (icon)) {
 		//set_Sounds();
 	}
+	~Gift() { m_S_Buf.clear(); }
 	void handleCollision(Game_Object& gameObject)override {};
 	void handleCollision(Enemy& gameObject)override {};
 	void handleCollision(Money& gameObject)override {};

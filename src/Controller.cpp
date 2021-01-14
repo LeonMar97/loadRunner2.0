@@ -32,6 +32,7 @@ void Controller:: start_Game() {
 		draw_Time();
 		draw_On_map();
 		m_Game_Window.display();
+		check_Rest_Time();
 		sf::Event event;
 		while (m_Game_Window.pollEvent(event))
 		{
