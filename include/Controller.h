@@ -25,7 +25,7 @@ class Controller {
 		void set_G_O_Vector();
 		void  free_Fall();
 		void draw_On_map();
-		void load_pic(std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS]);
+		void load_pic();
 		void updateGameObjects();
 		void draw_Score_Board();
 		void check_Erace();
@@ -50,5 +50,6 @@ class Controller {
 		sf::RectangleShape m_Score_Board;
 		int m_Lvl=1;
 		int m_Player_enter_score = 0;
+		std::vector<sf::Texture*>m_All_textures[NUM_OF_OBJECTS];
 	};
 	

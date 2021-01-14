@@ -11,7 +11,7 @@
 
 Controller::Controller()
 :m_Game_Window(sf::VideoMode(1920, 1080), "Game") {
-	
+	load_pic();// all the loaded pictures located in vector
 	set_G_O_Vector(); 
 	//swap_Location();
 }
@@ -56,10 +56,6 @@ void Controller:: start_Game() {
 //--------------------------------------------------------//
 //setting the game controller vector
 void Controller::set_G_O_Vector(){
-	std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS];
-	load_pic(all_Objects);//now all the loaded pictures located in vector
-	
-	
 sf::Texture* pic;
 sf::Vector2i sizeof_Map;
 sizeof_Map = m_Board.get_Size();
@@ -91,42 +87,42 @@ while (i < sizeof_Map.y+1) {
 		//settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 			
-			object = new Player(cur_Rec,all_Objects[players], rec_Loc, player);
+			object = new Player(cur_Rec, m_All_textures[players], rec_Loc, player);
 			m_All_Objects[players].push_back(object);
 			break;
 		case money:
 			cur_Rec.setScale(0.5, 0.5);
-			object = new Money(cur_Rec, all_Objects[moneys], rec_Loc, money);
+			object = new Money(cur_Rec, m_All_textures[moneys], rec_Loc, money);
 			m_All_Objects[moneys].push_back(object);
 			break;
 		case wall:
 			cur_Rec.setOutlineThickness(1);
 			cur_Rec.setOutlineColor(sf::Color::Black);
 			cur_Rec.setScale(1, 0.9);
-			object = new Wall(cur_Rec, all_Objects[walls], rec_Loc, wall);
+			object = new Wall(cur_Rec, m_All_textures[walls], rec_Loc, wall);
 			m_All_Objects[walls].push_back(object);
 			break;
 		case smart:
 			cur_Rec.setSize(player_Size);
 			// settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-			object = new Enemy(cur_Rec, all_Objects[enemys], rec_Loc, smart);
+			object = new Enemy(cur_Rec, m_All_textures[enemys], rec_Loc, smart);
 			m_All_Objects[enemys].push_back(object);
 			break;
 		case stupid:
 			cur_Rec.setSize(player_Size);
-			object = new Enemy(cur_Rec, all_Objects[enemys], rec_Loc, stupid);
+			object = new Enemy(cur_Rec, m_All_textures[enemys], rec_Loc, stupid);
 			m_All_Objects[enemys].push_back(object);
 			break;
 		case med:
 			
 			cur_Rec.setSize(player_Size);
-			object = new Enemy(cur_Rec, all_Objects[enemys], rec_Loc, med);
+			object = new Enemy(cur_Rec, m_All_textures[enemys], rec_Loc, med);
 			m_All_Objects[enemys].push_back(object);
 			break;
 		case gift:
 			cur_Rec.setScale(0.5, 0.5);
-			object = new Gift(cur_Rec, all_Objects[gifts], rec_Loc, gift);
+			object = new Gift(cur_Rec, m_All_textures[gifts], rec_Loc, gift);
 			m_All_Objects[gifts].push_back(object);
 			break;
 		case pole:
@@ -134,12 +130,12 @@ while (i < sizeof_Map.y+1) {
 			cur_Rec.setOutlineColor(sf::Color::Red);
 			cur_Rec.setSize(sf::Vector2f(block_Size.x, (block_Size.y)/2));
 			cur_Rec.setScale(1,0.1);
-			object = new Gift(cur_Rec, all_Objects[poles], rec_Loc, pole);
+			object = new Gift(cur_Rec, m_All_textures[poles], rec_Loc, pole);
 			m_All_Objects[poles].push_back(object);
 			break;
 		case ladder:
 			cur_Rec.setScale(1, 1.1);
-			object = new Ladder(cur_Rec, all_Objects[ladders], rec_Loc, ladder);
+			object = new Ladder(cur_Rec, m_All_textures[ladders], rec_Loc, ladder);
 			m_All_Objects[ladders].push_back(object);
 			break;		
 		case ' ':
@@ -181,7 +177,7 @@ void Controller :: draw_On_map() {
 }
 //=====================================================================
 //loadding all the pictures to save runtime
-void Controller::load_pic(std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS]) {
+void Controller::load_pic() {
 	std::vector<std::string>names[] = {
 						  {"wall.png"},
 						  {"ladder.png"},
@@ -197,7 +193,7 @@ void Controller::load_pic(std::vector<sf::Texture*>all_Objects[NUM_OF_OBJECTS]) 
 		for (j = 0; j < names[i].size(); j++) {
 			pic = new sf::Texture;
 			pic->loadFromFile(names[i][j]);
-			all_Objects[i].push_back(pic);
+			m_All_textures[i].push_back(pic);
 		}
 
 	}

@@ -41,7 +41,7 @@ void Gift::set_Sounds() {
                                     
     int j;
     sf::SoundBuffer* sd;//sound
-    sf::Sound* sound = new sf::Sound;
+    sf::Sound* sound ;
     for (j = 0; j < names.size(); j++) {
         sound = new sf::Sound;
         sd = new sf::SoundBuffer;
