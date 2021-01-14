@@ -91,19 +91,20 @@ sf::Vector2f Player::dirFromKey()
 void Player::handleCollision(Money& money) 
 {
 	m_Score+=2;
+	Sounds_E::instance().get_Sounds(PLAYER_SOUNDS, player_money).play();
 	m_S_Buf[player_money]->play();
 }
 //==============================================================
 void Player::handleCollision(Wall& gameObject)
 {
-	m_S_Buf[player_hole]->play();
+	Sounds_E::instance().get_Sounds(PLAYER_SOUNDS, player_hole).play();
 	m_Elemnt_Of_Game.move(0, -m_Elemnt_Of_Game.getGlobalBounds().height / 3);
 }
 //==============================================================
 
 void Player::handleCollision(Enemy& enemy) 
 {
-	m_S_Buf[player_hit]->play();
+	Sounds_E::instance().get_Sounds(PLAYER_SOUNDS, player_hit).play();
 	m_Lives--;
 	m_got_Hit = true;
 }

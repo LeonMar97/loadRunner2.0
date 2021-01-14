@@ -1,7 +1,7 @@
-#include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <iostream>
-#include "enums_And_Consts.h"
+#include "Sounds_E.h"
+#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #pragma once
 class Moving_Object;

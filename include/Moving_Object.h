@@ -1,5 +1,4 @@
 #include "Game_Object.h"
-#include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <iostream>
 #pragma once

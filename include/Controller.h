@@ -1,8 +1,6 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include "Board.h"
 #include "Game_Object.h"
 #include "Moving_Object.h"

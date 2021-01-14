@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <iostream>
 #include "Disappearing_Object.h"

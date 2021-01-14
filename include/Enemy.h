@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <iostream>
 #include "Moving_Object.h"

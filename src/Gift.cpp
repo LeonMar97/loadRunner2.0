@@ -8,30 +8,32 @@ void Gift::handleCollision(Player& gameObject)
     srand(time(NULL));
     //randomizing gifts 
     switch ((rand() % 4) + 1) {
+
 case gift_1:
          lives = gameObject.getlives();
         gameObject.setlives(++lives);
-        m_S_Buf[gift_life]->play();
+        Sounds_E::instance().get_Sounds(GIFT_SOUNDS, gift_life).play();
+        //m_S_Buf[gift_life]->play();
         break;
         
     case gift_2:
-        m_S_Buf[gift_score]->play();
+        Sounds_E::instance().get_Sounds(GIFT_SOUNDS, gift_score).play();
          score = gameObject.getscore();
         gameObject.setscore(score+=2);
         break;
     case gift_3:
-        m_S_Buf[gift_enemy]->play();
+        Sounds_E::instance().get_Sounds(GIFT_SOUNDS, gift_enemy).play();
          m_Get_Enemy = true;
            break;
     case gift_4:
-        m_S_Buf[gift_time]->play();
+        Sounds_E::instance().get_Sounds(GIFT_SOUNDS, gift_time).play();
         m_Plus_Time = true;
         break;
 };
 
 }
 //==========================================================
-//setting player sounds..
+/*setting player sounds..
 void Gift::set_Sounds() {
     
     std::vector<std::string>names = {"GENERIC_THANKS_02.wav",
@@ -51,9 +53,10 @@ void Gift::set_Sounds() {
         sound->setBuffer(*sd);
         m_S_Buf.push_back(sound);
     }
+    
 
 }
-
+*/
 
 
 //===========================================================

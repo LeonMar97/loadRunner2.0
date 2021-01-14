@@ -20,7 +20,7 @@ void Controller:: start_Game() {
 	sf::Music music;
 	music.openFromFile("theme song.ogg");
 	music.play();
-	music.setVolume(50);
+	music.setVolume(10);
 	
 	//=============game loop==========================
 	while (m_Game_Window.isOpen())
