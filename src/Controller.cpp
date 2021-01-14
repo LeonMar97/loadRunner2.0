@@ -15,14 +15,14 @@ Controller::Controller()
 	set_G_O_Vector(); 
 	//swap_Location();
 }
-void Controller:: start_Game() {
+void Controller:: start_Game() 
+{
 	set_Background_And_Score();//setting everything before the start
-	sf::Music music;
 	music.openFromFile("theme song.ogg");
 	music.play();
-	music.setVolume(10);
 	m_Game_menu.draw(m_Game_Window);
-
+	
+	music.setVolume(10);
 	//=============game loop==========================
 	while (m_Game_Window.isOpen())
 	{
@@ -39,6 +39,8 @@ void Controller:: start_Game() {
 
 			if (event.type == sf::Event::Closed)
 				m_Game_Window.close();
+			
+			
 		}
 		updateGameObjects();
 		free_Fall();
@@ -52,7 +54,9 @@ void Controller:: start_Game() {
 		
 
 	 }
-	}
+	music.stop();
+}
+
 
 //--------------------------------------------------------//
 //setting the game controller vector
@@ -208,6 +212,10 @@ void Controller::updateGameObjects()
 	 auto deltaTime = m_Clock.restart();
 
 	m_All_Objects[players][0]->effect(&deltaTime,m_All_Objects);
+	for (int i = 0; i < m_All_Objects[enemys].size(); i++) {
+		m_All_Objects[enemys][i]->effect(&deltaTime, m_All_Objects);
+	}
+	
 }
 //============================================================
 //erase money and gift
@@ -359,7 +367,8 @@ void Controller::draw_Time() {
 //=====================================================================
 void Controller::check_Score() {
 	if (m_All_Objects[moneys].size() == 0) {
-		m_Board.rebuild_Map();
+		
+        m_Board.rebuild_Map();
 		m_Lvl++;
 		m_Player_enter_score = (dynamic_cast<Player*>(m_All_Objects[players][0]))->getscore();
 		m_Player_enter_score += 50;

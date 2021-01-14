@@ -12,12 +12,17 @@ void Moving_Object::move_Object(sf::Vector2f& Direction, sf::Time delta_time, st
 		return;
 	}
 	float size = (m_Elemnt_Of_Game.getTexture()->getSize().x) / 3;
-	temp.move(Direction * size * delta_time.asSeconds());
-	if (check_movment(temp, m_All_Objects, *this)) {
+	
+		temp.move(Direction * size * delta_time.asSeconds());
+		std::cout << delta_time.asSeconds() << "\n";
 
-		m_Elemnt_Of_Game.move(Direction * size * delta_time.asSeconds());
+		if (check_movment(temp, m_All_Objects, *this)) {
 
-	}
+			m_Elemnt_Of_Game.move(Direction * size * delta_time.asSeconds());
+
+		}
+	
+	
 	handleCollision_moving(*this, m_All_Objects);
 
 

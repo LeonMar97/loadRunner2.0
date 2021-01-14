@@ -66,24 +66,6 @@ sf::Vector2f Player::dirFromKey()
 	}
 
 	//==========================================================
-	//setting player sounds..
- void Player::set_Sounds() {
-	 std::vector<std::string>names = { "grunt4.wav","money.wav","sound_062.wav" };
-
-	 int j;
-	 sf::SoundBuffer* sd ;//sound
-	 sf::Sound * sound;
-		 for (j = 0; j < names.size(); j++) {
-			 sound = new sf::Sound;
-			 sd = new sf::SoundBuffer;
-			 if (!sd->loadFromFile(names[j])) {
-				 std::cout << "couldnt load//";
-		}
-			 sound->setBuffer(*sd);
-			 m_S_Buf.push_back(sound);
-		 }
-
-	 }
  
 
 
@@ -92,7 +74,7 @@ void Player::handleCollision(Money& money)
 {
 	m_Score+=2;
 	Sounds_E::instance().get_Sounds(PLAYER_SOUNDS, player_money).play();
-	m_S_Buf[player_money]->play();
+
 }
 //==============================================================
 void Player::handleCollision(Wall& gameObject)

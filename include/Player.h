@@ -9,7 +9,7 @@ public:
 	Player(sf::RectangleShape cur_rec, std::vector<sf::Texture*>tex,
 												sf::Vector2f loction, char icon = ' ') :
 		Moving_Object(cur_rec,(tex),(loction),(icon)){
-		set_Sounds();
+		
 	}
 
 	void setscore(int);
@@ -27,7 +27,7 @@ public:
 	void set_hit(bool);
 	bool get_hit();
 private:
-	void set_Sounds();
+	
 	
 //--------------private--------members-----------------------//
 private:

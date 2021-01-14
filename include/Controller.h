@@ -51,6 +51,6 @@ class Controller {
 		int m_Player_enter_score = 0;
 		Menu m_Game_menu;
 		std::vector<sf::Texture*>m_All_textures[NUM_OF_OBJECTS];
-
+		sf::Music music;
 	};
 	

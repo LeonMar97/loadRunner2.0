@@ -60,6 +60,7 @@ void Menu::draw(sf::RenderWindow& window)
 				};
 				break;
 			case sf::Event::Closed:
+				in_menu = false;
 				window.close();
 				break;
 			};
