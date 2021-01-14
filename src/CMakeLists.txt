@@ -11,4 +11,6 @@ target_sources (Project_adi_gutman_leon_markovich PRIVATE
 													"Wall.cpp"
 													"Ladder.cpp"
 													"main.cpp"
-													"Menu.cpp")
+													"Menu.cpp"
+													"Sounds_E.cpp")
+

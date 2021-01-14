@@ -49,6 +49,9 @@ enum sounds {
 	gift_enemy=2,
 	gift_time =3
 };
+const int SOUND_TYPES = 2;
+const int PLAYER_SOUNDS = 0;
+const int GIFT_SOUNDS = 1;
 const int EXTRA_TIME = 30;
 const sf::Vector2f start_Of_Map(350, 150);//start location
 const unsigned int NUM_OF_OBJECTS = 7;

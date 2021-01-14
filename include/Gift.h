@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <iostream>
 #include "Disappearing_Object.h"
@@ -24,7 +23,7 @@ private:
 	bool m_Get_Enemy=false;
 	bool m_Plus_Time = false;
 	
-	void set_Sounds();
+	//void set_Sounds();
 	std::vector<sf::Sound*>m_S_Buf;
 };
 
