@@ -34,10 +34,13 @@ Board::Board()
 *sets the size of the vector.
 *m_size:size of the vector.
 */
-void Board::set_Size() {
-	
-	m_Cf >>m_Size.y>>m_Size.x>>m_Time;
-
+bool Board::set_Size() {
+	if(!(m_Cf.peek()==EOF))
+	{
+		m_Cf >> m_Size.y >> m_Size.x >> m_Time;
+		return true;
+	}
+	return false;
 }
 //--------------------------------------------------
 /*
@@ -101,8 +104,8 @@ char Board::what_In_Location(const sf::Vector2i cur_Loc)const {
 */
 bool Board::rebuild_Map() {
 	m_Board.clear();
-	set_Size();
-	if (m_Size.x > 0&& m_Size.y > 0) {
+	
+	if (set_Size()) {
 		set_Map();
 		return true;
 	}

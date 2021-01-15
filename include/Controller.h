@@ -41,6 +41,7 @@ class Controller {
 		void check_Rest_Time();
 		void draw_Time();
 		void check_Score();
+		void check_Lives();
 //------------------members-----------------------------------//		
 	private :
 		sf::RenderWindow m_Game_Window;

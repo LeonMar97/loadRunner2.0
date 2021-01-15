@@ -21,7 +21,7 @@ public:
 
 	void change_Map(sf::Vector2i change, char request);
 
-	void set_Size();
+	bool set_Size();
 
 	void set_Map();	//sets the map on vector
 	
