@@ -102,7 +102,7 @@ while (i < sizeof_Map.y+1) {
 			cur_Rec.setSize(player_Size);
 			// settin the origin again because size is different
 			
-			srand(time(NULL));
+			srand(rand());
 			//randomizing enemys
 			switch ((rand() % 4) + 1) {
 				
