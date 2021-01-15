@@ -35,7 +35,7 @@ Board::Board()
 *m_size:size of the vector.
 */
 bool Board::set_Size() {
-	if(!(m_Cf.peek()==EOF))
+	if(!m_Cf.eof())
 	{
 		m_Cf >> m_Size.y >> m_Size.x >> m_Time;
 		return true;

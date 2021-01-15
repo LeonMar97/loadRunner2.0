@@ -15,10 +15,14 @@ Textures& Textures::instance() {
 						  {"smart_Enemy.png"},
 						  {"med_Enemy.png"},
 						  {"stupid_Enemy.png"},
-						  {"player.png","secondwall.png"} };
+						  {"cjsk.png","cj2.png"},
+						  {"background2.png"},
+						  {"scoreBoard.png"}
+											};
 
 	int i, j;
-	sf::Texture* pic;
+
+	sf::Texture *pic;
 	for (i = walls; i < NUM_OF_TEXTURE_OBJECTS; i++) {
 		for (j = 0; j < names[i].size(); j++) {
 			pic = new sf::Texture;
@@ -27,6 +31,12 @@ Textures& Textures::instance() {
 		}
 
 	}
+
+
+
+	
+
+
 }
  Textures::~Textures()
  {

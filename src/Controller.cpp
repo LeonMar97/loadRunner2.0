@@ -3,6 +3,7 @@
 #include <experimental/vector>
 #include <sstream>
 #include <string>
+#include "Textures.h"
 
 #pragma once
 //--------------------------------------------------------//
@@ -14,13 +15,12 @@ Controller::Controller()
 	set_G_O_Vector(); 
 }
 void Controller:: start_Game() {
+	int current_Song = theme_song;
 	set_Background_And_Score();//setting everything before the start
-	sf::Music music;
-	
 	m_Game_menu.draw(m_Game_Window);
-	music.openFromFile("theme song.ogg");
-	music.play();
-	music.setVolume(10);
+
+	Sounds_E::instance().get_Music(current_Song).play();
+
 	//=============game loop==========================
 	while (m_Game_Window.isOpen())
 	{
@@ -45,10 +45,6 @@ void Controller:: start_Game() {
 		check_Erace();
 		check_Lives();
 		check_Score();
-
-
-
-		
 
 	 }
 	}
@@ -214,15 +210,11 @@ void Controller:: check_Erace() {
 }
 void Controller::set_Background_And_Score() {
 	//------------------------setting scoreboard and background--------------------------
-	sf::Texture *background=new sf::Texture();
-	sf::Texture* scoreBoard_pic = new sf::Texture();
-	background->loadFromFile("background2.png");
-	scoreBoard_pic->loadFromFile("scoreBoard.png");
-	m_bg.setTexture(*background);
-	m_Score_Board.setTexture(scoreBoard_pic);
+	m_bg.setTexture(*Textures::instance().get_Textures(background_T)[0]);
+	m_Score_Board.setTexture(Textures::instance().get_Textures(scoreboard_T)[0]);
 	m_Score_Board.setSize(sf::Vector2f(300.0f, 250.0f));
 	m_Score_Board.setPosition(m_bg.getGlobalBounds().width / 2 -
-		m_Score_Board.getGlobalBounds().width / 2, start_Of_Map.y + 700);
+	m_Score_Board.getGlobalBounds().width / 2, start_Of_Map.y + 700);
 
 	//------------------------setting font--------------------------	
 	sf::Font *font=new sf::Font() ;
@@ -341,7 +333,7 @@ void Controller::draw_Time() {
 //=====================================================================
 void Controller::check_Score() {
 	bool more_maps = true;
-	if (m_All_Objects[moneys].size() == 0&& m_Board.rebuild_Map())
+	if (m_All_Objects[moneys].size() == 0&& !m_Board.rebuild_Map())
 		{
 		more_maps = false;
 		sf::Sprite game_over;
@@ -368,7 +360,7 @@ void Controller::check_Score() {
 			if (m_Game_Clock.getElapsedTime().asSeconds() > 10 || !m_Game_Window.isOpen())
 			{
 				m_Game_Window.close();
-				break;
+				return;
 			}
 		}
 	}

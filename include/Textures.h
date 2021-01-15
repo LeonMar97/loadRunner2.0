@@ -11,7 +11,7 @@ class Textures {
 public:
 	static Textures& instance();
 	//gets requested sound from sound member
-	std::vector<sf::Texture*>& get_Textures(int type_E) { return (m_All_textures[type_E]); }
+	const std::vector<sf::Texture*>& get_Textures(int type_E) { return (m_All_textures[type_E]); }
 
 	//--------------private--------functions-----------------------//		
 private:
@@ -20,5 +20,5 @@ private:
 private:
 	Textures();//constractor for static member
 	~Textures();
-	std::vector<sf::Texture *>m_All_textures[NUM_OF_TEXTURE_OBJECTS];
+	std::vector<sf::Texture*>m_All_textures[NUM_OF_TEXTURE_OBJECTS];
 };
