@@ -22,4 +22,6 @@ configure_file ("WINNER.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("cjsk.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("cj2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("cj23.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("bg_23.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
 

@@ -21,7 +21,7 @@ Menu::Menu()
 	m_text[1].setPosition(sf::Vector2f(1980 / 2, 1080 / (MAX_NUMBER_OF_ITEM + 1) * 2));
 	m_selectedItem = 0;
 	sf::Texture* background = new sf::Texture();
-	background->loadFromFile("background2.png");
+	background->loadFromFile("bg_23.png");
 	m_Menu_Background.setTexture(*background);
 }
 
