@@ -28,3 +28,11 @@ Textures& Textures::instance() {
 
 	}
 }
+ Textures::~Textures()
+ {
+	 for (int i = 0; i < m_All_textures->size(); i++)
+	 {
+		m_All_textures[i].clear();
+	 }
+	 m_All_textures->clear();
+ }

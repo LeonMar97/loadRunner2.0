@@ -13,13 +13,12 @@ public:
 	void handleCollision(Game_Object& gameObject)override {};
 	void handleCollision(Enemy& gameObject)override {};
 	void handleCollision(Money& gameObject)override {};
-	
 	void handleCollision(Gift& gameObject)override {};
-
+	
 private:
+	
 
 
-	//void set_Sounds();
 
 };
 

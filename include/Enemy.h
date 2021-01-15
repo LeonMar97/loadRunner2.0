@@ -17,6 +17,6 @@ public:
 	void handleCollision(Money& gameObject)override ;
 	void handleCollision(Player& gameObject)override ;
 	void handleCollision(Gift& gameObject)override ;
-
+	void handleCollision(Wall& gameObject)override;
 //--------------private--------members-----------------------//
 };

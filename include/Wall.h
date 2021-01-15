@@ -13,7 +13,7 @@ public:
 		m_Elemnt_Of_Game.setScale(1, 0.9);
 	}
 	void handleCollision(Player& enemy) ;
-	void Check_Wall(Player& player);
+	void  Check_Wall(Player& player, std::vector<Game_Object*>& enemeys);
 
 private:
 	sf::Clock m_Wall_clock;

@@ -20,5 +20,6 @@ private:
 	//------------------members-----------------------------------//		
 private:
 		Sounds_E();//constractor for static member
+		~Sounds_E();
 		 std::vector<sf::Sound*>m_Sounds[SOUND_TYPES];
 };

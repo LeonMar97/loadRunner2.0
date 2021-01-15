@@ -28,3 +28,7 @@ void Enemy::handleCollision(Money& gameObject)
 {
     // ignore
 }
+void Enemy::handleCollision(Wall& gameObject)
+{
+    m_Elemnt_Of_Game.move(0, -m_Elemnt_Of_Game.getGlobalBounds().height / 3);
+}

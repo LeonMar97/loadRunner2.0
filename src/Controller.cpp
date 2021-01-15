@@ -11,9 +11,7 @@
 
 Controller::Controller()
 :m_Game_Window(sf::VideoMode(1920, 1080), "Game") {
-	load_pic();// all the loaded pictures located in vector
 	set_G_O_Vector(); 
-	//swap_Location();
 }
 void Controller:: start_Game() {
 	set_Background_And_Score();//setting everything before the start
@@ -45,6 +43,7 @@ void Controller:: start_Game() {
 		check_Gifts();//getting info after collision with gifts
 		check_Hits();
 		check_Erace();
+		check_Lives();
 		check_Score();
 
 
@@ -175,37 +174,16 @@ void Controller :: draw_On_map() {
 	}
 }
 //=====================================================================
-//loadding all the pictures to save runtime
-void Controller::load_pic() {
-	std::vector<std::string>names[] = {
-						  {"wall.png"},
-						  {"ladder.png"},
-						  {"pole.png"},
-						  {"money.png"},
-						  {"gift.png"},
-						  {"enemy.png"},
-						  {"player.png","secondwall.png"} };
-
-	int i, j;
-	sf::Texture *pic;
-	for (i = walls; i < NUM_OF_OBJECTS; i++) {
-		for (j = 0; j < names[i].size(); j++) {
-			pic = new sf::Texture;
-			pic->loadFromFile(names[i][j]);
-			m_All_textures[i].push_back(pic);
-		}
-
-	}
-}
-
-
-//=====================================================================
-
 void Controller::updateGameObjects()
 {
 	 auto deltaTime = m_Clock.restart();
 
 	m_All_Objects[players][0]->effect(&deltaTime,m_All_Objects);
+	for (int i = 0; i < m_All_Objects[enemys].size(); i++)
+	{
+		sf::Vector2f player_loc(m_All_Objects[players][0]->get_loction());
+		m_All_Objects[enemys][i]->effect(&player_loc, m_All_Objects);
+	}
 }
 //============================================================
 //erase money and gift
@@ -235,8 +213,6 @@ void Controller:: check_Erace() {
 
 }
 void Controller::set_Background_And_Score() {
-
-
 	//------------------------setting scoreboard and background--------------------------
 	sf::Texture *background=new sf::Texture();
 	sf::Texture* scoreBoard_pic = new sf::Texture();
@@ -341,7 +317,7 @@ void Controller:: check_Rest_Time() {
 		for (int i = 0; i < m_All_Objects[walls].size(); i++)
 		{
 			dynamic_cast<Wall*>(m_All_Objects[walls][i])->Check_Wall
-			(*(Player*)(m_All_Objects[players][0]));
+			(*(Player*)(m_All_Objects[players][0]),m_All_Objects[enemys]);
 		}
 	
 
@@ -350,14 +326,54 @@ void Controller:: check_Rest_Time() {
 void Controller::draw_Time() {
 	sf::Time elapsed = m_Game_Clock.getElapsedTime();
 	std::stringstream time;
-	time << "Time left   [00:" << std::to_string(m_Board.get_Time() - (int)elapsed.asSeconds())<<"]";
+	int time_left = (m_Board.get_Time() - (int)elapsed.asSeconds());
+	int min_left = int(time_left / 60);
+	int sec_left = (time_left - min_left*60);
+	if(sec_left<10)
+	time << "Time left   "
+		<< std::to_string(min_left)<<":0"<< std::to_string(sec_left);
+	else
+		time << "Time left   "
+		<< std::to_string(min_left) << ":" << std::to_string(sec_left);
 	time_to_screen.setString(time.str());
 	m_Game_Window.draw(time_to_screen);
 }
 //=====================================================================
 void Controller::check_Score() {
-	if (m_All_Objects[moneys].size() == 0) {
-		m_Board.rebuild_Map();
+	bool more_maps = true;
+	if (m_All_Objects[moneys].size() == 0&& m_Board.rebuild_Map())
+		{
+		more_maps = false;
+		sf::Sprite game_over;
+		sf::Texture pic;
+		pic.loadFromFile("WINNER.png");
+		game_over.setTexture(pic);
+		m_Game_Window.draw(game_over);
+		m_Game_Window.draw(m_Score_Board);
+		for (int i = 0; i <= lf; i++) {
+			m_Game_Window.draw(m_Scoreboard_Text[i]);
+		}
+		m_Game_Window.display();
+		m_Game_Clock.restart();
+		while (1)
+		{
+			sf::Event event;
+			while (m_Game_Window.pollEvent(event))
+			{
+
+				if (event.type == sf::Event::Closed)
+					m_Game_Window.close();
+				break;
+			}
+			if (m_Game_Clock.getElapsedTime().asSeconds() > 10 || !m_Game_Window.isOpen())
+			{
+				m_Game_Window.close();
+				break;
+			}
+		}
+	}
+	if (m_All_Objects[moneys].size()==0&&more_maps) {
+		
 		m_Lvl++;
 		m_Player_enter_score = (dynamic_cast<Player*>(m_All_Objects[players][0]))->getscore();
 		m_Player_enter_score += 50;
@@ -365,6 +381,41 @@ void Controller::check_Score() {
 		set_G_O_Vector();
 		dynamic_cast<Player*>(m_All_Objects[players][0])->setscore(m_Player_enter_score);
 		m_Game_Clock.restart();
+
+	}
+}
+//============================================================
+void Controller::check_Lives() {
+	if (dynamic_cast<Player*>(m_All_Objects[players][0])->getlives() ==0) {
+		{
+			sf::Sprite game_over;
+			sf::Texture pic;
+			pic.loadFromFile("Wasted.png");
+			game_over.setTexture(pic);
+			m_Game_Window.draw(game_over);
+			m_Game_Window.draw(m_Score_Board);
+			for (int i = 0; i <= lf; i++) {
+				m_Game_Window.draw(m_Scoreboard_Text[i]);
+			}
+			m_Game_Window.display();
+			m_Game_Clock.restart();
+			while (1)
+			{
+				sf::Event event;
+				while (m_Game_Window.pollEvent(event))
+				{
+
+					if (event.type == sf::Event::Closed)
+					m_Game_Window.close();
+					break;
+				}
+				if (m_Game_Clock.getElapsedTime().asSeconds() > 10|| !m_Game_Window.isOpen())
+				{
+					m_Game_Window.close();
+					break;
+				}
+			}
+		}
 
 	}
 }
