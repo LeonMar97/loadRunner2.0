@@ -18,11 +18,11 @@ Controller::Controller()
 void Controller:: start_Game() {
 	set_Background_And_Score();//setting everything before the start
 	sf::Music music;
+	
+	m_Game_menu.draw(m_Game_Window);
 	music.openFromFile("theme song.ogg");
 	music.play();
 	music.setVolume(10);
-	m_Game_menu.draw(m_Game_Window);
-
 	//=============game loop==========================
 	while (m_Game_Window.isOpen())
 	{

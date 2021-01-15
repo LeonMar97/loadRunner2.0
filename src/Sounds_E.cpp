@@ -30,6 +30,7 @@ Sounds_E::Sounds_E() {
 				std::cout << "couldnt load sound" << names[i][j] << "\n";
 			}
 			sound->setBuffer(*sd);
+			sound->setVolume(10);
 			m_Sounds[i].push_back(sound);
 
 		}
