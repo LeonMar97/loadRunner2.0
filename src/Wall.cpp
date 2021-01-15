@@ -3,8 +3,11 @@
 
 void Wall::handleCollision(Player& player)
 {
-	print_me = false;
-	m_Wall_clock.restart();
+	if (print_me)
+	{
+		print_me = false;
+		m_Wall_clock.restart();
+	}
 }
 //============================================
 void Wall::Check_Wall(Player& player)

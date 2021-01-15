@@ -11,9 +11,7 @@
 
 Controller::Controller()
 :m_Game_Window(sf::VideoMode(1920, 1080), "Game") {
-	load_pic();// all the loaded pictures located in vector
 	set_G_O_Vector(); 
-	//swap_Location();
 }
 void Controller:: start_Game() {
 	set_Background_And_Score();//setting everything before the start
@@ -102,7 +100,7 @@ while (i < sizeof_Map.y+1) {
 			cur_Rec.setSize(player_Size);
 			// settin the origin again because size is different
 			
-			srand(time(NULL));
+			srand(rand());
 			//randomizing enemys
 			switch ((rand() % 4) + 1) {
 				
@@ -175,32 +173,6 @@ void Controller :: draw_On_map() {
 	}
 }
 //=====================================================================
-//loadding all the pictures to save runtime
-void Controller::load_pic() {
-	std::vector<std::string>names[] = {
-						  {"wall.png"},
-						  {"ladder.png"},
-						  {"pole.png"},
-						  {"money.png"},
-						  {"gift.png"},
-						  {"enemy.png"},
-						  {"player.png","secondwall.png"} };
-
-	int i, j;
-	sf::Texture *pic;
-	for (i = walls; i < NUM_OF_OBJECTS; i++) {
-		for (j = 0; j < names[i].size(); j++) {
-			pic = new sf::Texture;
-			pic->loadFromFile(names[i][j]);
-			m_All_textures[i].push_back(pic);
-		}
-
-	}
-}
-
-
-//=====================================================================
-
 void Controller::updateGameObjects()
 {
 	 auto deltaTime = m_Clock.restart();
@@ -235,8 +207,6 @@ void Controller:: check_Erace() {
 
 }
 void Controller::set_Background_And_Score() {
-
-
 	//------------------------setting scoreboard and background--------------------------
 	sf::Texture *background=new sf::Texture();
 	sf::Texture* scoreBoard_pic = new sf::Texture();
@@ -350,7 +320,7 @@ void Controller:: check_Rest_Time() {
 void Controller::draw_Time() {
 	sf::Time elapsed = m_Game_Clock.getElapsedTime();
 	std::stringstream time;
-	time << "Time left   [00:" << std::to_string(m_Board.get_Time() - (int)elapsed.asSeconds())<<"]";
+	time << "Time left   " << std::to_string((m_Board.get_Time() - (int)elapsed.asSeconds()/60))<<"'sec";
 	time_to_screen.setString(time.str());
 	m_Game_Window.draw(time_to_screen);
 }

@@ -36,7 +36,14 @@ Sounds_E::Sounds_E() {
 	}
 }
  
-
+Sounds_E::~Sounds_E()
+{
+	for (int i = 0; i < m_Sounds->size(); i++)
+	{
+		m_Sounds[i].clear();
+	}
+	m_Sounds->clear();
+}
 
 
 	

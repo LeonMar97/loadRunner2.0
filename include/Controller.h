@@ -23,13 +23,14 @@ class Controller {
 //--------------public--------functions-----------------------//
 	public:
 		Controller();
+		~Controller() { delete_vector(); }
 		void start_Game();
 //--------------private--------functions-----------------------//		
 	private:
 		void set_G_O_Vector();
 		void  free_Fall();
 		void draw_On_map();
-		void load_pic();
+		//void load_pic();
 		void updateGameObjects();
 		void draw_Score_Board();
 		void check_Erace();

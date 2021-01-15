@@ -19,5 +19,6 @@ private:
 	//------------------members-----------------------------------//		
 private:
 	Textures();//constractor for static member
+	~Textures();
 	std::vector<sf::Texture *>m_All_textures[NUM_OF_TEXTURE_OBJECTS];
 };
