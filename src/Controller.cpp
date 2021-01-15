@@ -179,6 +179,11 @@ void Controller::updateGameObjects()
 	 auto deltaTime = m_Clock.restart();
 
 	m_All_Objects[players][0]->effect(&deltaTime,m_All_Objects);
+	for (int i = 0; i < m_All_Objects[enemys].size(); i++)
+	{
+		sf::Vector2f player_loc(m_All_Objects[players][0]->get_loction());
+		m_All_Objects[enemys][i]->effect(&player_loc, m_All_Objects);
+	}
 }
 //============================================================
 //erase money and gift
