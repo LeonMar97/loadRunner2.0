@@ -12,5 +12,8 @@ target_sources (Project_adi_gutman_leon_markovich PRIVATE
 													"Ladder.cpp"
 													"main.cpp"
 													"Menu.cpp"
-													"Sounds_E.cpp")
-
+													"Sounds_E.cpp"
+													"Textures.cpp"
+													"Stupid_Enemy.cpp"
+													"Smart_Enemy.cpp"
+													"Med_Enemy.cpp")

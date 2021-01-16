@@ -1,15 +1,14 @@
 #include <cstdlib>
 #include <iostream>
 #include "Moving_Object.h"
+#include"Textures.h"
 #pragma once
 class Player :public Moving_Object {
 //--------------public--------functions-----------------------//
 public:
 	//using Moving_Object::Moving_Object;
-	Player(sf::RectangleShape cur_rec, std::vector<sf::Texture*>tex,
-												sf::Vector2f loction, char icon = ' ') :
-		Moving_Object(cur_rec,(tex),(loction),(icon)){
-		set_Sounds();
+	Player(sf::RectangleShape cur_rec, sf::Vector2f loction) :
+		Moving_Object(cur_rec,(Textures::instance().get_Textures(players_T)),(loction),(player)){
 	}
 
 	void setscore(int);
@@ -27,7 +26,7 @@ public:
 	void set_hit(bool);
 	bool get_hit();
 private:
-	void set_Sounds();
+	
 	
 //--------------private--------members-----------------------//
 private:

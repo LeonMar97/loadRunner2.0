@@ -26,8 +26,10 @@ public:
 	void handle_dig
 	(Game_Object& me, std::vector<Game_Object*>& m_All_Objects, sf::Vector2f& Direction, sf::Time delta_time);
 	void handleCollision(Wall& enemy)override {};
-
+	bool in_Gg(sf::RectangleShape& next_Loc, std::vector<Game_Object*>m_All_Objects) const;
+	const static sf::Clock& get_Clock() { return m_clock; }
 protected:
 	bool m_direction = right;
 	int m_dig = undig;
+	static sf::Clock m_clock;
 };

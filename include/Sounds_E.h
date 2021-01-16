@@ -12,13 +12,15 @@ class Sounds_E{
 public:
 	static Sounds_E& instance();
 	//gets requested sound from sound member
-	 sf::Sound &get_Sounds(int type_E,int sound) { return*(m_Sounds[type_E][sound]);}
-
+	  sf::Sound &get_Sounds(int type_E,int sound) { return*(m_Sounds[type_E][sound]);}
+	  sf::Music & get_Music(int song_Num) { return *(m_Music[song_Num]); }
 	//--------------private--------functions-----------------------//		
 private:
 
 	//------------------members-----------------------------------//		
 private:
 		Sounds_E();//constractor for static member
+		~Sounds_E();
 		 std::vector<sf::Sound*>m_Sounds[SOUND_TYPES];
+		 std::vector<sf::Music*>m_Music;
 };

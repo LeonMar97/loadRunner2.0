@@ -11,6 +11,11 @@
 #include "Wall.h"
 #include "Ladder.h"
 #include "Menu.h"
+#include "Pole.h"
+#include "Textures.h"
+#include "Med_Enemy.h"
+#include "Smart_Enemy.h"
+#include "Stupid_Enemy.h"
 #pragma once
 
 class Controller {
@@ -18,13 +23,14 @@ class Controller {
 //--------------public--------functions-----------------------//
 	public:
 		Controller();
+		~Controller() { delete_vector(); }
 		void start_Game();
 //--------------private--------functions-----------------------//		
 	private:
 		void set_G_O_Vector();
 		void  free_Fall();
 		void draw_On_map();
-		void load_pic();
+		//void load_pic();
 		void updateGameObjects();
 		void draw_Score_Board();
 		void check_Erace();
@@ -35,6 +41,7 @@ class Controller {
 		void check_Rest_Time();
 		void draw_Time();
 		void check_Score();
+		void check_Lives();
 //------------------members-----------------------------------//		
 	private :
 		sf::RenderWindow m_Game_Window;

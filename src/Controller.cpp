@@ -3,6 +3,8 @@
 #include <experimental/vector>
 #include <sstream>
 #include <string>
+#include <chrono>
+#include "Textures.h"
 
 #pragma once
 //--------------------------------------------------------//
@@ -11,18 +13,18 @@
 
 Controller::Controller()
 :m_Game_Window(sf::VideoMode(1920, 1080), "Game") {
-	load_pic();// all the loaded pictures located in vector
-	set_G_O_Vector(); 
-	//swap_Location();
+	
 }
 void Controller:: start_Game() {
-	set_Background_And_Score();//setting everything before the start
-	sf::Music music;
-	music.openFromFile("theme song.ogg");
-	music.play();
-	music.setVolume(10);
-	m_Game_menu.draw(m_Game_Window);
+	int current_Song = theme_song;
+	
 
+	Sounds_E::instance().get_Music(current_Song).play();
+	
+	m_Game_Clock.restart();
+	set_G_O_Vector();
+	set_Background_And_Score();//setting everything before the start
+	m_Game_menu.draw(m_Game_Window);
 	//=============game loop==========================
 	while (m_Game_Window.isOpen())
 	{
@@ -45,11 +47,8 @@ void Controller:: start_Game() {
 		check_Gifts();//getting info after collision with gifts
 		check_Hits();
 		check_Erace();
+		check_Lives();
 		check_Score();
-
-
-
-		
 
 	 }
 	}
@@ -81,62 +80,64 @@ while (i < sizeof_Map.y+1) {
 
 		cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 //----------------------
-
+		sf::Time temp ;
 		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
 		case player:
 			cur_Rec.setSize(player_Size);
 		//settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-			
-			object = new Player(cur_Rec, m_All_textures[players], rec_Loc, player);
+			object = new Player(cur_Rec, rec_Loc);
 			m_All_Objects[players].push_back(object);
 			break;
 		case money:
-			cur_Rec.setScale(0.5, 0.5);
-			object = new Money(cur_Rec, m_All_textures[moneys], rec_Loc, money);
+			object = new Money(cur_Rec, rec_Loc);
 			m_All_Objects[moneys].push_back(object);
 			break;
 		case wall:
-			cur_Rec.setOutlineThickness(1);
-			cur_Rec.setOutlineColor(sf::Color::Black);
-			cur_Rec.setScale(1, 0.9);
-			object = new Wall(cur_Rec, m_All_textures[walls], rec_Loc, wall);
+			object = new Wall(cur_Rec, rec_Loc);
 			m_All_Objects[walls].push_back(object);
 			break;
-		case smart:
+		case enemy:
+			temp == m_Game_Clock.getElapsedTime();
+			while (temp.asSeconds() == m_Game_Clock.getElapsedTime().asSeconds())
+				;
 			cur_Rec.setSize(player_Size);
 			// settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-			object = new Enemy(cur_Rec, m_All_textures[enemys], rec_Loc, smart);
-			m_All_Objects[enemys].push_back(object);
-			break;
-		case stupid:
-			cur_Rec.setSize(player_Size);
-			object = new Enemy(cur_Rec, m_All_textures[enemys], rec_Loc, stupid);
-			m_All_Objects[enemys].push_back(object);
-			break;
-		case med:
+			srand(time(NULL));
+			//randomizing enemys
+			switch ((rand() % 3) + 1) {
 			
-			cur_Rec.setSize(player_Size);
-			object = new Enemy(cur_Rec, m_All_textures[enemys], rec_Loc, med);
-			m_All_Objects[enemys].push_back(object);
+			 
+
+			case 1:	object = new Smart_Enemy(cur_Rec, rec_Loc);
+				m_All_Objects[enemys].push_back(object);
+				break;
+			case 2:
+				object = new Med_Enemy(cur_Rec, rec_Loc);
+				m_All_Objects[enemys].push_back(object);
+				break;
+			case 3:
+				object = new Stupid_Enemy(cur_Rec, rec_Loc);
+				m_All_Objects[enemys].push_back(object);
+				break;
+
+				};
+
+		
 			break;
+	
 		case gift:
-			cur_Rec.setScale(0.5, 0.5);
-			object = new Gift(cur_Rec, m_All_textures[gifts], rec_Loc, gift);
+			object = new Gift(cur_Rec, rec_Loc);
 			m_All_Objects[gifts].push_back(object);
 			break;
 		case pole:
-			cur_Rec.setFillColor(sf::Color::Red);
-			cur_Rec.setOutlineColor(sf::Color::Red);
 			cur_Rec.setSize(sf::Vector2f(block_Size.x, (block_Size.y)/2));
-			cur_Rec.setScale(1,0.1);
-			object = new Gift(cur_Rec, m_All_textures[poles], rec_Loc, pole);
+			object = new Pole(cur_Rec, rec_Loc);
 			m_All_Objects[poles].push_back(object);
 			break;
 		case ladder:
-			cur_Rec.setScale(1, 1.1);
-			object = new Ladder(cur_Rec, m_All_textures[ladders], rec_Loc, ladder);
+			object = new Ladder(cur_Rec, rec_Loc);
 			m_All_Objects[ladders].push_back(object);
 			break;		
 		case ' ':
@@ -177,37 +178,18 @@ void Controller :: draw_On_map() {
 	}
 }
 //=====================================================================
-//loadding all the pictures to save runtime
-void Controller::load_pic() {
-	std::vector<std::string>names[] = {
-						  {"wall.png"},
-						  {"ladder.png"},
-						  {"pole.png"},
-						  {"money.png"},
-						  {"gift.png"},
-						  {"enemy.png"},
-						  {"player.png","secondwall.png"} };
-
-	int i, j;
-	sf::Texture *pic;
-	for (i = walls; i < NUM_OF_OBJECTS; i++) {
-		for (j = 0; j < names[i].size(); j++) {
-			pic = new sf::Texture;
-			pic->loadFromFile(names[i][j]);
-			m_All_textures[i].push_back(pic);
-		}
-
-	}
-}
-
-
-//=====================================================================
-
 void Controller::updateGameObjects()
 {
 	 auto deltaTime = m_Clock.restart();
 
 	m_All_Objects[players][0]->effect(&deltaTime,m_All_Objects);
+	for (int i = 0; i < m_All_Objects[enemys].size(); i++)
+	{
+		
+		sf::Vector2f player_loc(m_All_Objects[players][0]->get_loction());
+		m_All_Objects[enemys][i]->effect(&player_loc, m_All_Objects);
+	}
+	
 }
 //============================================================
 //erase money and gift
@@ -237,18 +219,14 @@ void Controller:: check_Erace() {
 
 }
 void Controller::set_Background_And_Score() {
-
-
+	int loc_Of_Y = m_All_Objects[walls].size() - 1;
+	float y = (m_All_Objects[walls][loc_Of_Y]->get_loction().y);
 	//------------------------setting scoreboard and background--------------------------
-	sf::Texture *background=new sf::Texture();
-	sf::Texture* scoreBoard_pic = new sf::Texture();
-	background->loadFromFile("background2.png");
-	scoreBoard_pic->loadFromFile("scoreBoard.png");
-	m_bg.setTexture(*background);
-	m_Score_Board.setTexture(scoreBoard_pic);
+	m_bg.setTexture(*Textures::instance().get_Textures(background_T)[0]);
+	m_Score_Board.setTexture(Textures::instance().get_Textures(scoreboard_T)[0]);
 	m_Score_Board.setSize(sf::Vector2f(300.0f, 250.0f));
 	m_Score_Board.setPosition(m_bg.getGlobalBounds().width / 2 -
-		m_Score_Board.getGlobalBounds().width / 2, start_Of_Map.y + 700);
+	m_Score_Board.getGlobalBounds().width / 2,y);
 
 	//------------------------setting font--------------------------	
 	sf::Font *font=new sf::Font() ;
@@ -297,10 +275,8 @@ void Controller::check_Gifts() {
 	for (int i = 0; i < m_All_Objects[gifts].size(); i++) {
 
 		if (dynamic_cast<Gift*>((m_All_Objects[gifts][i]))->get_Bad_Gift()) {
-			
-			Enemy* vasia = new Enemy(*dynamic_cast<Enemy*>(m_All_Objects[enemys][0]));
-			sf::Vector2f fir(m_All_Objects[players][0]->get_First_loc());
-			vasia->set_loction(fir);
+			Game_Object* vasia = new Stupid_Enemy(m_All_Objects[enemys][0]->get_rectangle(), m_All_Objects[enemys][0]->get_loction());
+		
 			m_All_Objects[enemys].push_back(vasia);
 		}
 		if (dynamic_cast<Gift*>((m_All_Objects[gifts][i]))->get_time_Gift())
@@ -343,7 +319,7 @@ void Controller:: check_Rest_Time() {
 		for (int i = 0; i < m_All_Objects[walls].size(); i++)
 		{
 			dynamic_cast<Wall*>(m_All_Objects[walls][i])->Check_Wall
-			(*(Player*)(m_All_Objects[players][0]));
+			(*(Player*)(m_All_Objects[players][0]),m_All_Objects[enemys]);
 		}
 	
 
@@ -352,14 +328,54 @@ void Controller:: check_Rest_Time() {
 void Controller::draw_Time() {
 	sf::Time elapsed = m_Game_Clock.getElapsedTime();
 	std::stringstream time;
-	time << "Time left   [00:" << std::to_string(m_Board.get_Time() - (int)elapsed.asSeconds())<<"]";
+	int time_left = (m_Board.get_Time() - (int)elapsed.asSeconds());
+	int min_left = int(time_left / 60);
+	int sec_left = (time_left - min_left*60);
+	if(sec_left<10)
+	time << "Time left   "
+		<< std::to_string(min_left)<<":0"<< std::to_string(sec_left);
+	else
+		time << "Time left   "
+		<< std::to_string(min_left) << ":" << std::to_string(sec_left);
 	time_to_screen.setString(time.str());
 	m_Game_Window.draw(time_to_screen);
 }
 //=====================================================================
 void Controller::check_Score() {
-	if (m_All_Objects[moneys].size() == 0) {
-		m_Board.rebuild_Map();
+	bool more_maps = true;
+	if (m_All_Objects[moneys].size() == 0&& !m_Board.rebuild_Map())
+		{
+		more_maps = false;
+		sf::Sprite game_over;
+		sf::Texture pic;
+		pic.loadFromFile("WINNER.png");
+		game_over.setTexture(pic);
+		m_Game_Window.draw(game_over);
+		m_Game_Window.draw(m_Score_Board);
+		for (int i = 0; i <= lf; i++) {
+			m_Game_Window.draw(m_Scoreboard_Text[i]);
+		}
+		m_Game_Window.display();
+		m_Game_Clock.restart();
+		while (1)
+		{
+			sf::Event event;
+			while (m_Game_Window.pollEvent(event))
+			{
+
+				if (event.type == sf::Event::Closed)
+					m_Game_Window.close();
+				break;
+			}
+			if (m_Game_Clock.getElapsedTime().asSeconds() > 10 || !m_Game_Window.isOpen())
+			{
+				m_Game_Window.close();
+				return;
+			}
+		}
+	}
+	if (m_All_Objects[moneys].size()==0&&more_maps) {
+		
 		m_Lvl++;
 		m_Player_enter_score = (dynamic_cast<Player*>(m_All_Objects[players][0]))->getscore();
 		m_Player_enter_score += 50;
@@ -370,3 +386,40 @@ void Controller::check_Score() {
 
 	}
 }
+//============================================================
+void Controller::check_Lives() {
+	if (dynamic_cast<Player*>(m_All_Objects[players][0])->getlives() ==0) {
+		{
+			draw_Score_Board();
+			sf::Sprite game_over;
+			sf::Texture pic;
+			pic.loadFromFile("Wasted.png");
+			game_over.setTexture(pic);
+			m_Game_Window.draw(game_over);
+			m_Game_Window.draw(m_Score_Board);
+			for (int i = 0; i <= lf; i++) {
+				m_Game_Window.draw(m_Scoreboard_Text[i]);
+			}
+			m_Game_Window.display();
+			m_Game_Clock.restart();
+			while (1)
+			{
+				sf::Event event;
+				while (m_Game_Window.pollEvent(event))
+				{
+
+					if (event.type == sf::Event::Closed)
+					m_Game_Window.close();
+					break;
+				}
+				if (m_Game_Clock.getElapsedTime().asSeconds() > 10|| !m_Game_Window.isOpen())
+				{
+					m_Game_Window.close();
+					break;
+				}
+			}
+		}
+
+	}
+}
+

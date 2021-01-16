@@ -15,7 +15,7 @@ Sounds_E::Sounds_E() {
 										"ARRESTED_DRUNK_03.wav",
 										"BASEJUMP_ABOUT_TO_JUMP_03.wav"} 
 											};
-
+	std::vector<std::string>music_name = { "theme song.ogg" };
 
 	int j;
 	sf::SoundBuffer* sd;//sound
@@ -30,13 +30,29 @@ Sounds_E::Sounds_E() {
 				std::cout << "couldnt load sound" << names[i][j] << "\n";
 			}
 			sound->setBuffer(*sd);
+			sound->setVolume(10);
 			m_Sounds[i].push_back(sound);
 
 		}
 	}
+	for (j = 0; j < music_name.size(); j++) {
+		sf::Music* cur = new sf::Music;
+		if(!cur->openFromFile(music_name[j]))
+			std::cout << "couldnt load music" << music_name[j] << "\n";
+		cur->setVolume(10);
+		m_Music.push_back(cur);
+	}
+
 }
  
-
+Sounds_E::~Sounds_E()
+{
+	for (int i = 0; i < m_Sounds->size(); i++)
+	{
+		m_Sounds[i].clear();
+	}
+	m_Sounds->clear();
+}
 
 
 	

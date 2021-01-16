@@ -18,5 +18,6 @@ private:
 	   int m_selectedItem;
 	   sf::Font m_font;
 	   sf::Text m_text[MAX_NUMBER_OF_ITEM];
+	   sf::Sprite m_Menu_Background;
 	  
 };
