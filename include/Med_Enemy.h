@@ -16,7 +16,9 @@ public:
 	void handleCollision(Gift& gameObject)override {};
 	
 private:
-	
+	void effect(void* PlayerLoction, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])override;
+	sf::Clock m_clock;
+	int m_Wall = 1;
 
 
 

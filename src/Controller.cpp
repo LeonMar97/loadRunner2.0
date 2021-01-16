@@ -3,6 +3,7 @@
 #include <experimental/vector>
 #include <sstream>
 #include <string>
+#include <chrono>
 #include "Textures.h"
 
 #pragma once
@@ -76,7 +77,7 @@ while (i < sizeof_Map.y+1) {
 
 		cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 //----------------------
-
+		sf::Time temp ;
 		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
 		case player:
 			cur_Rec.setSize(player_Size);
@@ -94,13 +95,17 @@ while (i < sizeof_Map.y+1) {
 			m_All_Objects[walls].push_back(object);
 			break;
 		case enemy:
+			temp == m_Game_Clock.getElapsedTime();
+			while (temp.asSeconds() == m_Game_Clock.getElapsedTime().asSeconds())
+				;
 			cur_Rec.setSize(player_Size);
 			// settin the origin again because size is different
-			
-			srand(rand());
+			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
+			srand(time(NULL));
 			//randomizing enemys
-			switch ((rand() % 4) + 1) {
-				
+			//switch ((rand() % 2) + 2) {
+			switch((3)){
+			 
 
 			case 1:	object = new Smart_Enemy(cur_Rec, rec_Loc);
 				m_All_Objects[enemys].push_back(object);
