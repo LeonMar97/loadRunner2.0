@@ -3,9 +3,10 @@
 
 Score_Board::Score_Board(sf::Vector2f print_Loc)
 
-	:m_Bg(*Textures::instance().get_Textures(scoreboard_T)[0]),m_Printloc(print_Loc)
+	:m_Printloc(print_Loc)
 {
-
+	m_Bg.setTexture(Textures::instance().get_Textures(scoreboard_T)[0]);
+	m_Bg.setSize(sf::Vector2f(300.0f, 250.0f));
 	m_Scoreboard_Text[sc].setString(std::to_string(0));
 	m_Scoreboard_Text[lvl].setString(std::to_string(1));
 	m_Scoreboard_Text[lf].setString(std::to_string(5));
@@ -29,9 +30,9 @@ Score_Board::Score_Board(sf::Vector2f print_Loc)
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 //setting current player score
 
-void Score_Board::set_Scores(int lvl, Game_Object& main_Player) {
+void Score_Board::set_Scores(int player_Lvl, Game_Object& main_Player) {
 	m_Scoreboard_Text[sc].setString(std::to_string((dynamic_cast<Player*>(&main_Player))->getscore()));
-	m_Scoreboard_Text[lvl].setString(std::to_string(lvl));
+	m_Scoreboard_Text[lvl].setString(std::to_string(player_Lvl));
 	m_Scoreboard_Text[lf].setString(std::to_string((dynamic_cast<Player*>(&main_Player))->getlives()));
 
 }

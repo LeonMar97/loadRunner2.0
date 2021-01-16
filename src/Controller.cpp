@@ -12,29 +12,24 @@
 //main loop of the game
 
 Controller::Controller()
-:m_Game_Window(sf::VideoMode(1920, 1080), "Game") {
+:m_Game_Window(sf::VideoMode(1920, 1080), "Game"),m_bg(*Textures::instance().get_Textures(background_T)[0]){
 	
 }
 void Controller:: start_Game() {
 	int current_Song = theme_song;
-
-	
-
-
-
 	Sounds_E::instance().get_Music(current_Song).play();
 	
 	m_Game_Clock.restart();
 	set_G_O_Vector();
 	set_Score_Board();
-
-	set_Background_And_Score();//setting everything before the start
+	game_Time();//setting everything before the start
 	m_Game_menu.draw(m_Game_Window);
 	//=============game loop==========================
 	while (m_Game_Window.isOpen())
 	{
 
 		m_Game_Window.clear();
+		m_Game_Window.draw(m_bg);
 		m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
 		draw_Time();
 		draw_On_map();
@@ -212,7 +207,7 @@ void Controller:: check_Erace() {
 
 
 }
-void Controller::set_Background_And_Score() {
+void Controller::game_Time() {
 
 		time_to_screen.setFont(Textures::instance().get_Font());
 		//setting location for clock
@@ -320,9 +315,7 @@ void Controller::check_Score() {
 		{
 		more_maps = false;
 		sf::Sprite game_over;
-		sf::Texture pic;
-		pic.loadFromFile("WINNER.png");
-		game_over.setTexture(pic);
+		game_over.setTexture(*Textures::instance().get_Textures(winner_T)[0]);
 		m_Game_Window.draw(game_over);
 		m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
 		
@@ -363,9 +356,8 @@ void Controller::check_Lives() {
 		{
 			
 			sf::Sprite game_over;
-			sf::Texture pic;
-			pic.loadFromFile("Wasted.png");
-			game_over.setTexture(pic);
+
+			game_over.setTexture(*Textures::instance().get_Textures(loser_T)[0]);
 			m_Game_Window.draw(game_over);
 			m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
 			
@@ -398,3 +390,5 @@ void Controller::set_Score_Board() {
 	sf::Vector2f right_Bottom(m_All_Objects[walls][right_wall]->get_loction());
 	m_ScoreBoard.set_Location(sf::Vector2f(m_Game_Window.getSize().x / 2, right_Bottom.y));
 }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+

@@ -36,7 +36,7 @@ class Controller {
 		//void draw_Score_Board();
 		void check_Erace();
 		void check_Hits();
-		void set_Background_And_Score();
+		void game_Time();
 		void check_Gifts();
 		void delete_vector();
 		void check_Rest_Time();
@@ -44,6 +44,8 @@ class Controller {
 		void check_Score();
 		void check_Lives();
 		void set_Score_Board();
+		void print_Background();
+
 //------------------members-----------------------------------//		
 	private :
 		sf::RenderWindow m_Game_Window;

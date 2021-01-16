@@ -59,7 +59,9 @@ enum texture_names {
 	players_T = 8,
 	background_T = 9,
 	scoreboard_T=10,
-	menu_T=11
+	menu_T=11,
+	winner_T=12,
+	loser_T=13
 };
 
 enum g_Music {

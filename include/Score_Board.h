@@ -18,7 +18,7 @@ public:
 private:
 
 	sf::Text m_Scoreboard_Text[3];
-	sf::Sprite m_Bg;
+	sf::RectangleShape m_Bg;
 	sf::Vector2f m_Printloc;
 };
 

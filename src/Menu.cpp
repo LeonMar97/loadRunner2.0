@@ -3,12 +3,11 @@
 #include "Textures.h"
 
 Menu::Menu()
-	:m_Menu_Background(*Textures::instance().get_Textures(background_T)[0])
+	:m_Menu_Background(*Textures::instance().get_Textures(menu_T)[0])
 {
 	
-	m_font.loadFromFile("Love America.ttf");
 	
-
+	m_font =(Textures::instance().get_Font());
 	m_text[0].setFont(m_font);
 	m_text[0].setColor(sf::Color::Blue);
 	m_text[0].setOutlineThickness(5);
