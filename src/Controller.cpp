@@ -17,13 +17,14 @@ Controller::Controller()
 }
 void Controller:: start_Game() {
 	int current_Song = theme_song;
-	set_Background_And_Score();//setting everything before the start
-	m_Game_menu.draw(m_Game_Window);
+	
 
 	Sounds_E::instance().get_Music(current_Song).play();
 	
 	m_Game_Clock.restart();
 	set_G_O_Vector();
+	set_Background_And_Score();//setting everything before the start
+	m_Game_menu.draw(m_Game_Window);
 	//=============game loop==========================
 	while (m_Game_Window.isOpen())
 	{
@@ -105,8 +106,8 @@ while (i < sizeof_Map.y+1) {
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 			srand(time(NULL));
 			//randomizing enemys
-			//switch ((rand() % 2) + 2) {
-			switch((1)){
+			switch ((rand() % 3) + 1) {
+			
 			 
 
 			case 1:	object = new Smart_Enemy(cur_Rec, rec_Loc);
@@ -218,12 +219,14 @@ void Controller:: check_Erace() {
 
 }
 void Controller::set_Background_And_Score() {
+	int loc_Of_Y = m_All_Objects[walls].size() - 1;
+	float y = (m_All_Objects[walls][loc_Of_Y]->get_loction().y);
 	//------------------------setting scoreboard and background--------------------------
 	m_bg.setTexture(*Textures::instance().get_Textures(background_T)[0]);
 	m_Score_Board.setTexture(Textures::instance().get_Textures(scoreboard_T)[0]);
 	m_Score_Board.setSize(sf::Vector2f(300.0f, 250.0f));
 	m_Score_Board.setPosition(m_bg.getGlobalBounds().width / 2 -
-	m_Score_Board.getGlobalBounds().width / 2, start_Of_Map.y + 700);
+	m_Score_Board.getGlobalBounds().width / 2,y);
 
 	//------------------------setting font--------------------------	
 	sf::Font *font=new sf::Font() ;
@@ -387,6 +390,7 @@ void Controller::check_Score() {
 void Controller::check_Lives() {
 	if (dynamic_cast<Player*>(m_All_Objects[players][0])->getlives() ==0) {
 		{
+			draw_Score_Board();
 			sf::Sprite game_over;
 			sf::Texture pic;
 			pic.loadFromFile("Wasted.png");
@@ -418,3 +422,4 @@ void Controller::check_Lives() {
 
 	}
 }
+

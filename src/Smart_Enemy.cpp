@@ -44,18 +44,19 @@ void Smart_Enemy::effect(void* PlayerLoction, std::vector<Game_Object*>m_All_Obj
             sf::RectangleShape temp(m_Elemnt_Of_Game);
             sf::Vector2f dir(right_left(player_loc, m_Elemnt_Of_Game.getPosition()));
             //dir *= 0.9f;
-            temp.move(dir * size * deltaTime.asSeconds());
-            
-            if (What_In_Loc(temp, m_All_Objects) == wall)
-            {
-                m_is_Wall = true;
-
-            }
-       
             if (m_is_Wall) {
                 dir.x *= -1;
 
             }
+            temp.move(dir * size * deltaTime.asSeconds());
+            
+            if (What_In_Loc(temp, m_All_Objects) == wall)
+            {
+                m_is_Wall = !m_is_Wall;
+
+            }
+       
+          
             this->move_Object(dir, deltaTime, m_All_Objects);
 
         }

@@ -10,8 +10,7 @@ void Enemy:: handleCollision(Game_Object& gameObject)
 
 void Enemy::handleCollision(Player& gameObject)
 {
-    // call the player so it can decrease its own live count
-    gameObject.handleCollision(*this);
+
 }
 
 void Enemy::handleCollision(Enemy& gameObject)

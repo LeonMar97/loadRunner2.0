@@ -13,7 +13,7 @@ void Moving_Object::move_Object(sf::Vector2f& Direction, sf::Time delta_time, st
 	}
 	float size = (m_Elemnt_Of_Game.getTexture()->getSize().x) / 3;
 	temp.move(Direction * size * delta_time.asSeconds());
-	if (check_movment(temp, m_All_Objects, *this)) {
+	if (check_movment(temp, m_All_Objects, *this)&&in_Gg(temp, m_All_Objects[walls])) {
 
 		m_Elemnt_Of_Game.move(Direction * size * delta_time.asSeconds());
 
@@ -26,6 +26,18 @@ void Moving_Object::move_Object(sf::Vector2f& Direction, sf::Time delta_time, st
 
 }
 //=============================================================================
+//checking if next location inside gimel gimel
+bool Moving_Object::in_Gg(sf::RectangleShape &next_Loc, std::vector<Game_Object*>m_All_Objects) const {
+	int right_wall;
+	right_wall = m_All_Objects.size() - 1;
+	sf::Vector2f left_Top(m_All_Objects[0]->get_loction());
+	sf::Vector2f right_Bottom(m_All_Objects[right_wall]->get_loction());
+
+	return(next_Loc.getPosition().y > left_Top.y && next_Loc.getPosition().y<right_Bottom.y&&
+		next_Loc.getPosition().x>left_Top.x && next_Loc.getPosition().x < right_Bottom.x);
+}
+//=============================================================================
+
 //check what in the next loc user pressed
 bool Moving_Object::check_movment(sf::RectangleShape& after_Click, std::vector<Game_Object*>m_All_Objects[],
 	Game_Object& before_Click) {
@@ -90,6 +102,12 @@ bool Moving_Object::check_ladder(sf::RectangleShape& after_Click, std::vector<Ga
 //get loc and return typy
 char Moving_Object::What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Object*>m_All_Objects[])
 {
+	int right_wall;
+	right_wall = m_All_Objects[walls].size() - 1;
+	sf::Vector2f left_Top(m_All_Objects[walls][0]->get_loction());
+	sf::Vector2f right_Bottom(m_All_Objects[walls][right_wall]->get_loction());
+
+
 
 	char type = space;
 	for (int i = 0; i < NUM_OF_OBJECTS; i++)
@@ -99,7 +117,13 @@ char Moving_Object::What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Objec
 			if (temp.getGlobalBounds().intersects(m_All_Objects[i][j]->get_rectangle().getGlobalBounds()))
 			{
 				if (m_All_Objects[i][j]->get_Type() != this->get_Type()) {
-					if (m_All_Objects[i][j]->get_Print_Me() || this->get_loction().y > 760.f || this->get_loction().x > 1420.f || this->get_loction().x < 370.f)
+
+
+					 
+					 
+
+					if (m_All_Objects[i][j]->get_Print_Me() && this->get_loction().y>left_Top.y&&this->get_loction().y<right_Bottom.y&&
+						this->get_loction().x>left_Top.x&& this->get_loction().x < right_Bottom.x)
 						return type = m_All_Objects[i][j]->get_Type();
 
 				}
@@ -114,6 +138,13 @@ char Moving_Object::What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Objec
 //=====================================================================
 void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 {
+	int right_wall;
+	right_wall = m_All_Objects[walls].size() - 1;
+	sf::Vector2f left_Top(m_All_Objects[walls][0]->get_loction());
+	sf::Vector2f right_Bottom(m_All_Objects[walls][right_wall]->get_loction());
+
+
+	
 
 	sf::RectangleShape under_Me(m_Elemnt_Of_Game);
 	under_Me.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);//the floor under the current elemnt
@@ -132,6 +163,7 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 		return;
 	}
 	if ((under_Me_Type != wall && under_Me_Type != ladder))
+		if (under_Me.getPosition().y<right_Bottom.y )
 		m_Elemnt_Of_Game.move(0, key.y);
 
 }
