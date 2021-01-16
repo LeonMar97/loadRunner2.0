@@ -11,8 +11,11 @@ public:
 	}
 
 private:
-
-
+	void effect(void* PlayerLoction, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])override;
+	sf::Vector2f up_down(sf::Vector2f player_loc, sf::Vector2f my_loc);
+	sf::Vector2f right_left(sf::Vector2f player_loc, sf::Vector2f my_loc);
+	sf::Clock m_clock;
+	bool m_is_Wall = false;
 	//void set_Sounds();
 
 };

@@ -9,6 +9,7 @@ void Stupid_Enemy::effect(void* PlayerLoction, std::vector<Game_Object*>m_All_Ob
 		m_clock_enemy.restart();
 		
 		switch (rand() % 4 + 1)
+		//switch (1)
 		{
 		case 1:
 			m_x = 1, m_y = 0;
