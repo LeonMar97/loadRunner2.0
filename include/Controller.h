@@ -16,6 +16,7 @@
 #include "Med_Enemy.h"
 #include "Smart_Enemy.h"
 #include "Stupid_Enemy.h"
+#include "Score_Board.h"
 #pragma once
 
 class Controller {
@@ -32,7 +33,7 @@ class Controller {
 		void draw_On_map();
 		//void load_pic();
 		void updateGameObjects();
-		void draw_Score_Board();
+		//void draw_Score_Board();
 		void check_Erace();
 		void check_Hits();
 		void set_Background_And_Score();
@@ -42,6 +43,7 @@ class Controller {
 		void draw_Time();
 		void check_Score();
 		void check_Lives();
+		void set_Score_Board();
 //------------------members-----------------------------------//		
 	private :
 		sf::RenderWindow m_Game_Window;
@@ -51,13 +53,12 @@ class Controller {
 		sf::Clock m_Game_Clock;//game clock
 		
 		sf::Sprite m_bg; // the background
-		sf::Text m_Scoreboard_Text[3];
+	
 		sf::Text time_to_screen;
-		sf::RectangleShape m_Score_Board;
 		int m_Lvl=1;
 		int m_Player_enter_score = 0;
 		Menu m_Game_menu;
 		std::vector<sf::Texture*>m_All_textures[NUM_OF_OBJECTS];
-
+		Score_Board m_ScoreBoard;
 	};
 	

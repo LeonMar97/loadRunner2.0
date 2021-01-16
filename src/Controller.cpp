@@ -17,12 +17,17 @@ Controller::Controller()
 }
 void Controller:: start_Game() {
 	int current_Song = theme_song;
+
 	
+
+
 
 	Sounds_E::instance().get_Music(current_Song).play();
 	
 	m_Game_Clock.restart();
 	set_G_O_Vector();
+	set_Score_Board();
+
 	set_Background_And_Score();//setting everything before the start
 	m_Game_menu.draw(m_Game_Window);
 	//=============game loop==========================
@@ -30,7 +35,7 @@ void Controller:: start_Game() {
 	{
 
 		m_Game_Window.clear();
-		draw_Score_Board();
+		m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
 		draw_Time();
 		draw_On_map();
 		m_Game_Window.display();
@@ -192,18 +197,7 @@ void Controller::updateGameObjects()
 	
 }
 //============================================================
-//erase money and gift
-void Controller::draw_Score_Board() {
-	m_Scoreboard_Text[sc].setString(std::to_string((dynamic_cast<Player*>(m_All_Objects[players][0]))->getscore()));
-	m_Scoreboard_Text[lvl].setString(std::to_string(m_Lvl));
-	m_Scoreboard_Text[lf].setString(std::to_string((dynamic_cast<Player*>(m_All_Objects[players][0]))->getlives()));
-	m_Game_Window.draw(m_bg);
-	m_Game_Window.draw(m_Score_Board);
-	for (int i = 0; i <= lf; i++) {
-		m_Game_Window.draw(m_Scoreboard_Text[i]);
-	}
-	
-}
+
 //============================================================
 
 void Controller:: check_Erace() {
@@ -219,30 +213,9 @@ void Controller:: check_Erace() {
 
 }
 void Controller::set_Background_And_Score() {
-	int loc_Of_Y = m_All_Objects[walls].size() - 1;
-	float y = (m_All_Objects[walls][loc_Of_Y]->get_loction().y);
-	//------------------------setting scoreboard and background--------------------------
-	m_bg.setTexture(*Textures::instance().get_Textures(background_T)[0]);
-	m_Score_Board.setTexture(Textures::instance().get_Textures(scoreboard_T)[0]);
-	m_Score_Board.setSize(sf::Vector2f(300.0f, 250.0f));
-	m_Score_Board.setPosition(m_bg.getGlobalBounds().width / 2 -
-	m_Score_Board.getGlobalBounds().width / 2,y);
 
-	//------------------------setting font--------------------------	
-	sf::Font *font=new sf::Font() ;
-	float s = m_Score_Board.getGlobalBounds().height / 5;
-	font->loadFromFile("Love America.ttf");
-		for (int i = 0; i <= lf; i++) {
-
-			m_Scoreboard_Text[i].setPosition(m_Score_Board.getPosition().x + m_Score_Board.getGlobalBounds().width / 2,
-				m_Score_Board.getPosition().y + ((s)*(i + 1) + (i*s) / 2));
-
-		m_Scoreboard_Text[i].setFont(*font);
-		m_Scoreboard_Text[i].setFillColor(sf::Color::Red);
-		m_Scoreboard_Text[i].setCharacterSize(24);
-		m_Scoreboard_Text[i].setStyle(sf::Text::Bold | sf::Text::Underlined);
-		}
-		time_to_screen.setFont(*font);
+		time_to_screen.setFont(Textures::instance().get_Font());
+		//setting location for clock
 		time_to_screen.setPosition(750, 20);
 		time_to_screen.setFillColor(sf::Color::Blue);
 		time_to_screen.setCharacterSize(40);
@@ -351,10 +324,8 @@ void Controller::check_Score() {
 		pic.loadFromFile("WINNER.png");
 		game_over.setTexture(pic);
 		m_Game_Window.draw(game_over);
-		m_Game_Window.draw(m_Score_Board);
-		for (int i = 0; i <= lf; i++) {
-			m_Game_Window.draw(m_Scoreboard_Text[i]);
-		}
+		m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
+		
 		m_Game_Window.display();
 		m_Game_Clock.restart();
 		while (1)
@@ -390,16 +361,14 @@ void Controller::check_Score() {
 void Controller::check_Lives() {
 	if (dynamic_cast<Player*>(m_All_Objects[players][0])->getlives() ==0) {
 		{
-			draw_Score_Board();
+			
 			sf::Sprite game_over;
 			sf::Texture pic;
 			pic.loadFromFile("Wasted.png");
 			game_over.setTexture(pic);
 			m_Game_Window.draw(game_over);
-			m_Game_Window.draw(m_Score_Board);
-			for (int i = 0; i <= lf; i++) {
-				m_Game_Window.draw(m_Scoreboard_Text[i]);
-			}
+			m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
+			
 			m_Game_Window.display();
 			m_Game_Clock.restart();
 			while (1)
@@ -422,4 +391,10 @@ void Controller::check_Lives() {
 
 	}
 }
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+void Controller::set_Score_Board() {
+	int right_wall;
+	right_wall = m_All_Objects[walls].size() - 1;
+	sf::Vector2f right_Bottom(m_All_Objects[walls][right_wall]->get_loction());
+	m_ScoreBoard.set_Location(sf::Vector2f(m_Game_Window.getSize().x / 2, right_Bottom.y));
+}

@@ -6,19 +6,20 @@ Textures& Textures::instance() {
 }
 
  Textures::Textures() {
-	std::vector<std::string>names[] = {
-						  {"wall.png"},
-						  {"ladder.png"},
-						  {"pole.png"},
-						  {"money.png"},
-						  {"gift.png"},
-						  {"smart_Enemy.png","smart_pole.png"},
-						  {"med_Enemy.png","þþmed_pole.png"},
-						  {"stupid_Enemy.png","stupid_pole.png"},
-						  {"cjsk.png","cj2.png"},
-						  {"background2.png"},
-						  {"scoreBoard.png"}
-											};
+	 m_Font.loadFromFile("Love America.ttf");//setting one font
+	 std::vector<std::string>names[] = {
+						   {"wall.png"},
+						   {"ladder.png"},
+						   {"pole.png"},
+						   {"money.png"},
+						   {"gift.png"},
+						   {"smart_Enemy.png","smart_pole.png"},
+						   {"med_Enemy.png","þþmed_pole.png"},
+						   {"stupid_Enemy.png","stupid_pole.png"},
+						   {"cjsk.png","cj2.png"},
+						   {"background2.png"},
+						   {"scoreBoard.png"},
+						   {"bg_23.png"} };
 
 	int i, j;
 

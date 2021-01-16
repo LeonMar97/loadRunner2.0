@@ -16,4 +16,5 @@ target_sources (Project_adi_gutman_leon_markovich PRIVATE
 													"Textures.cpp"
 													"Stupid_Enemy.cpp"
 													"Smart_Enemy.cpp"
-													"Med_Enemy.cpp")
+													"Med_Enemy.cpp"
+													"Score_Board.cpp")

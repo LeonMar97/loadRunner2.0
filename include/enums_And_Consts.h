@@ -59,7 +59,7 @@ enum texture_names {
 	players_T = 8,
 	background_T = 9,
 	scoreboard_T=10,
-
+	menu_T=11
 };
 
 enum g_Music {
@@ -72,5 +72,5 @@ const int GIFT_SOUNDS = 1;
 const int EXTRA_TIME = 30;
 const sf::Vector2f start_Of_Map(350, 150);//start location
 const unsigned int NUM_OF_OBJECTS = 7;
-const unsigned int NUM_OF_TEXTURE_OBJECTS = 11;
+const unsigned int NUM_OF_TEXTURE_OBJECTS = 12;
 
