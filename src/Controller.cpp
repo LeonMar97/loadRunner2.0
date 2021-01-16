@@ -358,6 +358,7 @@ void Controller::check_Lives() {
 			sf::Sprite game_over;
 
 			game_over.setTexture(*Textures::instance().get_Textures(loser_T)[0]);
+			m_Game_Window.clear();
 			m_Game_Window.draw(game_over);
 			m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
 			
