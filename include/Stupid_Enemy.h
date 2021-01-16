@@ -14,8 +14,9 @@ public:
 	
 private:
 	void effect(void* PlayerLoction, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])override;
-	sf::Clock m_clock;
-	int m_Wall=1;
+	sf::Clock m_clock, m_clock_enemy;
+	int m_Wall=1,m_x=0,m_y=0;
+
 	//void set_Sounds();
 
 };
