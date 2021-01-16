@@ -184,10 +184,7 @@ void Controller::updateGameObjects()
 	m_All_Objects[players][0]->effect(&deltaTime,m_All_Objects);
 	for (int i = 0; i < m_All_Objects[enemys].size(); i++)
 	{
-		if (m_All_Objects[enemys].size() == 2)
-		{
-			;
-		}
+		
 		sf::Vector2f player_loc(m_All_Objects[players][0]->get_loction());
 		m_All_Objects[enemys][i]->effect(&player_loc, m_All_Objects);
 	}
