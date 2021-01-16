@@ -202,7 +202,7 @@ void Moving_Object::change__Curr_Texture(std::vector<Game_Object*>m_All_Objects[
 		m_direction = !m_direction;
 	}
 
-	if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole)
+	if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole && get_Type()==player)
 		m_Elemnt_Of_Game.setTexture(m_Tex[1]);
 	else
 		m_Elemnt_Of_Game.setTexture(m_Tex[0]);

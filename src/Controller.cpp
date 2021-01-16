@@ -13,7 +13,7 @@
 
 Controller::Controller()
 :m_Game_Window(sf::VideoMode(1920, 1080), "Game") {
-	set_G_O_Vector(); 
+	
 }
 void Controller:: start_Game() {
 	int current_Song = theme_song;
@@ -21,7 +21,9 @@ void Controller:: start_Game() {
 	m_Game_menu.draw(m_Game_Window);
 
 	Sounds_E::instance().get_Music(current_Song).play();
-
+	
+	m_Game_Clock.restart();
+	set_G_O_Vector();
 	//=============game loop==========================
 	while (m_Game_Window.isOpen())
 	{
@@ -104,7 +106,7 @@ while (i < sizeof_Map.y+1) {
 			srand(time(NULL));
 			//randomizing enemys
 			//switch ((rand() % 2) + 2) {
-			switch((3)){
+			switch((1)){
 			 
 
 			case 1:	object = new Smart_Enemy(cur_Rec, rec_Loc);
@@ -182,9 +184,14 @@ void Controller::updateGameObjects()
 	m_All_Objects[players][0]->effect(&deltaTime,m_All_Objects);
 	for (int i = 0; i < m_All_Objects[enemys].size(); i++)
 	{
+		if (m_All_Objects[enemys].size() == 2)
+		{
+			;
+		}
 		sf::Vector2f player_loc(m_All_Objects[players][0]->get_loction());
 		m_All_Objects[enemys][i]->effect(&player_loc, m_All_Objects);
 	}
+	
 }
 //============================================================
 //erase money and gift
@@ -268,10 +275,8 @@ void Controller::check_Gifts() {
 	for (int i = 0; i < m_All_Objects[gifts].size(); i++) {
 
 		if (dynamic_cast<Gift*>((m_All_Objects[gifts][i]))->get_Bad_Gift()) {
-			
-			Enemy* vasia = new Enemy(*dynamic_cast<Enemy*>(m_All_Objects[enemys][0]));
-			sf::Vector2f fir(m_All_Objects[players][0]->get_First_loc());
-			vasia->set_loction(fir);
+			Game_Object* vasia = new Stupid_Enemy(m_All_Objects[enemys][0]->get_rectangle(), m_All_Objects[enemys][0]->get_loction());
+		
 			m_All_Objects[enemys].push_back(vasia);
 		}
 		if (dynamic_cast<Gift*>((m_All_Objects[gifts][i]))->get_time_Gift())
