@@ -23,5 +23,6 @@ configure_file ("cjsk.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("cj2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("cj23.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("bg_23.png" ${CMAKE_BINARY_DIR} COPYONLY)
-
-
+configure_file ("smart_pole.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("stupid_pole.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("‏‏med_pole.png" ${CMAKE_BINARY_DIR} COPYONLY)

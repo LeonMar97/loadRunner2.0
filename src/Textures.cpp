@@ -12,9 +12,9 @@ Textures& Textures::instance() {
 						  {"pole.png"},
 						  {"money.png"},
 						  {"gift.png"},
-						  {"smart_Enemy.png"},
-						  {"med_Enemy.png"},
-						  {"stupid_Enemy.png"},
+						  {"smart_Enemy.png","smart_pole.png"},
+						  {"med_Enemy.png","þþmed_pole.png"},
+						  {"stupid_Enemy.png","stupid_pole.png"},
 						  {"cjsk.png","cj2.png"},
 						  {"background2.png"},
 						  {"scoreBoard.png"}

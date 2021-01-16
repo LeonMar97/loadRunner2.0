@@ -6,6 +6,7 @@
 
 void Med_Enemy::effect(void* PlayerLoction, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])
 {
+	
 	auto deltaTime = m_clock.restart();
 	sf::Vector2f player_loc(*(sf::Vector2f*)PlayerLoction);
 	sf::RectangleShape temp(m_Elemnt_Of_Game);

@@ -19,4 +19,7 @@ public:
 	void handleCollision(Gift& gameObject)override ;
 	void handleCollision(Wall& gameObject)override;
 //--------------private--------members-----------------------//
+protected:
+	sf::Time m_last_Checked_Time;
+
 };
