@@ -312,31 +312,10 @@ void Controller::draw_Time() {
 void Controller::check_Score() {
 	bool more_maps = true;
 	if (m_All_Objects[moneys].size() == 0&& !m_Board.rebuild_Map())
-		{
+	{
 		more_maps = false;
-		sf::Sprite game_over;
-		game_over.setTexture(*Textures::instance().get_Textures(winner_T)[0]);
-		m_Game_Window.draw(game_over);
-		m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
+		Quit_Game(winner_T);
 		
-		m_Game_Window.display();
-		m_Game_Clock.restart();
-		while (1)
-		{
-			sf::Event event;
-			while (m_Game_Window.pollEvent(event))
-			{
-
-				if (event.type == sf::Event::Closed)
-					m_Game_Window.close();
-				break;
-			}
-			if (m_Game_Clock.getElapsedTime().asSeconds() > 10 || !m_Game_Window.isOpen())
-			{
-				m_Game_Window.close();
-				return;
-			}
-		}
 	}
 	if (m_All_Objects[moneys].size()==0&&more_maps) {
 		
@@ -354,34 +333,8 @@ void Controller::check_Score() {
 void Controller::check_Lives() {
 	if (dynamic_cast<Player*>(m_All_Objects[players][0])->getlives() ==0) {
 		{
-			
-			sf::Sprite game_over;
-
-			game_over.setTexture(*Textures::instance().get_Textures(loser_T)[0]);
-			m_Game_Window.clear();
-			m_Game_Window.draw(game_over);
-			m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
-			
-			m_Game_Window.display();
-			m_Game_Clock.restart();
-			while (1)
-			{
-				sf::Event event;
-				while (m_Game_Window.pollEvent(event))
-				{
-
-					if (event.type == sf::Event::Closed)
-					m_Game_Window.close();
-					break;
-				}
-				if (m_Game_Clock.getElapsedTime().asSeconds() > 10|| !m_Game_Window.isOpen())
-				{
-					m_Game_Window.close();
-					break;
-				}
-			}
+			Quit_Game(loser_T);
 		}
-
 	}
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
@@ -392,4 +345,32 @@ void Controller::set_Score_Board() {
 	m_ScoreBoard.set_Location(sf::Vector2f(m_Game_Window.getSize().x / 2, right_Bottom.y));
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+void Controller::Quit_Game(int pic_num)
+{
+	m_Game_Window.clear();
+	sf::Sprite game_over;
 
+	game_over.setTexture(*Textures::instance().get_Textures(pic_num)[0]);
+
+	m_Game_Window.draw(game_over);
+	m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
+
+	m_Game_Window.display();
+	m_Game_Clock.restart();
+	while (1)
+	{
+		sf::Event event;
+		while (m_Game_Window.pollEvent(event))
+		{
+
+			if (event.type == sf::Event::Closed)
+				m_Game_Window.close();
+			break;
+		}
+		if (m_Game_Clock.getElapsedTime().asSeconds() > 10 || !m_Game_Window.isOpen())
+		{
+			m_Game_Window.close();
+			break;
+		}
+	}
+}

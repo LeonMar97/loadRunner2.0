@@ -27,17 +27,3 @@ void Med_Enemy::effect(void* PlayerLoction, std::vector<Game_Object*>m_All_Objec
 
 
 
-/*auto deltaTime = clock.restart();
-	sf::Vector2f player_loc(*(sf::Vector2f*)PlayerLoction);
-	if (m_Elemnt_Of_Game.getPosition().x > player_loc.x)
-	{
-		sf::Vector2f next(-1, 0);
-		this->move_Object(next, deltaTime, m_All_Objects);
-	}
-	else {
-		sf::Vector2f next(1, 0);
-		this->move_Object(next, deltaTime, m_All_Objects);
-	}
-	*/
-
-	/**/

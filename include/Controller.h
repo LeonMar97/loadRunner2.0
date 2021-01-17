@@ -45,6 +45,7 @@ class Controller {
 		void check_Lives();
 		void set_Score_Board();
 		void print_Background();
+		void Quit_Game(int pic_num);
 
 //------------------members-----------------------------------//		
 	private :
