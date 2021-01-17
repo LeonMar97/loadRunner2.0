@@ -17,12 +17,13 @@ Controller::Controller()
 }
 void Controller:: start_Game() {
 	int current_Song = theme_song;
-	Sounds_E::instance().get_Music(current_Song).play();
+	
 	m_Game_menu.draw(m_Game_Window);
 	m_Game_Clock.restart();
 	set_G_O_Vector();
 	set_Score_Board();
 	game_Time();//setting everything before the start
+	Sounds_E::instance().get_Music(current_Song).play();
 	//=============game loop==========================
 	while (m_Game_Window.isOpen())
 	{
