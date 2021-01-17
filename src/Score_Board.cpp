@@ -68,5 +68,3 @@ void Score_Board:: set_Location(sf::Vector2f print_Loc) {
 
 
 
-//(dynamic_cast<Player*>(&main_Player))->getlives())
-//game_Window.draw(m_Bg);
