@@ -66,16 +66,16 @@ sizeof_Map = m_Board.get_Size();
 sf::Vector2f block_Size(1280/sizeof_Map.x, 720/sizeof_Map.y);
 sf::Vector2f player_Size(900 / sizeof_Map.x, 600 / sizeof_Map.y);
 
-int i = 1,j=0;
+int i = 0,j=0;
 std::string name;
 Game_Object * object;
-while (i < sizeof_Map.y+1) {
+while (i < sizeof_Map.y) {
 	j = 0;
 	while (j < sizeof_Map.x) {
 //----------------------creating block and setting their size--------------------------------------------------
 		sf::RectangleShape cur_Rec(block_Size);
 		sf::Vector2f rec_Loc(sf::Vector2f(start_Of_Map.x + j * 1280 / sizeof_Map.x,
-			start_Of_Map.y + (i - 1) * 720 / sizeof_Map.y));
+			start_Of_Map.y + (i ) * 720 / sizeof_Map.y));
 		cur_Rec.setPosition(rec_Loc);
 
 		cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
@@ -104,7 +104,7 @@ while (i < sizeof_Map.y+1) {
 			cur_Rec.setSize(player_Size);
 			// settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-			srand(time(NULL));
+			srand(rand());
 			//randomizing enemys
 			switch ((rand() % 3) + 1) {
 			

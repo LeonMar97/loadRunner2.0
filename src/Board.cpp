@@ -35,12 +35,10 @@ Board::Board()
 *m_size:size of the vector.
 */
 bool Board::set_Size() {
-	if(!m_Cf.eof())
-	{
+	//if(!m_Cf.eof())
 		m_Cf >> m_Size.y >> m_Size.x >> m_Time;
-		return true;
-	}
-	return false;
+		return (!m_Cf.fail());
+		
 }
 //--------------------------------------------------
 /*
@@ -49,9 +47,11 @@ bool Board::set_Size() {
 * cur:local var for each string .
 */
 void Board::set_Map() {
+	std::string temp;
+	std::getline(m_Cf, temp);
 	int i = 0;
 	auto cur = std::string();
-	for (i;i <= m_Size.y;i++) {
+	for (i;i < m_Size.y;i++) {
 		std::getline(m_Cf, cur);
 
 		m_Board.push_back(cur);
