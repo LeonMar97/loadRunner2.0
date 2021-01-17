@@ -30,7 +30,7 @@ private:
 	
 //--------------private--------members-----------------------//
 private:
-	int m_Score = 0, m_Lives = 3;
+	int m_Score = 0, m_Lives = 5;
 	bool m_got_Hit = false;
 	std::vector<sf::Sound*>m_S_Buf;
 
