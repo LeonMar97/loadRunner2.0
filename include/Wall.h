@@ -10,7 +10,7 @@ public:
 		Disappearing_Object(cur_rec, (Textures::instance().get_Textures(walls_T)), (loction), (wall)) {
 		m_Elemnt_Of_Game.setOutlineThickness(1);
 		m_Elemnt_Of_Game.setOutlineColor(sf::Color::Black);
-		m_Elemnt_Of_Game.setScale(1, 0.9);
+		//m_Elemnt_Of_Game.setScale(1, 0.9);
 	}
 	void handleCollision(Player& enemy) ;
 	void  Check_Wall(Player& player, std::vector<Game_Object*>& enemeys);

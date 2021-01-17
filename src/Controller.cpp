@@ -18,16 +18,14 @@ Controller::Controller()
 void Controller:: start_Game() {
 	int current_Song = theme_song;
 	Sounds_E::instance().get_Music(current_Song).play();
-	
+	m_Game_menu.draw(m_Game_Window);
 	m_Game_Clock.restart();
 	set_G_O_Vector();
 	set_Score_Board();
 	game_Time();//setting everything before the start
-	m_Game_menu.draw(m_Game_Window);
 	//=============game loop==========================
 	while (m_Game_Window.isOpen())
 	{
-
 		m_Game_Window.clear();
 		m_Game_Window.draw(m_bg);
 		m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
@@ -65,7 +63,7 @@ sizeof_Map = m_Board.get_Size();
 //sf::Vector2f block_Size(sizeof_Angle,sizeof_Angle);
 sf::Vector2f block_Size(1280/sizeof_Map.x, 720/sizeof_Map.y);
 sf::Vector2f player_Size(900 / sizeof_Map.x, 600 / sizeof_Map.y);
-
+srand(time(NULL));
 int i = 0,j=0;
 std::string name;
 Game_Object * object;
@@ -98,18 +96,12 @@ while (i < sizeof_Map.y) {
 			m_All_Objects[walls].push_back(object);
 			break;
 		case enemy:
-			temp == m_Game_Clock.getElapsedTime();
-			while (temp.asSeconds() == m_Game_Clock.getElapsedTime().asSeconds())
-				;
 			cur_Rec.setSize(player_Size);
 			// settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-			srand(rand());
+			
 			//randomizing enemys
 			switch ((rand() % 3) + 1) {
-			
-			 
-
 			case 1:	object = new Smart_Enemy(cur_Rec, rec_Loc);
 				m_All_Objects[enemys].push_back(object);
 				break;

@@ -149,11 +149,10 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 	
 
 	sf::RectangleShape under_Me(m_Elemnt_Of_Game);
-	under_Me.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);//the floor under the current elemnt
+	under_Me.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.08f);//the floor under the current elemnt
 	char under_Me_Type = What_In_Loc(under_Me, m_All_Objects);
-	//int key = (sf::Keyboard::Down);
 
-	sf::Vector2f key(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);
+
 	if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole)//if we are on pole dont drop
 	{
 		return;
@@ -166,7 +165,7 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 	}
 	if ((under_Me_Type != wall && under_Me_Type != ladder))
 		if (under_Me.getPosition().y<right_Bottom.y )
-		m_Elemnt_Of_Game.move(0, key.y);
+		m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.08f);
 
 }
 //===================================================================
