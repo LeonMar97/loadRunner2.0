@@ -25,7 +25,7 @@ void Smart_Enemy::effect(void* PlayerLoction, std::vector<Game_Object*>m_All_Obj
     {
         if ((What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole))
         {
-            if ((player_loc.y - this->get_loction().y > 0.1f)) {
+            if ((player_loc.y - this->get_loction().y > 1.5f)) {
                 sf::Vector2f next_move(0, 1);
                // next_move *= 0.9f;
                 temp.move(next_move * size * deltaTime.asSeconds());
