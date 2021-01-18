@@ -87,7 +87,7 @@ void  Menu::Get_Pressed(sf::RenderWindow &window) {
 		window.close();
 	}
 	else {
-		Sounds_E::instance().get_Sounds(GIFT_SOUNDS, start_G).play();
+		Sounds_E::instance().get_Sounds(MENU_SOUNDS, start_G).play();
 
 	}
 }

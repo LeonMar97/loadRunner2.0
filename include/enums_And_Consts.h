@@ -61,7 +61,7 @@ enum texture_names {
 	players_T = 8,
 	background_T = 9,
 	scoreboard_T=10,
-	menu_T=11,
+	menu_T = 11,
 	winner_T=12,
 	loser_T=13
 };
@@ -70,7 +70,7 @@ enum g_Music {
 	theme_song = 0
 };
 const int MUSIC_TYPES = 1;
-const int SOUND_TYPES = 2;
+const int SOUND_TYPES = 3;
 const int PLAYER_SOUNDS = 0;
 const int GIFT_SOUNDS = 1;
 const int MENU_SOUNDS = 2;

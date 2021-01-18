@@ -13,7 +13,7 @@ Sounds_E::Sounds_E() {
 										"GENERIC_THANKS_02.wav",
 										"GAME_WIN_SELF_01.wav",
 										"ARRESTED_DRUNK_03.wav",
-										"BASEJUMP_ABOUT_TO_JUMP_03.wav"} ,
+										"BASEJUMP_ABOUT_TO_JUMP_03.wav"},
 										{
 											"leave.wav",
 											"start.wav"
@@ -25,7 +25,7 @@ Sounds_E::Sounds_E() {
 	sf::SoundBuffer* sd;//sound
 	sf::Sound* sound;
 	std::vector<sf::SoundBuffer*>sd_buf;
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < SOUND_TYPES; i++) {
 		for (j = 0; j < names[i].size(); j++) {
 			sd = new sf::SoundBuffer;
 			sound = new sf::Sound;
@@ -34,7 +34,7 @@ Sounds_E::Sounds_E() {
 				std::cout << "couldnt load sound" << names[i][j] << "\n";
 			}
 			sound->setBuffer(*sd);
-			sound->setVolume(10);
+			sound->setVolume(15);
 			m_Sounds[i].push_back(sound);
 
 		}
