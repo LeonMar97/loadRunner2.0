@@ -13,8 +13,12 @@ Sounds_E::Sounds_E() {
 										"GENERIC_THANKS_02.wav",
 										"GAME_WIN_SELF_01.wav",
 										"ARRESTED_DRUNK_03.wav",
-										"BASEJUMP_ABOUT_TO_JUMP_03.wav"} 
-											};
+										"BASEJUMP_ABOUT_TO_JUMP_03.wav"} ,
+										{
+											"leave.wav",
+											"start.wav"
+										} 
+	};
 	std::vector<std::string>music_name = { "theme song.ogg" };
 
 	int j;

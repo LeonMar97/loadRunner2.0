@@ -82,8 +82,14 @@ void Menu::draw(sf::RenderWindow& window)
 
 
 void  Menu::Get_Pressed(sf::RenderWindow &window) {
-	if(m_selectedItem==1 )
-		window.close();	
+	if (m_selectedItem == 1) {
+		Sounds_E::instance().get_Sounds(MENU_SOUNDS, leave_G).play();
+		window.close();
+	}
+	else {
+		Sounds_E::instance().get_Sounds(GIFT_SOUNDS, start_G).play();
+
+	}
 }
 
 

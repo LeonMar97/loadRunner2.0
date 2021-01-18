@@ -45,7 +45,9 @@ enum sounds {
 	gift_life = 0,
 	gift_score = 1,
 	gift_enemy=2,
-	gift_time =3
+	gift_time =3,
+	leave_G = 0,
+	start_G = 1
 };
 enum texture_names {
 	walls_T = 0,
@@ -71,6 +73,7 @@ const int MUSIC_TYPES = 1;
 const int SOUND_TYPES = 2;
 const int PLAYER_SOUNDS = 0;
 const int GIFT_SOUNDS = 1;
+const int MENU_SOUNDS = 2;
 const int EXTRA_TIME = 30;
 const sf::Vector2f start_Of_Map(350, 100);//start location
 const unsigned int NUM_OF_OBJECTS = 7;
