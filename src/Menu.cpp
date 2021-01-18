@@ -1,6 +1,8 @@
 #pragma once
 #include "Menu.h"
 #include "Textures.h"
+#include "windows.h" 
+
 
 Menu::Menu()
 	:m_Menu_Background(*Textures::instance().get_Textures(menu_T)[0])
@@ -72,7 +74,8 @@ void Menu::draw(sf::RenderWindow& window)
 			case sf::Event::MouseButtonReleased:
 				if (mouse_Click(cursorPos));
 				Get_Pressed(window);
-				return;
+				in_menu = false;
+				
 			};
 			break;
 		}
@@ -83,7 +86,9 @@ void Menu::draw(sf::RenderWindow& window)
 
 void  Menu::Get_Pressed(sf::RenderWindow &window) {
 	if (m_selectedItem == 1) {
+		
 		Sounds_E::instance().get_Sounds(MENU_SOUNDS, leave_G).play();
+		Sleep(1000);
 		window.close();
 	}
 	else {
