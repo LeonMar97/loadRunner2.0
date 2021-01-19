@@ -26,3 +26,5 @@ configure_file ("bg_23.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("smart_pole.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("stupid_pole.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("med_pole.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("next_Lvl.png" ${CMAKE_BINARY_DIR} COPYONLY)
+

@@ -20,7 +20,7 @@ Textures& Textures::instance() {
 						   {"background2.png"},
 						   {"scoreBoard.png"},
 						   {"bg_23.png"},
-							{"WINNER.png"},
+							{"WINNER.png","next_Lvl.png"},
 							{"Wasted.png"} };
 
 	int i, j;

@@ -19,7 +19,7 @@ void Moving_Object::move_Object(sf::Vector2f& Direction, sf::Time delta_time, st
 
 	}
 	handleCollision_moving(*this, m_All_Objects);
-
+	
 
 
 	change__Curr_Texture(m_All_Objects, Direction);
@@ -141,6 +141,11 @@ char Moving_Object::What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Objec
 void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 {
 	
+	if (!this->in_Gg(m_Elemnt_Of_Game, *m_All_Objects)&&this->get_Type()==player) {
+		m_Out_Of_Bounds = true;
+		return;
+	}
+	
 	int right_wall;
 	right_wall = m_All_Objects[walls].size() - 1;
 	sf::Vector2f left_Top(m_All_Objects[walls][0]->get_loction());
@@ -171,12 +176,15 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 
 			m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height*0.08f );
 
+}
+//=====================================================================
 
-
-
-
-
-
+bool Moving_Object::is_Out_Of_Bounds() {
+	if (m_Out_Of_Bounds == true) {
+		m_Out_Of_Bounds = false;
+		return true;
+	}
+	return false;
 }
 //===================================================================
 bool Moving_Object::check_pole(std::vector<Game_Object*>m_All_Objects[],

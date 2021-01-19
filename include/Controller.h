@@ -33,7 +33,7 @@ class Controller {
 		void draw_On_map();
 		
 		void updateGameObjects();
-		
+		void restart_lvl();
 		void check_Erace();
 		void check_Hits();
 		void game_Time();

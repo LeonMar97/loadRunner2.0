@@ -5,7 +5,8 @@
 #include <string>
 #include <chrono>
 #include "Textures.h"
-
+#include "Sounds_E.h"
+#include <Windows.h>
 #pragma once
 //--------------------------------------------------------//
 
@@ -185,7 +186,12 @@ void Controller::updateGameObjects()
 	{
 		sf::Vector2f player_loc(m_All_Objects[players][0]->get_loction());
 		m_All_Objects[enemys][i]->effect(&player_loc, m_All_Objects);
+	
+	
 	}
+	if (dynamic_cast<Player*>(m_All_Objects[players][0])->is_Out_Of_Bounds())
+		restart_lvl();
+	
 	free_Fall();
 	
 }
@@ -241,7 +247,7 @@ void Controller::check_Gifts() {
 	for (int i = 0; i < m_All_Objects[gifts].size(); i++) {
 
 		if (dynamic_cast<Gift*>((m_All_Objects[gifts][i]))->get_Bad_Gift()) {
-			Game_Object* vasia = new Stupid_Enemy(m_All_Objects[enemys][0]->get_rectangle(), m_All_Objects[enemys][0]->get_loction());
+			Game_Object* vasia = random_Enemy(m_All_Objects[enemys][0]->get_rectangle(), m_All_Objects[enemys][0]->get_loction());
 		
 			m_All_Objects[enemys].push_back(vasia);
 		}
@@ -266,22 +272,12 @@ void Controller::delete_vector()
 //resting the time
 void Controller:: check_Rest_Time() {
 	sf::Time elapsed = m_Game_Clock.getElapsedTime();
-	if ((int)elapsed.asSeconds() > m_Board.get_Time()) {
-		m_Game_Clock.restart();
-		int lif = (dynamic_cast<Player*>(m_All_Objects[players][0])->getlives()) - 1;
-		int score = (dynamic_cast<Player*>(m_All_Objects[players][0])->getscore());
-		delete_vector();
-		set_G_O_Vector();
-		
-		dynamic_cast<Player*>(m_All_Objects[players][0])->
-			setscore(m_Player_enter_score);
-	
-		dynamic_cast<Player*>(m_All_Objects[players][0])->setlives(lif);
-		m_Game_Clock.restart();
 
+	if ((int)elapsed.asSeconds() > m_Board.get_Time()) {
+		restart_lvl();
 	}
 	
-	
+
 		for (int i = 0; i < m_All_Objects[walls].size(); i++)
 		{
 			dynamic_cast<Wall*>(m_All_Objects[walls][i])->Check_Wall
@@ -291,6 +287,24 @@ void Controller:: check_Rest_Time() {
 
 }
 //=========================================================================
+//resetting the lvl 
+void Controller::restart_lvl() {
+	m_Game_Clock.restart();
+	int lif = (dynamic_cast<Player*>(m_All_Objects[players][0])->getlives()) - 1;
+	delete_vector();
+	set_G_O_Vector();
+
+	dynamic_cast<Player*>(m_All_Objects[players][0])->
+		setscore(m_Player_enter_score);
+
+	dynamic_cast<Player*>(m_All_Objects[players][0])->setlives(lif);
+	m_Game_Clock.restart();
+
+}
+
+
+//=========================================================================
+
 void Controller::draw_Time() {
 	sf::Time elapsed = m_Game_Clock.getElapsedTime();
 	std::stringstream time;
@@ -316,7 +330,14 @@ void Controller::check_Score() {
 		
 	}
 	if (m_All_Objects[moneys].size()==0&&more_maps) {
-		
+		sf::Sprite game_over;
+
+		game_over.setTexture(*Textures::instance().get_Textures(winner_T)[1]);//next lvl picture
+	
+		m_Game_Window.clear();
+		m_Game_Window.draw(game_over);
+		m_Game_Window.display();
+		Sleep(3000);//delay before next lvl
 		m_Lvl++;
 		m_Player_enter_score = (dynamic_cast<Player*>(m_All_Objects[players][0]))->getscore();
 		m_Player_enter_score += 50;

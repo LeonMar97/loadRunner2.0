@@ -5,6 +5,7 @@
 class Moving_Object : public Game_Object {
 	//--------------public--------functions-----------------------//
 public:
+	bool is_Out_Of_Bounds();//checking if player is out of bounds
 	using Game_Object::Game_Object;
 	//using Game_Object::effect;
 	//virtual void move(sf::Keyboard::Key key) {};
@@ -32,4 +33,5 @@ protected:
 	bool m_direction = right;
 	int m_dig = undig;
 	static sf::Clock m_clock;
+	bool m_Out_Of_Bounds = false;
 };
