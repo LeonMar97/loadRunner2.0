@@ -350,8 +350,9 @@ void Controller::check_Score() {
 }
 //============================================================
 void Controller::check_Lives() {
-	if (dynamic_cast<Player*>(m_All_Objects[players][0])->getlives() ==0) {
+	if (dynamic_cast<Player*>(m_All_Objects[players][0])->getlives() <1) {
 		{
+			dynamic_cast<Player*>(m_All_Objects[players][0])->setlives(0);
 			Quit_Game(loser_T);
 		}
 	}
