@@ -2,10 +2,10 @@
 
 void Gift::handleCollision(Player& gameObject)
 {
-    
+    srand(time(NULL));
     m_deleted = true;
     int lives, score;
-    srand(time(NULL));
+   
     //randomizing gifts 
     switch (rand()%4+1) {
 
