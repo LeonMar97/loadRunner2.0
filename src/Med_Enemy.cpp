@@ -12,7 +12,7 @@ void Med_Enemy::effect(void* PlayerLoction, std::vector<Game_Object*>m_All_Objec
 	sf::RectangleShape temp(m_Elemnt_Of_Game);
 	sf::Vector2f next(m_Wall, 0);
 
-	float size = (temp.getTexture()->getSize().x) / 3;
+	float size = (temp.getTexture()->getSize().x) ;
 	temp.move(next * size * deltaTime.asSeconds());
 
 	if (What_In_Loc(temp, m_All_Objects) == wall)

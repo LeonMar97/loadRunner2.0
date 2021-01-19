@@ -31,9 +31,9 @@ class Controller {
 		void set_G_O_Vector();
 		void  free_Fall();
 		void draw_On_map();
-		//void load_pic();
+		
 		void updateGameObjects();
-		//void draw_Score_Board();
+		
 		void check_Erace();
 		void check_Hits();
 		void game_Time();
@@ -44,7 +44,7 @@ class Controller {
 		void check_Score();
 		void check_Lives();
 		void set_Score_Board();
-		void print_Background();
+		
 		void Quit_Game(int pic_num);
 		Game_Object* random_Enemy(sf::RectangleShape cur_Rec, sf::Vector2f rec_Loc);
 //------------------members-----------------------------------//		

@@ -94,7 +94,7 @@ bool Moving_Object::check_ladder(sf::RectangleShape& after_Click, std::vector<Ga
 
 		break;
 
-
+	
 	};
 	if (under == wall) {
 		return true;

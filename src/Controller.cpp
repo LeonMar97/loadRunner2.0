@@ -42,7 +42,7 @@ void Controller:: start_Game() {
 				m_Game_Window.close();
 				exit(EXIT_SUCCESS);
 			}
-			}
+		}
 		updateGameObjects();
 		
 		check_Gifts();//getting info after collision with gifts
@@ -51,8 +51,8 @@ void Controller:: start_Game() {
 		check_Lives();
 		check_Score();
 
-	 }
 	}
+}
 
 //--------------------------------------------------------//
 //setting the game controller vector
@@ -135,15 +135,15 @@ Game_Object* Controller::random_Enemy(sf::RectangleShape cur_Rec, sf::Vector2f r
 	//randomizing enemys
 	switch ((rand() % 3) + 1) {
 	case 1:	object = new Smart_Enemy(cur_Rec, rec_Loc);
-		m_All_Objects[enemys].push_back(object);
+		//m_All_Objects[enemys].push_back(object);
 		break;
 	case 2:
 		object = new Med_Enemy(cur_Rec, rec_Loc);
-		m_All_Objects[enemys].push_back(object);
+		//m_All_Objects[enemys].push_back(object);
 		break;
 	case 3:
 		object = new Stupid_Enemy(cur_Rec, rec_Loc);
-		m_All_Objects[enemys].push_back(object);
+		//m_All_Objects[enemys].push_back(object);
 		break;
 
 	};
@@ -183,10 +183,10 @@ void Controller::updateGameObjects()
 	m_All_Objects[players][0]->effect(&deltaTime,m_All_Objects);
 	for (int i = 0; i < m_All_Objects[enemys].size(); i++)
 	{
-		free_Fall();
 		sf::Vector2f player_loc(m_All_Objects[players][0]->get_loction());
 		m_All_Objects[enemys][i]->effect(&player_loc, m_All_Objects);
 	}
+	free_Fall();
 	
 }
 //============================================================
