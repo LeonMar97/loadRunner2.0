@@ -8,6 +8,8 @@ public:
 	//using Disappearing_Object::Disappearing_Object;
 	Med_Enemy(sf::RectangleShape cur_rec, sf::Vector2f loction) :
 		Enemy(cur_rec, (Textures::instance().get_Textures(medEnemys_T)), (loction), (enemy)) {
+		m_Elemnt_Of_Game.setOrigin(sf::Vector2f(m_Elemnt_Of_Game.getGlobalBounds().width / 2,
+			m_Elemnt_Of_Game.getGlobalBounds().height / 2));
 	}
 
 	

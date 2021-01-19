@@ -46,7 +46,7 @@ class Controller {
 		void set_Score_Board();
 		void print_Background();
 		void Quit_Game(int pic_num);
-
+		Game_Object* random_Enemy(sf::RectangleShape cur_Rec, sf::Vector2f rec_Loc);
 //------------------members-----------------------------------//		
 	private :
 		sf::RenderWindow m_Game_Window;

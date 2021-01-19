@@ -38,11 +38,13 @@ void Controller:: start_Game() {
 		while (m_Game_Window.pollEvent(event))
 		{
 
-			if (event.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed) {
 				m_Game_Window.close();
-		}
+				exit(EXIT_SUCCESS);
+			}
+			}
 		updateGameObjects();
-		free_Fall();
+		
 		check_Gifts();//getting info after collision with gifts
 		check_Hits();
 		check_Erace();
@@ -54,95 +56,98 @@ void Controller:: start_Game() {
 
 //--------------------------------------------------------//
 //setting the game controller vector
-void Controller::set_G_O_Vector(){
-sf::Texture* pic;
-sf::Vector2i sizeof_Map;
-sizeof_Map = m_Board.get_Size();
-//float sizeof_Angle=((1280*720)/(sizeof_Map.x* sizeof_Map.y));//seting the size of angle of each
-															//block of the texture
+void Controller::set_G_O_Vector() {
+	sf::Texture* pic;
+	sf::Vector2i sizeof_Map;
+	sizeof_Map = m_Board.get_Size();
+	//float sizeof_Angle=((1280*720)/(sizeof_Map.x* sizeof_Map.y));//seting the size of angle of each
+																//block of the texture
 
-//sf::Vector2f block_Size(sizeof_Angle,sizeof_Angle);
-sf::Vector2f block_Size(1280/sizeof_Map.x, 720/sizeof_Map.y);
-sf::Vector2f player_Size(900 / sizeof_Map.x, 600 / sizeof_Map.y);
-srand(time(NULL));
-int i = 0,j=0;
-std::string name;
-Game_Object * object;
-while (i < sizeof_Map.y) {
-	j = 0;
-	while (j < sizeof_Map.x) {
-//----------------------creating block and setting their size--------------------------------------------------
-		sf::RectangleShape cur_Rec(block_Size);
-		sf::Vector2f rec_Loc(sf::Vector2f(start_Of_Map.x + j * 1280 / sizeof_Map.x,
-			start_Of_Map.y + (i ) * 720 / sizeof_Map.y));
-		cur_Rec.setPosition(rec_Loc);
+	//sf::Vector2f block_Size(sizeof_Angle,sizeof_Angle);
+	sf::Vector2f block_Size(1280 / sizeof_Map.x, 720 / sizeof_Map.y);
+	sf::Vector2f player_Size(900 / sizeof_Map.x, 600 / sizeof_Map.y);
+	srand(time(NULL));
+	int i = 0, j = 0;
+	std::string name;
+	Game_Object* object;
+	while (i < sizeof_Map.y) {
+		j = 0;
+		while (j < sizeof_Map.x) {
+			//----------------------creating block and setting their size--------------------------------------------------
+			sf::RectangleShape cur_Rec(block_Size);
+			sf::Vector2f rec_Loc(sf::Vector2f(start_Of_Map.x + j * 1280 / sizeof_Map.x,
+				start_Of_Map.y + (i) * 720 / sizeof_Map.y));
+			cur_Rec.setPosition(rec_Loc);
 
-		cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-//----------------------
-		sf::Time temp ;
-		switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
-		case player:
-			cur_Rec.setSize(player_Size);
-		//settin the origin again because size is different
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-			object = new Player(cur_Rec, rec_Loc);
-			m_All_Objects[players].push_back(object);
-			break;
-		case money:
-			object = new Money(cur_Rec, rec_Loc);
-			m_All_Objects[moneys].push_back(object);
-			break;
-		case wall:
-			object = new Wall(cur_Rec, rec_Loc);
-			m_All_Objects[walls].push_back(object);
-			break;
-		case enemy:
-			cur_Rec.setSize(player_Size);
-			// settin the origin again because size is different
-			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
-			
-			//randomizing enemys
-			switch ((rand() % 3) + 1) {
-			case 1:	object = new Smart_Enemy(cur_Rec, rec_Loc);
-				m_All_Objects[enemys].push_back(object);
+			//----------------------
+			sf::Time temp;
+			switch (m_Board.what_In_Location(sf::Vector2i(i, j))) {
+			case player:
+				cur_Rec.setSize(player_Size);
+				object = new Player(cur_Rec, rec_Loc);
+				m_All_Objects[players].push_back(object);
 				break;
-			case 2:
-				object = new Med_Enemy(cur_Rec, rec_Loc);
-				m_All_Objects[enemys].push_back(object);
+			case money:
+				object = new Money(cur_Rec, rec_Loc);
+				m_All_Objects[moneys].push_back(object);
 				break;
-			case 3:
-				object = new Stupid_Enemy(cur_Rec, rec_Loc);
+			case wall:
+				object = new Wall(cur_Rec, rec_Loc);
+				m_All_Objects[walls].push_back(object);
+				break;
+			case enemy:
+				cur_Rec.setSize(player_Size);
+				// settin the origin again because size is different
+				object = random_Enemy(cur_Rec, rec_Loc);
 				m_All_Objects[enemys].push_back(object);
 				break;
 
-				};
-
-		
-			break;
-	
-		case gift:
-			object = new Gift(cur_Rec, rec_Loc);
-			m_All_Objects[gifts].push_back(object);
-			break;
-		case pole:
-			cur_Rec.setSize(sf::Vector2f(block_Size.x, (block_Size.y)/2));
-			object = new Pole(cur_Rec, rec_Loc);
-			m_All_Objects[poles].push_back(object);
-			break;
-		case ladder:
-			object = new Ladder(cur_Rec, rec_Loc);
-			m_All_Objects[ladders].push_back(object);
-			break;		
-		case ' ':
+			case gift:
+				object = new Gift(cur_Rec, rec_Loc);
+				m_All_Objects[gifts].push_back(object);
+				break;
+			case pole:
+				cur_Rec.setSize(sf::Vector2f(block_Size.x, (block_Size.y) / 2));
+				object = new Pole(cur_Rec, rec_Loc);
+				m_All_Objects[poles].push_back(object);
+				break;
+			case ladder:
+				object = new Ladder(cur_Rec, rec_Loc);
+				m_All_Objects[ladders].push_back(object);
+				break;
+			case ' ':
+				j++;
+				continue;
+			};
 			j++;
-			continue;
-		};
-		j++;
-				
-	}
-	i++;
 
+		}
+		i++;
+
+	}
 }
+
+//----------------------------------------------------------------------------------------------//
+Game_Object* Controller::random_Enemy(sf::RectangleShape cur_Rec, sf::Vector2f rec_Loc) {
+	
+	Game_Object* object;
+	//randomizing enemys
+	switch ((rand() % 3) + 1) {
+	case 1:	object = new Smart_Enemy(cur_Rec, rec_Loc);
+		m_All_Objects[enemys].push_back(object);
+		break;
+	case 2:
+		object = new Med_Enemy(cur_Rec, rec_Loc);
+		m_All_Objects[enemys].push_back(object);
+		break;
+	case 3:
+		object = new Stupid_Enemy(cur_Rec, rec_Loc);
+		m_All_Objects[enemys].push_back(object);
+		break;
+
+	};
+	return object;
 
 }
 
@@ -178,7 +183,7 @@ void Controller::updateGameObjects()
 	m_All_Objects[players][0]->effect(&deltaTime,m_All_Objects);
 	for (int i = 0; i < m_All_Objects[enemys].size(); i++)
 	{
-		
+		free_Fall();
 		sf::Vector2f player_loc(m_All_Objects[players][0]->get_loction());
 		m_All_Objects[enemys][i]->effect(&player_loc, m_All_Objects);
 	}

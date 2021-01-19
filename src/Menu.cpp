@@ -66,15 +66,15 @@ void Menu::draw(sf::RenderWindow& window)
 				in_menu = false;
 				break;
 			case  sf::Event::MouseMoved:
-
 				cursorPos = sf::Mouse::getPosition(window);
-
 				mouseHover(cursorPos);//sending event to know if text was click or not
 				break;
 			case sf::Event::MouseButtonReleased:
-				if (mouse_Click(cursorPos));
-				Get_Pressed(window);
-				in_menu = false;
+				cursorPos = sf::Mouse::getPosition(window);
+				if (mouse_Click(cursorPos)) {
+					Get_Pressed(window);
+					in_menu = false;
+				}
 				
 			};
 			break;
@@ -88,13 +88,14 @@ void  Menu::Get_Pressed(sf::RenderWindow &window) {
 	if (m_selectedItem == 1) {
 		
 		Sounds_E::instance().get_Sounds(MENU_SOUNDS, leave_G).play();
-		Sleep(1000);
+		
 		window.close();
 	}
 	else {
 		Sounds_E::instance().get_Sounds(MENU_SOUNDS, start_G).play();
 
 	}
+	Sleep(300);
 }
 
 

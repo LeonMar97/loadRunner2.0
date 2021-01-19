@@ -11,6 +11,7 @@ public:
 		Moving_Object(cur_rec, (Textures::instance().get_Textures(smartEnemys_T)), (loction), (enemy)) {
 		m_Elemnt_Of_Game.setOrigin(sf::Vector2f(m_Elemnt_Of_Game.getGlobalBounds().width / 2,	
 												m_Elemnt_Of_Game.getGlobalBounds().height / 2));
+
 	}
 	void handleCollision(Game_Object& gameObject)override ;
 	void handleCollision(Enemy& gameObject)override ;

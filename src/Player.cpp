@@ -79,7 +79,7 @@ void Player::handleCollision(Money& money)
 void Player::handleCollision(Wall& gameObject)
 {
 	Sounds_E::instance().get_Sounds(PLAYER_SOUNDS, player_hole).play();
-	m_Elemnt_Of_Game.move(0, -m_Elemnt_Of_Game.getGlobalBounds().height / 3);
+	m_Elemnt_Of_Game.move(0, -m_Elemnt_Of_Game.getGlobalBounds().height / 4);
 }
 //==============================================================
 
