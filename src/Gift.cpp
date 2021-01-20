@@ -3,7 +3,7 @@
 //handle gift and random if good or bad
 void Gift::handleCollision(Player& gameObject)
 {
-    srand(time(NULL));
+   
     m_deleted = true;
     int lives, score;
    

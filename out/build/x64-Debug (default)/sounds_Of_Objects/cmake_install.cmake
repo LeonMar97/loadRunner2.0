@@ -1,8 +1,8 @@
-# Install script for directory: C:/loadRunner2/sounds_Of_Objects
+# Install script for directory: C:/Users/97250/source/repos/loadRunner2.0/sounds_Of_Objects
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/loadRunner2/out/install/x64-Debug (default)")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/97250/Source/Repos/loadRunner2.0/out/install/x64-Debug (default)")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

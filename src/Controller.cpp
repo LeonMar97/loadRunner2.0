@@ -65,7 +65,6 @@ void Controller::set_G_O_Vector() {
 	sizeof_Map = m_Board.get_Size();
 	sf::Vector2f block_Size(1280 / sizeof_Map.x, 720 / sizeof_Map.y);
 	sf::Vector2f player_Size(900 / sizeof_Map.x, 600 / sizeof_Map.y);
-	srand(time(NULL));
 	int i = 0, j = 0;
 	std::string name;
 	Game_Object* object;
