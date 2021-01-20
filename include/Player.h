@@ -17,7 +17,7 @@ public:
 	int getscore()const;
 	int getlives()const;
 	void setlives(int);
-	void effect(void* DeltaTime, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])override;
+	
 	sf::Vector2f dirFromKey();
 	void handleCollision(Game_Object& gameObject) override;
 	void handleCollision(Money& gameObject)override;
@@ -26,12 +26,13 @@ public:
 	void handleCollision(Gift& gameObject)override {};
 	void handleCollision(Wall& gameObject)override;
 	void set_hit(bool);
-	bool get_hit();
-private:
+	bool get_hit()const;
+
 	
 	
 //--------------private--------members-----------------------//
 private:
+	void effect(void* DeltaTime, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])override;
 	int m_Score = 0, m_Lives = 5;
 	bool m_got_Hit = false;
 	

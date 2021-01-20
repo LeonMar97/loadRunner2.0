@@ -4,7 +4,7 @@
 	 static Sounds_E  all_S;
 	return all_S;
 }
-
+ //set the sound once for the game,just once!!!
 Sounds_E::Sounds_E() {
 	std::vector<std::string>names[] = { {"grunt4.wav",
 										"money.wav",

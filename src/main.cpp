@@ -2,8 +2,8 @@
 #include "Controller.h"
 int main() {
 
-	Controller y;
-	y.start_Game();
+	Controller game;
+	game.start_Game();
 
 	return EXIT_SUCCESS;
 }

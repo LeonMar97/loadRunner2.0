@@ -1,6 +1,6 @@
 #include "Score_Board.h"
 #include "Player.h"
-
+//set font and size for score board
 Score_Board::Score_Board(sf::Vector2f print_Loc)
 
 	:m_Printloc(print_Loc)
@@ -49,6 +49,7 @@ void Score_Board::draw_Scoreboard(sf::RenderWindow& game_Window, int lvl, Game_O
 	
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+//set loction to print score board
 void Score_Board:: set_Location(sf::Vector2f print_Loc) {
 	m_Printloc = print_Loc;
 	m_Printloc.x -=m_Bg.getGlobalBounds().width / 2;

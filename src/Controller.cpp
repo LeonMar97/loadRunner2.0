@@ -8,17 +8,16 @@
 #include "Sounds_E.h"
 #include <Windows.h>
 #pragma once
-//--------------------------------------------------------//
 
 //main loop of the game
-
 Controller::Controller()
-:m_Game_Window(sf::VideoMode(1920, 1080), "Game"),m_bg(*Textures::instance().get_Textures(background_T)[0]){
+:m_Game_Window(sf::VideoMode(1920, 1080), "Game"),m_Bg(*Textures::instance().get_Textures(background_T)[0]){
 	
 }
+//-----------------------------------------------------------------
+//main loop of the game
 void Controller:: start_Game() {
 	int current_Song = theme_song;
-	
 	m_Game_menu.draw(m_Game_Window);
 	m_Game_Clock.restart();
 	set_G_O_Vector();
@@ -29,23 +28,18 @@ void Controller:: start_Game() {
 	while (m_Game_Window.isOpen())
 	{
 		m_Game_Window.clear();
-		m_Game_Window.draw(m_bg);
-		m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
-		draw_Time();
-		draw_On_map();
+		draw_all();//draw all element
 		m_Game_Window.display();
 		check_Rest_Time();
 		sf::Event event;
 		while (m_Game_Window.pollEvent(event))
 		{
-
 			if (event.type == sf::Event::Closed) {
 				m_Game_Window.close();
 				exit(EXIT_SUCCESS);
 			}
 		}
 		updateGameObjects();
-		
 		check_Gifts();//getting info after collision with gifts
 		check_Hits();
 		check_Erace();
@@ -54,17 +48,21 @@ void Controller:: start_Game() {
 
 	}
 }
-
-//--------------------------------------------------------//
+//--------------------------------------------------------///
+//draw all
+void Controller::draw_all()
+{
+	m_Game_Window.draw(m_Bg);
+	m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
+	draw_Time();
+	draw_On_map();
+}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //setting the game controller vector
 void Controller::set_G_O_Vector() {
 	sf::Texture* pic;
 	sf::Vector2i sizeof_Map;
 	sizeof_Map = m_Board.get_Size();
-	//float sizeof_Angle=((1280*720)/(sizeof_Map.x* sizeof_Map.y));//seting the size of angle of each
-																//block of the texture
-
-	//sf::Vector2f block_Size(sizeof_Angle,sizeof_Angle);
 	sf::Vector2f block_Size(1280 / sizeof_Map.x, 720 / sizeof_Map.y);
 	sf::Vector2f player_Size(900 / sizeof_Map.x, 600 / sizeof_Map.y);
 	srand(time(NULL));
@@ -79,7 +77,6 @@ void Controller::set_G_O_Vector() {
 			sf::Vector2f rec_Loc(sf::Vector2f(start_Of_Map.x + j * 1280 / sizeof_Map.x,
 				start_Of_Map.y + (i) * 720 / sizeof_Map.y));
 			cur_Rec.setPosition(rec_Loc);
-
 			cur_Rec.setOrigin(sf::Vector2f(cur_Rec.getGlobalBounds().width / 2, cur_Rec.getGlobalBounds().height / 2));
 			//----------------------
 			sf::Time temp;
@@ -103,7 +100,6 @@ void Controller::set_G_O_Vector() {
 				object = random_Enemy(cur_Rec, rec_Loc);
 				m_All_Objects[enemys].push_back(object);
 				break;
-
 			case gift:
 				object = new Gift(cur_Rec, rec_Loc);
 				m_All_Objects[gifts].push_back(object);
@@ -122,83 +118,57 @@ void Controller::set_G_O_Vector() {
 				continue;
 			};
 			j++;
-
 		}
 		i++;
-
 	}
 }
-
 //----------------------------------------------------------------------------------------------//
 Game_Object* Controller::random_Enemy(sf::RectangleShape cur_Rec, sf::Vector2f rec_Loc) {
-	
 	Game_Object* object;
 	//randomizing enemys
 	switch ((rand() % 3) + 1) {
 	case 1:	object = new Smart_Enemy(cur_Rec, rec_Loc);
-		//m_All_Objects[enemys].push_back(object);
 		break;
 	case 2:
 		object = new Med_Enemy(cur_Rec, rec_Loc);
-		//m_All_Objects[enemys].push_back(object);
 		break;
 	case 3:
 		object = new Stupid_Enemy(cur_Rec, rec_Loc);
-		//m_All_Objects[enemys].push_back(object);
 		break;
-
 	};
 	return object;
-
 }
-
 //----------------------------------------------------------------------------------------------//
 //has to be here so you could see the player falling 
 //function calls every second to check if all the players/enemys falling
 void  Controller::free_Fall()
 {
-	for (int i = enemys;i <= players;i++) {
-		for (int j = 0;j < m_All_Objects[i].size();j++) {
+	for (int i = enemys;i <= players;i++) 
+		for (int j = 0;j < m_All_Objects[i].size();j++) 
 			dynamic_cast<Moving_Object*>(m_All_Objects[i][j])->on_Floor(m_All_Objects);
-		}
-	}
-
-
 }
 //----------------------------------------------------------------------------------------------//
 //draws all the elements each time
 void Controller :: draw_On_map() {
-	
 	for (int i = 0;i <NUM_OF_OBJECTS;i++)
-	{
-		for (int j = 0;j < m_All_Objects[i].size();j++) {
+		for (int j = 0;j < m_All_Objects[i].size();j++) 
 			m_All_Objects[i][j]->draw_On_Board(m_Game_Window);
-		}
-	}
 }
 //=====================================================================
 void Controller::updateGameObjects()
 {
 	 auto deltaTime = m_Clock.restart();
-
 	m_All_Objects[players][0]->effect(&deltaTime,m_All_Objects);
-	for (int i = 0; i < m_All_Objects[enemys].size(); i++)
-	{
+	for (int i = 0; i < m_All_Objects[enemys].size(); i++){
 		sf::Vector2f player_loc(m_All_Objects[players][0]->get_loction());
 		m_All_Objects[enemys][i]->effect(&player_loc, m_All_Objects);
-	
-	
 	}
 	if (dynamic_cast<Player*>(m_All_Objects[players][0])->is_Out_Of_Bounds())
 		restart_lvl();
 	
-	free_Fall();
-	
+	free_Fall();	
 }
-//============================================================
-
-//============================================================
-
+//=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
 void Controller:: check_Erace() {
 	std::experimental::erase_if(m_All_Objects[moneys], [](auto const& item)
 		{
@@ -208,37 +178,27 @@ void Controller:: check_Erace() {
 		{
 			return dynamic_cast<Disappearing_Object*>(item)->get_deleted();
 		});
-
-
 }
+//=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~
+//set fame time font 
 void Controller::game_Time() {
-
-		time_to_screen.setFont(Textures::instance().get_Font());
-		//setting location for clock
-		time_to_screen.setPosition(750, 20);
-		time_to_screen.setFillColor(sf::Color::Blue);
-		time_to_screen.setCharacterSize(40);
-		time_to_screen.setStyle(sf::Text::Bold | sf::Text::Underlined);
-		
-		
+	time_to_screen.setFont(Textures::instance().get_Font());
+	//setting location for clock
+	time_to_screen.setPosition(750, 20);
+	time_to_screen.setFillColor(sf::Color::Blue);
+	time_to_screen.setCharacterSize(40);
+	time_to_screen.setStyle(sf::Text::Bold | sf::Text::Underlined);
 }
 //=========================================================================
 //checking if player got hit by enemy and reset lvl without coins
 void Controller::check_Hits()
 {
-	
 	if (dynamic_cast<Player*>((m_All_Objects[players][0]))->get_hit())
-	{
 		for (int i = 0; i < NUM_OF_OBJECTS; i++)
-		{
 			for (int j = 0; j < m_All_Objects[i].size(); j++) {
 				sf::Vector2f first_Loc(m_All_Objects[i][j]->get_First_loc());
 				m_All_Objects[i][j]->set_loction(first_Loc);
-
 			}
-
-		}
-	}
 	dynamic_cast<Player*>((m_All_Objects[players][0]))->set_hit(false);
 }
 //=========================================================================
@@ -248,43 +208,27 @@ void Controller::check_Gifts() {
 
 		if (dynamic_cast<Gift*>((m_All_Objects[gifts][i]))->get_Bad_Gift()) {
 			Game_Object* vasia = random_Enemy(m_All_Objects[enemys][0]->get_rectangle(), m_All_Objects[enemys][0]->get_loction());
-		
 			m_All_Objects[enemys].push_back(vasia);
 		}
 		if (dynamic_cast<Gift*>((m_All_Objects[gifts][i]))->get_time_Gift())
-		{
 			m_Board.set_time(m_Board.get_Time() +EXTRA_TIME);
-		}
-	
-
 	}
 }
 //=========================================================================
 void Controller::delete_vector()
 {
 	for (int i = 0; i < NUM_OF_OBJECTS; i++)
-	{
 			m_All_Objects[i].clear();
-	}
 	m_All_Objects->clear();
 }
 //=========================================================================
-//resting the time
 void Controller:: check_Rest_Time() {
 	sf::Time elapsed = m_Game_Clock.getElapsedTime();
-
-	if ((int)elapsed.asSeconds() > m_Board.get_Time()) {
+	if ((int)elapsed.asSeconds() > m_Board.get_Time()) 
 		restart_lvl();
-	}
-	
-
-		for (int i = 0; i < m_All_Objects[walls].size(); i++)
-		{
+	for (int i = 0; i < m_All_Objects[walls].size(); i++)
 			dynamic_cast<Wall*>(m_All_Objects[walls][i])->Check_Wall
 			(*(Player*)(m_All_Objects[players][0]),m_All_Objects[enemys]);
-		}
-	
-
 }
 //=========================================================================
 //resetting the lvl 
@@ -299,10 +243,7 @@ void Controller::restart_lvl() {
 
 	dynamic_cast<Player*>(m_All_Objects[players][0])->setlives(lif);
 	m_Game_Clock.restart();
-
 }
-
-
 //=========================================================================
 
 void Controller::draw_Time() {
@@ -325,7 +266,7 @@ void Controller::check_Score() {
 	bool more_maps = true;
 	if (m_All_Objects[moneys].size() == 0&& !m_Board.rebuild_Map())
 	{
-		more_maps = false;
+		more_maps = false;//	BOARD.TXT IS EMPTY
 		Quit_Game(winner_T);
 		
 	}
@@ -369,12 +310,9 @@ void Controller::Quit_Game(int pic_num)
 {
 	m_Game_Window.clear();
 	sf::Sprite game_over;
-
 	game_over.setTexture(*Textures::instance().get_Textures(pic_num)[0]);
-
 	m_Game_Window.draw(game_over);
 	m_ScoreBoard.draw_Scoreboard(m_Game_Window, m_Lvl, *m_All_Objects[players][0]);
-
 	m_Game_Window.display();
 	m_Game_Clock.restart();
 	while (1)
@@ -382,7 +320,6 @@ void Controller::Quit_Game(int pic_num)
 		sf::Event event;
 		while (m_Game_Window.pollEvent(event))
 		{
-
 			if (event.type == sf::Event::Closed)
 				m_Game_Window.close();
 			break;

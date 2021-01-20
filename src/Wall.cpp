@@ -1,6 +1,6 @@
 #include "Wall.h"
 #include <time.h>
-
+//dont print wall if we digged
 void Wall::handleCollision(Player& player)
 {
 	if (print_me)
@@ -10,6 +10,7 @@ void Wall::handleCollision(Player& player)
 	}
 }
 //============================================
+//if time for hole is 0 and object inside so move him up
 void Wall::Check_Wall(Player& player, std::vector<Game_Object*>& enemeys)
 {
 	if (m_Wall_clock.getElapsedTime().asSeconds() > 5)

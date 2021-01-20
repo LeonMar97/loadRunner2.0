@@ -1,12 +1,10 @@
 #include "Moving_Object.h"
 class Player;
+//main func move all object
 void Moving_Object::move_Object(sf::Vector2f& Direction, sf::Time delta_time, std::vector<Game_Object*>m_All_Objects[NUM_OF_OBJECTS])
 {
-
-
-
 	sf::RectangleShape temp(m_Elemnt_Of_Game);
-	if ((int)Direction.y == 1 && ((int)Direction.x == -1 || (int)Direction.x == 1)) {
+	if ((int)Direction.y == 1 && ((int)Direction.x == -1 || (int)Direction.x == 1)) {//if user pressed z,x
 		handle_dig(*this, m_All_Objects[walls], Direction, delta_time);
 		change__Curr_Texture(m_All_Objects, Direction);
 		return;
@@ -54,8 +52,6 @@ bool Moving_Object::check_movment(sf::RectangleShape& after_Click, std::vector<G
 		return check_space(m_All_Objects, before_Click, after_Click);
 
 	};
-
-
 	return true;//return true if enemy score or player
 }
 //=========================================================================
@@ -70,31 +66,23 @@ bool Moving_Object::check_ladder(sf::RectangleShape& after_Click, std::vector<Ga
 	floor.move(0, m_Elemnt_Of_Game.getGlobalBounds().height * 0.1f);
 	char under = What_In_Loc(floor, m_All_Objects);//check whar under me
 	switch (cur_Type) {
-
 	case  ladder:
 		if ((under != wall) && (before_Click.get_rectangle().getPosition().y - after_Click.getPosition().y > 0.1f ||
 			after_Click.getPosition().y - before_Click.get_rectangle().getPosition().y > 0.1f)) {
 			move_to_center_ladder(m_All_Objects[ladders]);
 		}
 		return true;
-		break;
-
+		
 	case pole:
 		return true;
-		break;
-
+		
 	case space:
-
 		if (before_Click.get_rectangle().getPosition().y <= after_Click.getPosition().y &&
 			(under == ladder))
 			return true;
 		if (under == wall || under == pole) {
 			return true;
 		}
-
-		break;
-
-	
 	};
 	if (under == wall) {
 		return true;
@@ -102,7 +90,7 @@ bool Moving_Object::check_ladder(sf::RectangleShape& after_Click, std::vector<Ga
 	return false;
 }
 //===================================================================
-//get loc and return typy
+//get loc and return type if in bounds
 char Moving_Object::What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Object*>m_All_Objects[])
 {
 	int right_wall;
@@ -120,46 +108,33 @@ char Moving_Object::What_In_Loc(sf::RectangleShape& temp, std::vector<Game_Objec
 			{
 				if (m_All_Objects[i][j]->get_Type() != this->get_Type()) {
 
-
-					 
-					 
-
 					if (m_All_Objects[i][j]->get_Print_Me() && this->get_loction().y>left_Top.y&&this->get_loction().y<right_Bottom.y&&
 						this->get_loction().x>left_Top.x&& this->get_loction().x <right_Bottom.x)
 						return type = m_All_Objects[i][j]->get_Type();
 
 				}
 			}
-
 		}
-
 	}
-
 	return type;
 }
 //=====================================================================
+//check what benif me for free falling 
 void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 {
-	
 	if (!this->in_Gg(m_Elemnt_Of_Game, *m_All_Objects)&&this->get_Type()==player) {
 		m_Out_Of_Bounds = true;
 		return;
 	}
-	
 	int right_wall;
 	right_wall = m_All_Objects[walls].size() - 1;
 	sf::Vector2f left_Top(m_All_Objects[walls][0]->get_loction());
 	sf::Vector2f right_Bottom(m_All_Objects[walls][right_wall]->get_loction());
 
-
-	
-
 	sf::RectangleShape under_Me(m_Elemnt_Of_Game);
 	under_Me.move(0, m_Elemnt_Of_Game.getGlobalBounds().height*0.08f );//the floor under the current elemnt
 
 	char under_Me_Type = What_In_Loc(under_Me, m_All_Objects);
-
-
 	if (What_In_Loc(m_Elemnt_Of_Game, m_All_Objects) == pole)//if we are on pole dont drop
 	{
 		return;
@@ -172,13 +147,10 @@ void Moving_Object::on_Floor(std::vector<Game_Object*>m_All_Objects[])
 	}
 	if ((under_Me_Type != wall && under_Me_Type != ladder))
 		if (under_Me.getPosition().y<right_Bottom.y )
-			
-
 			m_Elemnt_Of_Game.move(0, m_Elemnt_Of_Game.getGlobalBounds().height*0.08f );
-
 }
 //=====================================================================
-
+//check if enemy or player out of bounds and reset lvl
 bool Moving_Object::is_Out_Of_Bounds() {
 	if (m_Out_Of_Bounds == true) {
 		m_Out_Of_Bounds = false;
@@ -241,6 +213,7 @@ bool Moving_Object::check_space(std::vector<Game_Object*>m_All_Objects[],
 	return true;
 }
 //====================================================================
+//change texture if we are on pole or switching sides 
 void Moving_Object::change__Curr_Texture(std::vector<Game_Object*>m_All_Objects[], sf::Vector2f& Direction)
 {
 	if (Direction.x == 1 && m_direction == left) {
@@ -279,6 +252,7 @@ void Moving_Object::move_to_center_pole(std::vector<Game_Object*>& m_All_Objects
 
 }
 //==========================================================================
+//check what we hit 
 void Moving_Object::handleCollision_moving(Game_Object& me, std::vector<Game_Object*>m_All_Objects[])
 {
 	for (int i = moneys; i < NUM_OF_OBJECTS; i++)
@@ -295,6 +269,7 @@ void Moving_Object::handleCollision_moving(Game_Object& me, std::vector<Game_Obj
 	}
 }
 //========================================================================
+//if user pressed x,z dig a hole
 void Moving_Object::handle_dig
 (Game_Object& me, std::vector<Game_Object*>& m_All_Objects, sf::Vector2f& Direction, sf::Time delta_time)
 {

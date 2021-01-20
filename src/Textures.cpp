@@ -4,7 +4,7 @@ Textures& Textures::instance() {
 	static Textures  all_S;
 	return all_S;
 }
-
+//set textures for all object in the game once
  Textures::Textures() {
 	 m_Font.loadFromFile("Love America.ttf");//setting one font
 	 std::vector<std::string>names[] = {

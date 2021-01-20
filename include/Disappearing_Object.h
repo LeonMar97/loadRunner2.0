@@ -12,7 +12,7 @@ public://functions
 	void handleCollision(Player& gameObject)override {};
 	void handleCollision(Gift& gameObject)override {};
 	void handleCollision(Wall& enemy) override{};
-	bool get_deleted() {return m_deleted;}
+	bool get_deleted()const {return m_deleted;}
 private:
 
 protected:

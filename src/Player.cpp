@@ -95,7 +95,7 @@ void Player::set_hit(bool hit)
 	m_got_Hit = hit;
 }
 //============================================================
-bool Player::get_hit()
+bool Player::get_hit()const
 {
 	return m_got_Hit;
 }

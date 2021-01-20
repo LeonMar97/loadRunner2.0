@@ -1,5 +1,6 @@
 #include "Gift.h"
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//handle gift and random if good or bad
 void Gift::handleCollision(Player& gameObject)
 {
     srand(time(NULL));
